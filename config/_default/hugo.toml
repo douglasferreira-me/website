@@ -2,7 +2,7 @@
 # Refer to the theme docs for more details about each of these parameters.
 # https://jpanther.github.io/congo/docs/getting-started/
 
-baseURL = "https://douglasferreira-me.githug.io/website/"
+baseURL = "https://douglasferreira-me.github.io/website/"
 defaultContentLanguage = "en"
 
 enableRobotsTXT = true
