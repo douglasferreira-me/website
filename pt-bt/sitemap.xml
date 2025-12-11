@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+    
+      <url>
+            <loc>//localhost:1313/pt-bt/</loc>
+            <xhtml:link
+              rel="alternate"
+              hreflang="en"
+              href="//localhost:1313/"
+              />
+            <xhtml:link
+              rel="alternate"
+              hreflang="pt-br"
+              href="//localhost:1313/pt-br/"
+              />
+            <xhtml:link
+              rel="alternate"
+              hreflang="pt-bt"
+              href="//localhost:1313/pt-bt/"
+              />
+          </url>
+    
+  
+    
+  
+    
+  
+</urlset>
