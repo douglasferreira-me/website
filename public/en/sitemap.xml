@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+    
+      <url>
+            <loc>http://localhost:1313/blog/</loc>
+            <lastmod>2025-12-11T14:11:21-03:00</lastmod>
+            <xhtml:link
+              rel="alternate"
+              hreflang="pt-br"
+              href="http://localhost:1313/pt-br/blog/"
+              />
+            <xhtml:link
+              rel="alternate"
+              hreflang="en"
+              href="http://localhost:1313/blog/"
+              />
+          </url>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <url>
+            <loc>http://localhost:1313/</loc>
+            <lastmod>2025-12-11T14:11:21-03:00</lastmod>
+            <xhtml:link
+              rel="alternate"
+              hreflang="pt-br"
+              href="http://localhost:1313/pt-br/"
+              />
+            <xhtml:link
+              rel="alternate"
+              hreflang="en"
+              href="http://localhost:1313/"
+              />
+          </url>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <url>
+            <loc>http://localhost:1313/blog/testing/</loc>
+            <lastmod>2025-12-11T14:11:21-03:00</lastmod>
+          </url>
+    
+  
+    
+  
+    
+      <url>
+            <loc>http://localhost:1313/about/</loc>
+            <lastmod>2025-12-07T16:36:09-03:00</lastmod>
+            <xhtml:link
+              rel="alternate"
+              hreflang="pt-br"
+              href="http://localhost:1313/pt-br/about/"
+              />
+            <xhtml:link
+              rel="alternate"
+              hreflang="en"
+              href="http://localhost:1313/about/"
+              />
+          </url>
+    
+  
+</urlset>

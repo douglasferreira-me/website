@@ -1,0 +1,67 @@
+languageCode = "pt-br"
+languageName = "Português"
+languageDirection = "ltr"
+weight = 1
+title = "Douglas Ferreira — Software, Sociedade & Cultura Digital"
+# copyright = "Copiar, _pode?_ :thinking_face:"
+
+[params]
+  dateFormat = "02/01/2006"
+
+  # mainSections = ["blog"]
+  # description = "Meu site pessoal"
+
+[params.author]
+  name = "Douglas Ferreira"
+  image = "img/profile.png"
+  headline = "Sociólogo e programador. Escrevo sobre como os algoritmos moldam a política, a cultura e o cotidiano."
+  bio = "Entusiasta de tecnologias cívicas, desenvolvedor backend especializado em sistemas de dados, analista de dados e pesquisador que investiga como o software molda a sociedade."
+  links = [
+    { email = "mailto:uafcuuon3@mozmail.com" },
+    # { link = "https://link-para-algum-site.com/" },
+    # { amazon = "https://www.amazon.com/hz/wishlist/ls/wishlist-id" },
+    # { apple = "https://www.apple.com" },
+    # { blogger = "https://username.blogspot.com/" },
+    { bluesky = "https://bsky.app/profile/douglasferreira.me" },
+    # { codepen = "https://codepen.io/username" },
+    # { dev = "https://dev.to/username" },
+    # { discord = "https://discord.gg/invitecode" },
+    # { dribbble = "https://dribbble.com/username" },
+    # { facebook = "https://facebook.com/username" },
+    # { flickr = "https://www.flickr.com/photos/username/" },
+    # { foursquare = "https://foursquare.com/username" },
+    { github = "https://github.com/douglasferreira-me" },
+    # { gitlab = "https://gitlab.com/username" },
+    # { google = "https://www.google.com/" },
+    # { google-scholar = "https://scholar.google.com/citations?user=user-id" },
+    # { hashnode = "https://username.hashnode.dev" },
+    { instagram = "https://instagram.com/douglasferreira.me" },
+    # { keybase = "https://keybase.io/username" },
+    # { kickstarter = "https://www.kickstarter.com/profile/username" },
+    { kofi = "https://ko-fi.com/douglasferreira" },
+    # { lastfm = "https://lastfm.com/user/username" },
+    { linkedin = "https://linkedin.com/in/username" },
+    # { mastodon = "https://mastodon.instance/@username" },
+    # { medium = "https://medium.com/username" },
+    # { mendeley = "https://www.mendeley.com/" },
+    # { microsoft = "https://www.microsoft.com/" },
+    { orcid = "https://orcid.org/0009-0003-0832-7462" },
+    # { patreon = "https://www.patreon.com/username" },
+    # { pinterest = "https://pinterest.com/username" },
+    # { reddit = "https://reddit.com/user/username" },
+    { researchgate = "https://www.researchgate.net/profile/username" },
+    # { slack = "https://workspace.url/team/userid" },
+    # { snapchat = "https://snapchat.com/add/username" },
+    # { soundcloud = "https://soundcloud.com/username" },
+    # { stack-overflow = "https://stackoverflow.com/users/userid/username" },
+    # { steam = "https://steamcommunity.com/profiles/userid" },
+    # { telegram = "https://t.me/username" },
+    # { threads = "https://threads.net/@username" },
+    # { tiktok = "https://tiktok.com/@username" },
+    # { tumblr = "https://username.tumblr.com" },
+    # { twitch = "https://twitch.tv/username" },
+    # { whatsapp = "https://wa.me/phone-number" },
+    # { x-twitter = "https://twitter.com/username" },
+    { youtube = "https://youtube.com/username" }
+    # { xing = "https://xing.com/profile/username" },
+  ]

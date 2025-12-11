@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Douglas Ferreira — Software, Society &amp; Digital Culture</title>
+    <link>http://localhost:1313/en/blog/</link>
+    <description>Recent content on Douglas Ferreira — Software, Society &amp; Digital Culture</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 11 Dec 2025 14:11:21 -0300</lastBuildDate>
+    <atom:link href="http://localhost:1313/en/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Testing</title>
+      <link>http://localhost:1313/en/blog/testing/</link>
+      <pubDate>Thu, 11 Dec 2025 14:11:21 -0300</pubDate>
+      <guid>http://localhost:1313/en/blog/testing/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
