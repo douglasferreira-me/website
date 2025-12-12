@@ -14,8 +14,8 @@ title = "Douglas Ferreira — Software, Society & Digital Culture"
 [params.author]
   name = "Douglas Ferreira"
     image = "img/profile.png"
-    headline = "Sociologist and programmer. I write (mostly) about how algorithms shape politics, culture, and daily life."
-    bio = "Civic technology enthusiast, backend engineer specializing in data systems, analytics practitioner, and researcher exploring how software shapes society."
+    headline = "Sociologist and programmer. I write (mostly) about how digital technologies reshape society, culture, and politics."
+    bio = "Researcher, civic technology enthusiast and backend engineer focused on data systems, analytics, and the social implications of software design."
     links = [
       { email = "mailto:uafcuuon3@mozmail.com" },
   #   { link = "https://link-to-some-website.com/" },
