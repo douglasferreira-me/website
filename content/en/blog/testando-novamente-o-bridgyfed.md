@@ -16,6 +16,18 @@ syndicate_linkedin = false
 social_text = ""
 social_intro = ""
 image = ""
+cover = ""
+caption = ""
+photo_caption = ""
+show_in_updates = true
+show_image_in_photos = false
+author = ""
+status = ""
+started = ""
+finished = ""
+rating = ""
+outlet = ""
+external_url = ""
 +++
 
-A post to test how federation works
+A post to test what federation looks like

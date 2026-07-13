@@ -1,5 +1,5 @@
 +++
-title = "Testing to See How This Works"
+title = "testing to see how this works"
 date = 2026-07-13T12:05:00
 draft = false
 description = ""
@@ -16,6 +16,18 @@ syndicate_linkedin = false
 social_text = ""
 social_intro = ""
 image = ""
+cover = ""
+caption = ""
+photo_caption = ""
+show_in_updates = true
+show_image_in_photos = false
+author = ""
+status = ""
+started = ""
+finished = ""
+rating = ""
+outlet = ""
+external_url = ""
 +++
 
 Testing to see if it publishes automatically from my website.
