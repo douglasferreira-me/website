@@ -1,8 +1,6 @@
 {{- $sections := slice "blog" "microposts" "photos" "books" "media" -}}
-{{- $pages := slice -}}
-{{- range site.Sites -}}
-  {{- $pages = $pages | append (where .RegularPages "Section" "in" $sections) -}}
-{{- end -}}
+{{- $context := .context | default . -}}
+{{- $pages := where $context.Site.RegularPages "Section" "in" $sections -}}
 {{- $limit := .limit | default 0 -}}
 {{- $pages = sort $pages "Date" "desc" -}}
 {{- if gt $limit 0 -}}

@@ -1,11 +1,11 @@
 [[main]]
-  name = "Updates"
-  pageRef = "updates"
+  name = "About"
+  pageRef = "about"
   weight = 10
 
 [[main]]
-  name = "Readings"
-  pageRef = "books"
+  name = "Updates"
+  pageRef = "updates"
   weight = 20
 
 [[main]]
@@ -14,8 +14,8 @@
   weight = 30
 
 [[main]]
-  name = "About"
-  pageRef = "about"
+  name = "Notes"
+  pageRef = "microposts"
   weight = 40
 
 [[main]]
@@ -24,31 +24,31 @@
   weight = 50
 
 [[main]]
-  name = "Notes"
-  pageRef = "microposts"
+  name = "Readings"
+  pageRef = "books"
   weight = 60
-
-[[main]]
-  name = "Tags"
-  pageRef = "tags"
-  weight = 70
 
 [[main]]
   name = "In the media"
   pageRef = "media"
-  weight = 80
+  weight = 70
 
 [[main]]
   name = "Newsletter"
   pageRef = "newsletter"
   title = "Human Circuits: Receive a curated selection of links, news, and readings on digital capitalism and emancipatory uses of technology."
-  weight = 90
+  weight = 80
   [main.params]
     class = "newsletter-link"
 
 [[main]]
   name = "Papers"
   pageRef = "papers"
+  weight = 90
+
+[[main]]
+  name = "Tags"
+  pageRef = "tags"
   weight = 100
 
 [[main]]

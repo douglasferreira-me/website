@@ -5,8 +5,11 @@
 >
   {{ partial "profile.html" }}
   <section class="prose dark:prose-invert">{{ .Content | emojify }}</section>
+  {{ if eq .Site.Language.Lang "en" }}
+    <p class="translation-notice">All posts are automatically translated from Portuguese with ChatGPT.</p>
+  {{ end }}
 </article>
 <section class="home-updates">
   <h2 class="mt-8 text-2xl font-extrabold">{{ if eq .Site.Language.Lang "pt-br" }}Atualizações{{ else }}Updates{{ end }}</h2>
-  {{ partial "updates/feed.html" (dict "limit" (.Site.Params.homepage.recentLimit | default 5)) }}
+  {{ partial "updates/feed.html" (dict "context" . "limit" (.Site.Params.homepage.recentLimit | default 5)) }}
 </section>

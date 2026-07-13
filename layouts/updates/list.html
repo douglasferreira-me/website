@@ -5,5 +5,5 @@
   <section class="prose mt-0 max-w-prose dark:prose-invert">
     {{ .Content | emojify }}
   </section>
-  {{ partial "updates/feed.html" (dict "limit" 0) }}
+  {{ partial "updates/feed.html" (dict "context" . "limit" 0) }}
 {{ end }}
