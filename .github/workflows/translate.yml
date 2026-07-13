@@ -38,6 +38,9 @@ jobs:
       - name: Refresh syndication state
         run: git pull --rebase --autostash origin main
 
+      - name: Fetch media previews
+        run: python3 scripts/fetch_media_previews.py
+
       - name: Publish translated posts
         env:
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
@@ -55,7 +58,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add content/en data/social/syndication.json
+          git add content/en content/pt/media data/social/syndication.json
           if ! git diff --cached --quiet; then
             git commit -m "Auto-translate Portuguese posts [skip social] [skip translate]"
             git pull --rebase origin main
@@ -75,9 +78,7 @@ jobs:
 
       - name: Build translated site
         if: steps.translated.outputs.changed == 'true'
-        run: |
-          python3 scripts/fetch_media_previews.py
-          hugo --minify --printPathWarnings --destination public --cleanDestinationDir
+        run: hugo --minify --printPathWarnings --destination public --cleanDestinationDir
 
       - name: Validate translated site
         if: steps.translated.outputs.changed == 'true'

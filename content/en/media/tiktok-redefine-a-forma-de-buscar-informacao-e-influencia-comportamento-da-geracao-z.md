@@ -16,7 +16,7 @@ syndicate_linkedin = false
 social_text = ""
 social_intro = ""
 image = ""
-external_image = ""
+external_image = "https://agenciauva.net/wp-content/uploads/2026/04/img_5155.webp"
 cover = ""
 caption = ""
 photo_caption = ""
@@ -30,5 +30,4 @@ rating = ""
 outlet = "Agência UVA"
 external_url = "https://agenciauva.net/2026/05/02/tiktok-redefine-a-forma-de-buscar-informacao-e-influencia-comportamento-da-geracao-z/"
 +++
-
 
