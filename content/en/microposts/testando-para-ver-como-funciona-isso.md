@@ -9,7 +9,7 @@ lang = "en"
 translation_of = "https://douglasferreira.me/pt-br/microposts/testando-para-ver-como-funciona-isso/"
 auto_translated = true
 post_kind = "micropost"
-federate = false
+federate = true
 syndicate_bluesky = true
 syndicate_mastodon = true
 syndicate_linkedin = false
@@ -18,4 +18,4 @@ social_intro = ""
 image = ""
 +++
 
-Testing to see if it publishes automatically from my website.
+Testing to see if it automatically publishes from my website.
