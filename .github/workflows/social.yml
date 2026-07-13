@@ -10,6 +10,7 @@ on:
       - "scripts/social_*.py"
       - "scripts/site_content.py"
       - "data/social/syndication.json"
+      - ".github/workflows/social.yml"
 
 permissions:
   contents: write
