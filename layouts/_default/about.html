@@ -1,0 +1,26 @@
+{{ define "main" }}
+  {{- $imagePath := .Params.image | default .Site.Language.Params.Author.image -}}
+  {{- $authorName := .Site.Language.Params.Author.name | default .Site.Title -}}
+  <article class="about-page">
+    <header class="about-page__header">
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        {{ .Title | emojify }}
+      </h1>
+    </header>
+    <div class="about-page__layout">
+      <aside class="about-page__media">
+        {{ with $imagePath }}
+          {{ $image := resources.Get . }}
+          {{ if $image }}
+            {{ partial "picture.html" (dict "img" $image "alt" $authorName "class" "about-page__photo" "lazy" false "webp" ($.Site.Params.enableImageWebp | default true)) }}
+          {{ else }}
+            <img class="about-page__photo" src="{{ . | relURL }}" alt="{{ $authorName }}" />
+          {{ end }}
+        {{ end }}
+      </aside>
+      <section class="about-page__content prose mt-0 dark:prose-invert">
+        {{ .Content | emojify }}
+      </section>
+    </div>
+  </article>
+{{ end }}
