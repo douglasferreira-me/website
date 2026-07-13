@@ -2,6 +2,7 @@
 date = '2025-12-11T14:11:21-03:00'
 draft = false
 title = 'TESTANDO'
+federate = true
 +++
 
 isso seria um texto antes do subtítulo.

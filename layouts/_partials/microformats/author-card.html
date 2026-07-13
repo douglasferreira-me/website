@@ -1,0 +1,21 @@
+{{- $author := site.Language.Params.Author -}}
+{{- $name := $author.name | default site.Title -}}
+<div class="p-author h-card">
+  <a class="u-url p-name" href="{{ site.Home.Permalink }}">{{ $name }}</a>
+  {{- with $author.image -}}
+    {{- $authorImage := resources.Get . -}}
+    {{- if $authorImage -}}
+      <img class="u-photo" src="{{ $authorImage.Permalink }}" alt="{{ $name }}" />
+    {{- end -}}
+  {{- end -}}
+  {{- with $author.headline | default $author.bio -}}
+    <p class="p-note">{{ . | plainify }}</p>
+  {{- end -}}
+  {{- with $author.links -}}
+    {{- range $links := . -}}
+      {{- range $name, $url := $links -}}
+        <a rel="me" href="{{ $url | safeURL }}">{{ $name | title }}</a>
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+</div>

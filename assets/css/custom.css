@@ -1,0 +1,42 @@
+.webmentions {
+  font-size: 0.95rem;
+}
+
+.webmentions__status,
+.webmentions__date {
+  color: rgb(var(--color-neutral-500));
+}
+
+.webmentions__group {
+  margin-top: 1.25rem;
+}
+
+.webmentions__group-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.webmentions__item {
+  border-top: 1px dotted rgb(var(--color-neutral-300));
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+.webmentions__author {
+  font-weight: 700;
+  text-decoration-color: rgb(var(--color-primary-500));
+  text-underline-offset: 0.2em;
+}
+
+.webmentions__author:hover {
+  text-decoration-line: underline;
+}
+
+.webmentions__date {
+  display: block;
+  font-size: 0.8rem;
+}
+
+.webmentions__content {
+  margin-top: 0.35rem;
+}

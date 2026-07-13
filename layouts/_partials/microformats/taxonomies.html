@@ -1,0 +1,7 @@
+{{- range $taxonomy, $terms := .Site.Taxonomies -}}
+  {{- if gt (len ($.GetTerms $taxonomy)) 0 -}}
+    {{- range $.GetTerms $taxonomy -}}
+      <a class="p-category" href="{{ .Permalink }}">{{ .LinkTitle }}</a>
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

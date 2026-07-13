@@ -4,6 +4,7 @@ draft = false
 title = 'Testing'
 tags = ["teste", "verificando", "brincadeira"]
 categories = ["pessoal", "academia"]
+federate = true
 +++
 
 isso seria um texto antes do subtítulo.

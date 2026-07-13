@@ -22,11 +22,14 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: "latest"
+          hugo-version: "0.152.2"
           extended: true
 
       - name: Build
-        run: hugo --minify
+        run: hugo --minify --printPathWarnings --destination public --cleanDestinationDir
+
+      - name: Validate
+        run: python3 scripts/validate_site.py --site-dir public
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

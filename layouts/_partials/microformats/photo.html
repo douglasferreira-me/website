@@ -1,0 +1,11 @@
+{{- $page := . -}}
+{{- $images := $page.Resources.ByType "image" -}}
+{{- $cover := $images.GetMatch ($page.Params.cover | default "*cover*") -}}
+{{- $feature := $images.GetMatch ($page.Params.feature | default "*feature*") | default $cover -}}
+{{- with $feature -}}
+  <img class="u-photo" src="{{ .Permalink }}" alt="{{ $page.Params.featureAlt | default $page.Params.coverAlt | default $page.Title }}" />
+{{- else -}}
+  {{- with $page.Params.image -}}
+    <img class="u-photo" src="{{ . | absURL }}" alt="{{ $page.Title }}" />
+  {{- end -}}
+{{- end -}}

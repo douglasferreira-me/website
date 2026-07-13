@@ -20,6 +20,11 @@
   weight = 20
 
 [[main]]
+  name = "Newsletter"
+  pageRef = "newsletter"
+  weight = 25
+
+[[main]]
   name = "Categories"
   pageRef = "categories"
   weight = 30
