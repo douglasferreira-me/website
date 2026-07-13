@@ -1,5 +1,5 @@
 +++
-title = "testing to see how this works"
+title = ""
 date = 2026-07-13T12:05:00
 draft = false
 description = ""

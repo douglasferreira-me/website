@@ -30,4 +30,4 @@ outlet = ""
 external_url = ""
 +++
 
-A post to test what federation looks like
+Post to test how federation works
