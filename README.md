@@ -49,6 +49,46 @@ Campos principais:
 - `social_text`: texto curto opcional para divulgação/federação.
 - `image`: imagem destacada opcional quando não houver recurso de página.
 
+## Sveltia CMS
+
+O painel de edição fica em:
+
+```text
+https://douglasferreira.me/admin/
+```
+
+O site usa Sveltia CMS via CDN, sem dependências npm. A configuração está em `static/admin/config.yml` e usa o backend GitHub:
+
+- repositório: `douglasferreira-me/website`;
+- branch: `main`;
+- mídia enviada pelo CMS: `static/uploads`;
+- URL pública da mídia: `/uploads`.
+
+Para entrar:
+
+1. Abra `https://douglasferreira.me/admin/`.
+2. Clique em “Sign In with Token”.
+3. Gere um Personal Access Token no GitHub com permissão de escrita para este repositório.
+4. Cole o token no navegador.
+
+O token fica salvo no armazenamento local do navegador. Não coloque tokens, senhas ou chaves em arquivos do repositório.
+
+No CMS é possível editar:
+
+- posts em inglês em `content/en/blog`;
+- posts em português em `content/pt/blog`;
+- páginas `About` em inglês e português;
+- página pública da newsletter.
+
+Ao criar posts pelo CMS:
+
+- mantenha `draft` ligado até o texto estar pronto;
+- use a tag `newsletter` para incluir o post no RSS mensal;
+- deixe `federate` ligado para federar o post público via Bridgy Fed;
+- desligue `federate` quando o post não deve ser enviado ao Bridgy Fed.
+
+Uma etapa futura opcional é trocar o login por token por OAuth usando o Sveltia CMS Authenticator ou outro cliente OAuth compatível. Isso exige configurar app/cliente externo e credenciais fora deste repositório.
+
 ## IndieWeb, Webmentions e Bridgy Fed
 
 O site inclui marcação Microformats2 com `h-card`, `h-feed` e `h-entry`. O `<head>` publica endpoints do Webmention.io:

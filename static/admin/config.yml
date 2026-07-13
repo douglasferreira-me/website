@@ -1,0 +1,103 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: douglasferreira-me/website
+  branch: main
+
+media_folder: static/uploads
+public_folder: /uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: blog_en
+    label: Blog posts (English)
+    label_singular: Blog post
+    folder: content/en/blog
+    path: "{{slug}}"
+    create: true
+    extension: md
+    format: toml-frontmatter
+    preview_path: blog/{{slug}}/
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, default: "{{now}}" }
+      - { label: Draft, name: draft, widget: boolean, default: true }
+      - { label: Description, name: description, widget: text, required: false }
+      - { label: Tags, name: tags, widget: list, required: false, allow_add: true, field: { label: Tag, name: tag, widget: string } }
+      - { label: Categories, name: categories, widget: list, required: false, allow_add: true, field: { label: Category, name: category, widget: string } }
+      - { label: Language, name: lang, widget: hidden, default: en }
+      - { label: Federate with Bridgy Fed, name: federate, widget: boolean, default: true }
+      - { label: Social text, name: social_text, widget: text, required: false }
+      - { label: Featured image, name: image, widget: image, required: false }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: blog_pt
+    label: Blog posts (Português)
+    label_singular: Post do blog
+    folder: content/pt/blog
+    path: "{{slug}}"
+    create: true
+    extension: md
+    format: toml-frontmatter
+    preview_path: pt-br/blog/{{slug}}/
+    editor:
+      preview: false
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Data, name: date, widget: datetime, default: "{{now}}" }
+      - { label: Rascunho, name: draft, widget: boolean, default: true }
+      - { label: Descrição, name: description, widget: text, required: false }
+      - { label: Tags, name: tags, widget: list, required: false, allow_add: true, field: { label: Tag, name: tag, widget: string } }
+      - { label: Categorias, name: categories, widget: list, required: false, allow_add: true, field: { label: Categoria, name: category, widget: string } }
+      - { label: Idioma, name: lang, widget: hidden, default: pt-BR }
+      - { label: Federar com Bridgy Fed, name: federate, widget: boolean, default: true }
+      - { label: Texto social, name: social_text, widget: text, required: false }
+      - { label: Imagem destacada, name: image, widget: image, required: false }
+      - { label: Corpo, name: body, widget: markdown }
+
+  - name: pages_en
+    label: Pages (English)
+    editor:
+      preview: false
+    files:
+      - name: about_en
+        label: About
+        file: content/en/about.md
+        format: toml-frontmatter
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Date, name: date, widget: datetime, required: false }
+          - { label: Draft, name: draft, widget: boolean, required: false, default: false }
+          - { label: Description, name: description, widget: text, required: false }
+          - { label: Body, name: body, widget: markdown }
+      - name: newsletter_en
+        label: Newsletter
+        file: content/en/newsletter/_index.md
+        format: yaml-frontmatter
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: description, widget: text, required: false }
+          - { label: Body, name: body, widget: markdown }
+
+  - name: pages_pt
+    label: Pages (Português)
+    editor:
+      preview: false
+    files:
+      - name: about_pt
+        label: Sobre
+        file: content/pt/about.md
+        format: toml-frontmatter
+        fields:
+          - { label: Título, name: title, widget: string }
+          - { label: Data, name: date, widget: datetime, required: false }
+          - { label: Rascunho, name: draft, widget: boolean, required: false, default: false }
+          - { label: Descrição, name: description, widget: text, required: false }
+          - { label: Corpo, name: body, widget: markdown }
