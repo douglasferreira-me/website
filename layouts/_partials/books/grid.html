@@ -28,7 +28,7 @@
               <div class="book-card__placeholder">{{ .Title }}</div>
             {{ end }}
           </a>
-          <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+          <h3><a href="{{ .Permalink }}">{{ if $.current }}{{ $.title }}: {{ end }}{{ .Title }}</a></h3>
           {{ with .Params.author }}<p>{{ . }}</p>{{ end }}
           {{ with $statusLabel }}<span>{{ . }}</span>{{ end }}
         </article>

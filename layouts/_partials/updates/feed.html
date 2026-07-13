@@ -11,13 +11,22 @@
     {{ if or (ne .Section "photos") (.Params.show_in_updates | default true) }}
       {{ $page := . }}
       {{ $title := .Title }}
+      {{ $displayTitle := $title }}
       {{ $isMicro := or (eq .Section "microposts") (eq .Params.post_kind "micropost") }}
+      {{ $hasRealDate := gt .Date.Year 1 }}
+      {{ if and (eq .Section "books") (eq .Params.status "reading") }}
+        {{ $displayTitle = printf "%s: %s" (cond (eq .Site.Language.Lang "pt-br") "Lendo agora" "Reading now") $title }}
+      {{ end }}
       <article class="h-entry updates-feed__item updates-feed__item--{{ .Section }}">
-        <a class="u-url updates-feed__date" href="{{ .Permalink }}">
-          <time class="dt-published" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format ":date_medium" }}</time>
-        </a>
+        {{ if $hasRealDate }}
+          <a class="u-url updates-feed__date" href="{{ .Permalink }}">
+            <time class="dt-published" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format ":date_medium" }}</time>
+          </a>
+        {{ else }}
+          <a class="u-url" href="{{ .Permalink }}" hidden></a>
+        {{ end }}
         {{ if not $isMicro }}
-          <h2 class="p-name"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+          <h2 class="p-name"><a href="{{ .Permalink }}">{{ $displayTitle }}</a></h2>
         {{ else }}
           <span class="p-name" hidden>{{ .Plain | truncate 120 }}</span>
         {{ end }}

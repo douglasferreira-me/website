@@ -6,10 +6,7 @@
     {{ .Content | emojify }}
   </section>
 
-  {{ $allBooks := slice }}
-  {{ range site.Sites }}
-    {{ $allBooks = $allBooks | append (where .RegularPages "Section" "books") }}
-  {{ end }}
+  {{ $allBooks := where .Site.RegularPages "Section" "books" }}
   {{ $reading := where $allBooks "Params.status" "reading" }}
   {{ $finished := where $allBooks "Params.status" "finished" }}
   {{ $other := where (where $allBooks "Params.status" "not in" (slice "reading" "finished")) "Params.status" "!=" nil }}
