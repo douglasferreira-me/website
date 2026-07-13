@@ -1,7 +1,7 @@
 +++
 title = "Um poema para testar publicações longas e como ficarão no bluesky e no mastodon"
 date = 2026-07-13T15:03:00.000
-draft = true
+draft = false
 description = "Não sei do que se trata esse campo"
 tags = [ "poesia" ]
 categories = []
