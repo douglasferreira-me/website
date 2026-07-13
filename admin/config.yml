@@ -18,7 +18,7 @@ collections:
     label: Microposts (English)
     label_singular: Micropost
     folder: content/en/microposts
-    path: "{{slug}}"
+    path: "{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{second}}"
     create: true
     extension: md
     format: toml-frontmatter
@@ -26,7 +26,7 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: Title, name: title, widget: string }
+      - { label: Title, name: title, widget: string, required: false, hint: "Optional; not shown in micropost feeds." }
       - { label: Date, name: date, widget: datetime, default: "{{now}}" }
       - { label: Draft, name: draft, widget: boolean, default: true, hint: "Turn this off to publish and run automations." }
       - { label: Language, name: lang, widget: hidden, default: en }
@@ -41,7 +41,7 @@ collections:
     label: Microposts (Português)
     label_singular: Micropost
     folder: content/pt/microposts
-    path: "{{slug}}"
+    path: "{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{second}}"
     create: true
     extension: md
     format: toml-frontmatter
@@ -49,7 +49,7 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: Título, name: title, widget: string }
+      - { label: Título, name: title, widget: string, required: false, hint: "Opcional; não aparece nos feeds de microposts." }
       - { label: Data, name: date, widget: datetime, default: "{{now}}" }
       - { label: Rascunho, name: draft, widget: boolean, default: true, hint: "Desligue para publicar e disparar as automações." }
       - { label: Idioma, name: lang, widget: hidden, default: pt-BR }
