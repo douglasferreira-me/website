@@ -1,4 +1,34 @@
 {
+  "content/en/blog/testando-novamente-o-bridgyfed.md": {
+    "comments": [],
+    "permalink": "https://douglasferreira.me/blog/testando-novamente-o-bridgyfed/",
+    "targets": {
+      "bluesky": {
+        "published_at": "2026-07-13T15:54:19Z",
+        "url": "https://bsky.app/profile/douglasferreira.me/post/3mqk2h76pvl27"
+      },
+      "mastodon": {
+        "id": "116913475314451648",
+        "published_at": "2026-07-13T15:54:19Z"
+      }
+    },
+    "title": "Testing BridgyFed Again"
+  },
+  "content/en/microposts/testando-para-ver-como-funciona-isso.md": {
+    "comments": [],
+    "permalink": "https://douglasferreira.me/microposts/testando-para-ver-como-funciona-isso/",
+    "targets": {
+      "bluesky": {
+        "published_at": "2026-07-13T15:54:19Z",
+        "url": "https://bsky.app/profile/douglasferreira.me/post/3mqk2hafcbo2r"
+      },
+      "mastodon": {
+        "id": "116913475362738831",
+        "published_at": "2026-07-13T15:54:19Z"
+      }
+    },
+    "title": "Testing to See How This Works"
+  },
   "content/pt/microposts/testando-para-ver-como-funciona-isso.md": {
     "comments": [],
     "permalink": "https://douglasferreira.me/pt-br/microposts/testando-para-ver-como-funciona-isso/",
@@ -6,6 +36,10 @@
       "bluesky": {
         "published_at": "2026-07-13T15:16:06Z",
         "url": "https://bsky.app/profile/douglasferreira.me/post/3mqjycvg4bf2e"
+      },
+      "mastodon": {
+        "id": "116913475377252847",
+        "published_at": "2026-07-13T15:54:19Z"
       }
     },
     "title": "testando para ver como funciona isso"

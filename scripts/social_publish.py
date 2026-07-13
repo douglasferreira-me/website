@@ -207,7 +207,7 @@ def main() -> None:
         record.setdefault("targets", {})
 
         for service in services:
-            if record["targets"].get(service, {}).get("url"):
+            if record["targets"].get(service, {}).get("url") or record["targets"].get(service, {}).get("id"):
                 print(f"Skipping {service} for {item.key}: already published")
                 continue
             missing = missing_env(service)
