@@ -5,6 +5,6 @@ draft = false
 description = ""
 +++
 
-![](/uploads/WhatsApp%20Image%202026-06-23%20at%2015%2C47%2C05-photoaidcom-greyscale.png)
+![](/uploads/WhatsApp%20Image%202026-06-23%20at%2015%2C47%2C05-photoaidcom-greyscale%281%29.jpg)
 
-Pensar em um texto para colocar aqui.
+Pensar em um texto para colocar aqui. Testando tamanho da foto.
