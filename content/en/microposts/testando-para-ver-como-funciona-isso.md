@@ -31,4 +31,4 @@ outlet = ""
 external_url = ""
 +++
 
-Testing to see if it publishes automatically from my site.
+Testing to see if it publishes automatically from my website.
