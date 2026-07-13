@@ -1,0 +1,20 @@
+{{ define "main" }}
+  <article class="book-single max-w-prose">
+    <header>
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+      {{ with .Params.author }}<p class="text-neutral-500 dark:text-neutral-400">{{ . }}</p>{{ end }}
+    </header>
+    {{ with .Params.cover }}
+      <img class="book-single__cover" src="{{ . | relURL }}" alt="{{ $.Title }}" />
+    {{ end }}
+    <dl class="book-single__meta">
+      {{ with .Params.status }}<dt>Status</dt><dd>{{ . }}</dd>{{ end }}
+      {{ with .Params.started }}<dt>Started</dt><dd>{{ . }}</dd>{{ end }}
+      {{ with .Params.finished }}<dt>Finished</dt><dd>{{ . }}</dd>{{ end }}
+      {{ with .Params.rating }}<dt>Rating</dt><dd>{{ . }}/5</dd>{{ end }}
+    </dl>
+    <div class="prose dark:prose-invert">
+      {{ .Content | emojify }}
+    </div>
+  </article>
+{{ end }}

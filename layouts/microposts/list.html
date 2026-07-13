@@ -1,0 +1,21 @@
+{{ define "main" }}
+  <header>
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+  </header>
+  <section class="prose mt-0 max-w-prose dark:prose-invert">
+    {{ .Content | emojify }}
+  </section>
+  <section class="h-feed micropost-list mt-8 max-w-prose">
+    {{ range (.Paginate .Pages).Pages }}
+      <article class="h-entry micropost-list__item">
+        <a class="u-url" href="{{ .Permalink }}">
+          <time class="dt-published" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format ":date_medium" }}</time>
+        </a>
+        <div class="e-content prose dark:prose-invert">
+          {{ .Content | emojify }}
+        </div>
+      </article>
+    {{ end }}
+  </section>
+  {{ partial "pagination.html" . }}
+{{ end }}

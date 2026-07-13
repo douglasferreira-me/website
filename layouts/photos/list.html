@@ -1,0 +1,31 @@
+{{ define "main" }}
+  <header>
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+  </header>
+  <section class="prose mt-0 max-w-prose dark:prose-invert">
+    {{ .Content | emojify }}
+  </section>
+  {{ $items := slice }}
+  {{ range .Pages }}
+    {{ $items = $items | append . }}
+  {{ end }}
+  {{ range where site.RegularPages "Params.show_image_in_photos" true }}
+    {{ $items = $items | append . }}
+  {{ end }}
+  <section class="photo-masonry mt-8">
+    {{ range sort $items "Date" "desc" }}
+      {{ $image := .Params.image }}
+      {{ if $image }}
+        {{ $title := .Title }}
+        <article class="photo-masonry__item">
+          <a href="{{ .Permalink }}">
+            <img src="{{ $image | relURL }}" alt="{{ .Params.caption | default .Params.photo_caption | default $title }}" loading="lazy" />
+          </a>
+          {{ with (.Params.caption | default .Params.photo_caption) }}
+            <p>{{ . }}</p>
+          {{ end }}
+        </article>
+      {{ end }}
+    {{ end }}
+  </section>
+{{ end }}

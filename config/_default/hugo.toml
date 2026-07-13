@@ -12,7 +12,7 @@ summaryLength = 0
   pagerSize = 10
 
 [params]
-  mainSections = ["blog", "posts"]
+  mainSections = ["blog", "posts", "microposts", "photos", "books"]
 
 
 [outputs]

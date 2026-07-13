@@ -1,0 +1,25 @@
+{{ define "main" }}
+  <header>
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+  </header>
+  <section class="prose mt-0 max-w-prose dark:prose-invert">
+    {{ .Content | emojify }}
+  </section>
+  <section class="book-grid mt-8">
+    {{ range .Pages.ByDate.Reverse }}
+      {{ $title := .Title }}
+      <article class="book-card">
+        <a href="{{ .Permalink }}">
+          {{ with .Params.cover }}
+            <img src="{{ . | relURL }}" alt="{{ $title }}" loading="lazy" />
+          {{ else }}
+            <div class="book-card__placeholder">{{ .Title }}</div>
+          {{ end }}
+        </a>
+        <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        {{ with .Params.author }}<p>{{ . }}</p>{{ end }}
+        {{ with .Params.status }}<span>{{ . }}</span>{{ end }}
+      </article>
+    {{ end }}
+  </section>
+{{ end }}

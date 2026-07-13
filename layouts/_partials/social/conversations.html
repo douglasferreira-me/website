@@ -1,0 +1,42 @@
+{{- $page := . -}}
+{{- $record := dict -}}
+{{- range site.Data.social.syndication -}}
+  {{- if eq .permalink $page.Permalink -}}
+    {{- $record = . -}}
+  {{- end -}}
+{{- end -}}
+{{- $targets := $record.targets | default dict -}}
+{{- $comments := $record.comments | default slice -}}
+<section class="social-conversations max-w-prose pt-8 print:hidden">
+  <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+  <h2 class="mt-6 text-2xl font-bold text-neutral-800 dark:text-neutral-200">Conversas</h2>
+  {{ if or $targets.bluesky.url $targets.mastodon.url }}
+    <div class="social-conversations__actions">
+      {{ with $targets.mastodon.url }}
+        <a href="{{ . }}" rel="nofollow noopener noreferrer" target="_blank">Responder no Mastodon</a>
+      {{ end }}
+      {{ with $targets.bluesky.url }}
+        <a href="{{ . }}" rel="nofollow noopener noreferrer" target="_blank">Responder no Bluesky</a>
+      {{ end }}
+    </div>
+  {{ end }}
+  {{ if $comments }}
+    <div class="social-conversations__items">
+      {{ range $comments }}
+        <article class="social-conversations__item">
+          <a class="social-conversations__author" href="{{ .url }}" rel="nofollow ugc noopener noreferrer" target="_blank">{{ .author | default "Someone" }}</a>
+          {{ with .published }}
+            <time class="social-conversations__date" datetime="{{ . }}">{{ . }}</time>
+          {{ end }}
+          {{ with .text }}
+            <p class="social-conversations__content">{{ . }}</p>
+          {{ end }}
+        </article>
+      {{ end }}
+    </div>
+  {{ else }}
+    <p class="social-conversations__status text-sm text-neutral-500 dark:text-neutral-400">
+      Respostas públicas do Mastodon e Bluesky aparecerão aqui depois da próxima coleta automática.
+    </p>
+  {{ end }}
+</section>

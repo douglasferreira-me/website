@@ -14,6 +14,52 @@ slug:
   sanitize_replacement: "-"
 
 collections:
+  - name: microposts_en
+    label: Microposts (English)
+    label_singular: Micropost
+    folder: content/en/microposts
+    path: "{{slug}}"
+    create: true
+    extension: md
+    format: toml-frontmatter
+    preview_path: microposts/{{slug}}/
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, default: "{{now}}" }
+      - { label: Draft, name: draft, widget: boolean, default: true }
+      - { label: Language, name: lang, widget: hidden, default: en }
+      - { label: Post kind, name: post_kind, widget: hidden, default: micropost }
+      - { label: Syndicate to Bluesky, name: syndicate_bluesky, widget: boolean, default: true }
+      - { label: Syndicate to Mastodon, name: syndicate_mastodon, widget: boolean, default: true }
+      - { label: Syndicate to LinkedIn, name: syndicate_linkedin, widget: boolean, default: false }
+      - { label: Federate with Bridgy Fed, name: federate, widget: boolean, default: true }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: microposts_pt
+    label: Microposts (Português)
+    label_singular: Micropost
+    folder: content/pt/microposts
+    path: "{{slug}}"
+    create: true
+    extension: md
+    format: toml-frontmatter
+    preview_path: pt-br/microposts/{{slug}}/
+    editor:
+      preview: false
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Data, name: date, widget: datetime, default: "{{now}}" }
+      - { label: Rascunho, name: draft, widget: boolean, default: true }
+      - { label: Idioma, name: lang, widget: hidden, default: pt-BR }
+      - { label: Tipo de post, name: post_kind, widget: hidden, default: micropost }
+      - { label: Publicar no Bluesky, name: syndicate_bluesky, widget: boolean, default: true }
+      - { label: Publicar no Mastodon, name: syndicate_mastodon, widget: boolean, default: true }
+      - { label: Publicar no LinkedIn, name: syndicate_linkedin, widget: boolean, default: false }
+      - { label: Federar com Bridgy Fed, name: federate, widget: boolean, default: true }
+      - { label: Corpo, name: body, widget: markdown }
+
   - name: blog_en
     label: Blog posts (English)
     label_singular: Blog post
@@ -33,9 +79,16 @@ collections:
       - { label: Tags, name: tags, widget: list, required: false, allow_add: true, field: { label: Tag, name: tag, widget: string } }
       - { label: Categories, name: categories, widget: list, required: false, allow_add: true, field: { label: Category, name: category, widget: string } }
       - { label: Language, name: lang, widget: hidden, default: en }
+      - { label: Post kind, name: post_kind, widget: select, default: blogpost, options: [{ label: Blogpost, value: blogpost }, { label: Micropost, value: micropost }] }
       - { label: Federate with Bridgy Fed, name: federate, widget: boolean, default: true }
+      - { label: Syndicate to Bluesky, name: syndicate_bluesky, widget: boolean, default: true }
+      - { label: Syndicate to Mastodon, name: syndicate_mastodon, widget: boolean, default: true }
+      - { label: Syndicate to LinkedIn, name: syndicate_linkedin, widget: boolean, default: false }
+      - { label: Social intro, name: social_intro, widget: string, required: false }
       - { label: Social text, name: social_text, widget: text, required: false }
       - { label: Featured image, name: image, widget: image, required: false }
+      - { label: Show image in photo grid, name: show_image_in_photos, widget: boolean, default: false }
+      - { label: Photo caption, name: photo_caption, widget: string, required: false }
       - { label: Body, name: body, widget: markdown }
 
   - name: blog_pt
@@ -57,10 +110,103 @@ collections:
       - { label: Tags, name: tags, widget: list, required: false, allow_add: true, field: { label: Tag, name: tag, widget: string } }
       - { label: Categorias, name: categories, widget: list, required: false, allow_add: true, field: { label: Categoria, name: category, widget: string } }
       - { label: Idioma, name: lang, widget: hidden, default: pt-BR }
+      - { label: Tipo de post, name: post_kind, widget: select, default: blogpost, options: [{ label: Blogpost, value: blogpost }, { label: Micropost, value: micropost }] }
       - { label: Federar com Bridgy Fed, name: federate, widget: boolean, default: true }
+      - { label: Publicar no Bluesky, name: syndicate_bluesky, widget: boolean, default: true }
+      - { label: Publicar no Mastodon, name: syndicate_mastodon, widget: boolean, default: true }
+      - { label: Publicar no LinkedIn, name: syndicate_linkedin, widget: boolean, default: false }
+      - { label: Texto antes do link, name: social_intro, widget: string, required: false }
       - { label: Texto social, name: social_text, widget: text, required: false }
       - { label: Imagem destacada, name: image, widget: image, required: false }
+      - { label: Mostrar imagem na grade de fotos, name: show_image_in_photos, widget: boolean, default: false }
+      - { label: Legenda da foto, name: photo_caption, widget: string, required: false }
       - { label: Corpo, name: body, widget: markdown }
+
+  - name: books
+    label: Books
+    label_singular: Book
+    folder: content/en/books
+    path: "{{slug}}"
+    create: true
+    extension: md
+    format: toml-frontmatter
+    preview_path: books/{{slug}}/
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Author, name: author, widget: string }
+      - { label: Cover, name: cover, widget: image, required: false }
+      - { label: Status, name: status, widget: select, default: reading, options: [{ label: Reading, value: reading }, { label: Finished, value: finished }, { label: Paused, value: paused }, { label: Want to read, value: want_to_read }] }
+      - { label: Started, name: started, widget: datetime, required: false }
+      - { label: Finished, name: finished, widget: datetime, required: false }
+      - { label: Rating, name: rating, widget: number, required: false, value_type: int, min: 1, max: 5 }
+      - { label: Description, name: description, widget: text, required: false }
+      - { label: Body, name: body, widget: markdown, required: false }
+
+  - name: books_pt
+    label: Livros
+    label_singular: Livro
+    folder: content/pt/books
+    path: "{{slug}}"
+    create: true
+    extension: md
+    format: toml-frontmatter
+    preview_path: pt-br/books/{{slug}}/
+    editor:
+      preview: false
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Autor, name: author, widget: string }
+      - { label: Capa, name: cover, widget: image, required: false }
+      - { label: Status, name: status, widget: select, default: reading, options: [{ label: Lendo, value: reading }, { label: Lido, value: finished }, { label: Pausado, value: paused }, { label: Quero ler, value: want_to_read }] }
+      - { label: Comecei em, name: started, widget: datetime, required: false }
+      - { label: Terminei em, name: finished, widget: datetime, required: false }
+      - { label: Nota, name: rating, widget: number, required: false, value_type: int, min: 1, max: 5 }
+      - { label: Descrição, name: description, widget: text, required: false }
+      - { label: Corpo, name: body, widget: markdown, required: false }
+
+  - name: photos
+    label: Photos
+    label_singular: Photo
+    folder: content/en/photos
+    path: "{{slug}}"
+    create: true
+    extension: md
+    format: toml-frontmatter
+    preview_path: photos/{{slug}}/
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, default: "{{now}}" }
+      - { label: Draft, name: draft, widget: boolean, default: true }
+      - { label: Image, name: image, widget: image }
+      - { label: Caption, name: caption, widget: string, required: false }
+      - { label: Tags, name: tags, widget: list, required: false, allow_add: true, field: { label: Tag, name: tag, widget: string } }
+      - { label: Show in updates, name: show_in_updates, widget: boolean, default: true }
+      - { label: Body, name: body, widget: markdown, required: false }
+
+  - name: photos_pt
+    label: Fotografias
+    label_singular: Fotografia
+    folder: content/pt/photos
+    path: "{{slug}}"
+    create: true
+    extension: md
+    format: toml-frontmatter
+    preview_path: pt-br/photos/{{slug}}/
+    editor:
+      preview: false
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Data, name: date, widget: datetime, default: "{{now}}" }
+      - { label: Rascunho, name: draft, widget: boolean, default: true }
+      - { label: Imagem, name: image, widget: image }
+      - { label: Legenda, name: caption, widget: string, required: false }
+      - { label: Tags, name: tags, widget: list, required: false, allow_add: true, field: { label: Tag, name: tag, widget: string } }
+      - { label: Mostrar no feed geral, name: show_in_updates, widget: boolean, default: true }
+      - { label: Corpo, name: body, widget: markdown, required: false }
 
   - name: pages_en
     label: Pages (English)

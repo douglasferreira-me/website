@@ -25,14 +25,29 @@
   weight = 25
 
 [[main]]
+  name = "Atualizações"
+  pageRef = "updates"
+  weight = 27
+
+[[main]]
+  name = "Fotografias"
+  pageRef = "photos"
+  weight = 28
+
+[[main]]
+  name = "Livros"
+  pageRef = "books"
+  weight = 29
+
+[[main]]
   name = "Categorias"
   pageRef = "categories"
-  weight = 30
+  weight = 35
 
 [[main]]
   name = "Tags"
   pageRef = "tags"
-  weight = 40
+  weight = 45
 
 [[main]]
   identifier = "Busca"

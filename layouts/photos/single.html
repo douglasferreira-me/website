@@ -1,0 +1,20 @@
+{{ define "main" }}
+  <article class="h-entry max-w-prose">
+    <header>
+      <h1 class="p-name mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+      <a class="u-url sr-only" href="{{ .Permalink }}">{{ .Permalink }}</a>
+      <time class="dt-published text-sm text-neutral-500 dark:text-neutral-400" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format ":date_medium" }}</time>
+    </header>
+    {{ with .Params.image }}
+      <figure class="photo-single">
+        <img class="u-photo" src="{{ . | relURL }}" alt="{{ $.Params.caption | default $.Title }}" />
+        {{ with $.Params.caption }}
+          <figcaption>{{ . }}</figcaption>
+        {{ end }}
+      </figure>
+    {{ end }}
+    <div class="e-content prose dark:prose-invert">
+      {{ .Content | emojify }}
+    </div>
+  </article>
+{{ end }}

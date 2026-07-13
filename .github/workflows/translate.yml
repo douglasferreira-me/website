@@ -1,0 +1,40 @@
+name: Translate Portuguese posts
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "content/pt/blog/**"
+      - "content/pt/microposts/**"
+      - "scripts/translate_pt_to_en.py"
+      - "scripts/site_content.py"
+
+permissions:
+  contents: write
+
+jobs:
+  translate:
+    if: ${{ !contains(github.event.head_commit.message, '[skip translate]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Translate published Portuguese posts
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL || 'gpt-5.6' }}
+        run: python3 scripts/translate_pt_to_en.py
+
+      - name: Commit translated content
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/en
+          if ! git diff --cached --quiet; then
+            git commit -m "Auto-translate Portuguese posts [skip social] [skip translate]"
+            git push
+          else
+            echo "No translated content changes."
+          fi

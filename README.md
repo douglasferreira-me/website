@@ -45,9 +45,14 @@ Campos principais:
 - `tags`: use `newsletter` para incluir o post no RSS mensal.
 - `categories`: categorias públicas do site.
 - `lang`: idioma do artigo, por exemplo `pt-BR` ou `en`.
+- `post_kind`: use `blogpost` para artigo com link social; use `micropost` para nota curta de até 300 caracteres.
 - `federate`: use `true` somente em posts públicos que devem ser enviados via Bridgy Fed.
+- `syndicate_bluesky`, `syndicate_mastodon`, `syndicate_linkedin`: republicam o post pelas APIs diretas quando os segredos estiverem configurados.
+- `social_intro`: texto opcional antes do resumo/link em blogposts.
 - `social_text`: texto curto opcional para divulgação/federação.
 - `image`: imagem destacada opcional quando não houver recurso de página.
+- `show_image_in_photos`: quando `true`, a imagem do post também aparece na grade de fotografias.
+- `photo_caption`: legenda usada na grade de fotografias quando o post envia imagem para lá.
 
 ## Sveltia CMS
 
@@ -77,6 +82,9 @@ No CMS é possível editar:
 
 - posts em inglês em `content/en/blog`;
 - posts em português em `content/pt/blog`;
+- microposts em inglês e português;
+- livros em `content/en/books`;
+- fotografias em `content/en/photos`;
 - páginas `About` em inglês e português;
 - página pública da newsletter.
 
@@ -85,6 +93,9 @@ Ao criar posts pelo CMS:
 - mantenha `draft` ligado até o texto estar pronto;
 - use a tag `newsletter` para incluir o post no RSS mensal;
 - deixe `federate` ligado para federar o post público via Bridgy Fed;
+- use `post_kind = "micropost"` apenas quando o texto limpo tiver até 300 caracteres;
+- ligue `syndicate_bluesky`, `syndicate_mastodon` ou `syndicate_linkedin` para republicar via API direta;
+- use `social_intro` e `social_text` para controlar o texto que acompanha links de blogposts;
 - desligue `federate` quando o post não deve ser enviado ao Bridgy Fed.
 
 Uma etapa futura opcional é trocar o login por token por OAuth usando o Sveltia CMS Authenticator ou outro cliente OAuth compatível. Isso exige configurar app/cliente externo e credenciais fora deste repositório.
@@ -110,6 +121,68 @@ Para federar com Bridgy Fed:
 Apenas posts públicos com `federate: true` incluem `u-bridgy-fed`. Páginas institucionais, arquivos, categorias e rascunhos não são federados.
 
 Para desativar a federação de um post, mude `federate` para `false`. Para desativar a exibição de Webmentions, remova o partial `webmentions.html` do template `single.html` ou o script em `extend-head.html`.
+
+## Publicação social direta
+
+Além do Bridgy Fed, o repositório tem automação direta por GitHub Actions em `.github/workflows/social.yml`.
+
+Segredos necessários:
+
+- `BLUESKY_HANDLE`
+- `BLUESKY_APP_PASSWORD`
+- `BLUESKY_PDS`, opcional; usa `https://bsky.social` quando não existir.
+- `MASTODON_INSTANCE`
+- `MASTODON_ACCESS_TOKEN`
+- `LINKEDIN_ACCESS_TOKEN`
+- `LINKEDIN_AUTHOR_URN`
+- `LINKEDIN_VERSION`, opcional; usa `202606` quando não existir.
+
+O script `scripts/social_publish.py` publica apenas posts públicos com algum `syndicate_* = true`. Ele grava os links em `data/social/syndication.json` para evitar republicações duplicadas e para que o site mostre links `u-syndication`.
+
+Microposts são enviados como texto direto. Blogposts são enviados como texto + URL canônica. Se um micropost público passar de 300 caracteres, a validação falha.
+
+O script `scripts/social_collect_comments.py` coleta respostas públicas de Mastodon e Bluesky dos posts já sindicados e grava essas respostas no mesmo estado JSON. O site renderiza essas conversas abaixo de cada post, junto com Webmentions. Não há login embutido no site nesta etapa.
+
+Para testar sem postar:
+
+```bash
+python3 scripts/social_publish.py --dry-run
+python3 scripts/social_collect_comments.py --dry-run
+```
+
+## Tradução automática
+
+O workflow `.github/workflows/translate.yml` traduz posts publicados em português para inglês usando a OpenAI Responses API.
+
+Segredos necessários:
+
+- `OPENAI_API_KEY`
+- `OPENAI_MODEL`, opcional; usa `gpt-5.6` quando não existir.
+
+Quando um post PT publicado muda, o script `scripts/translate_pt_to_en.py` cria ou atualiza um arquivo em `content/en/blog` ou `content/en/microposts` com:
+
+- `auto_translated = true`;
+- `translation_of` apontando para a URL original;
+- `draft = false`;
+- `federate = false`;
+- `syndicate_bluesky = false`;
+- `syndicate_mastodon = false`;
+- `syndicate_linkedin = false`.
+
+Se já existir um arquivo em inglês que não tenha `auto_translated = true`, o script não sobrescreve. A tradução automática faz commit direto em `main` com marcadores para evitar loops de workflow.
+
+## Livros, fotografias, microposts e updates
+
+Novas áreas públicas:
+
+- `https://douglasferreira.me/microposts/`
+- `https://douglasferreira.me/updates/`
+- `https://douglasferreira.me/books/`
+- `https://douglasferreira.me/photos/`
+
+Livros são cadastrados no CMS com título, autor, capa, status, datas, nota e texto livre. Fotografias são cadastradas com imagem, legenda, tags e opção de aparecer no feed geral.
+
+Posts de blog também podem aparecer na grade de fotos quando `show_image_in_photos = true` e `image` estiver preenchido. O feed `/updates/` reúne blogposts, microposts, fotos e livros em ordem cronológica.
 
 ## Newsletter e MailerLite
 
@@ -148,7 +221,8 @@ O deploy roda pelo workflow `.github/workflows/gh-pages.yml` em pushes para `mai
 1. instala Hugo Extended `0.152.2`;
 2. executa o build com `hugo --minify --printPathWarnings`;
 3. roda `python3 scripts/validate_site.py --site-dir public`;
-4. publica `public/` na branch `gh-pages`.
+4. roda `python3 scripts/social_publish.py --dry-run`;
+5. publica `public/` na branch `gh-pages`.
 
 Não faça commit ou push sem revisar o build e as mudanças locais.
 
@@ -157,3 +231,5 @@ Não faça commit ou push sem revisar o build e as mudanças locais.
 - Webmention.io, Bridgy Fed e MailerLite exigem configuração manual nas respectivas contas.
 - Webmentions são carregadas no navegador; uma versão futura pode baixá-las durante o build e renderizar HTML estático.
 - `/newsletter/` é a superfície canônica única da newsletter nesta etapa, sem versão separada por idioma.
+- LinkedIn pode exigir aprovação e permissões específicas do app para publicar em perfil pessoal.
+- Comentários sociais são coletados de respostas públicas; não há comentário privado nem login OAuth dentro do site.

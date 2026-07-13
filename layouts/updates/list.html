@@ -1,0 +1,37 @@
+{{ define "main" }}
+  <header>
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+  </header>
+  <section class="prose mt-0 max-w-prose dark:prose-invert">
+    {{ .Content | emojify }}
+  </section>
+  {{ $sections := slice "blog" "microposts" "photos" "books" }}
+  {{ $pages := where site.RegularPages "Section" "in" $sections }}
+  <section class="updates-feed h-feed mt-8 max-w-prose">
+    {{ range sort $pages "Date" "desc" }}
+      {{ if or (ne .Section "photos") (.Params.show_in_updates | default true) }}
+        {{ $title := .Title }}
+        <article class="h-entry updates-feed__item">
+          <a class="u-url updates-feed__date" href="{{ .Permalink }}">
+            <time class="dt-published" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format ":date_medium" }}</time>
+          </a>
+          <h2 class="p-name"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+          {{ with .Params.image }}
+            <img class="u-photo updates-feed__image" src="{{ . | relURL }}" alt="{{ $title }}" loading="lazy" />
+          {{ else }}
+            {{ with .Params.cover }}
+              <img class="u-photo updates-feed__image" src="{{ . | relURL }}" alt="{{ $title }}" loading="lazy" />
+            {{ end }}
+          {{ end }}
+          <div class="e-content prose dark:prose-invert">
+            {{ if eq .Section "microposts" }}
+              {{ .Content | emojify }}
+            {{ else }}
+              {{ with .Description }}<p>{{ . }}</p>{{ else }}{{ .Summary | emojify }}{{ end }}
+            {{ end }}
+          </div>
+        </article>
+      {{ end }}
+    {{ end }}
+  </section>
+{{ end }}

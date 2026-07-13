@@ -40,3 +40,146 @@
 .webmentions__content {
   margin-top: 0.35rem;
 }
+
+.social-conversations {
+  font-size: 0.95rem;
+}
+
+.social-conversations__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.social-conversations__actions a {
+  border: 1px solid rgb(var(--color-neutral-300));
+  border-radius: 0.375rem;
+  padding: 0.45rem 0.7rem;
+  text-decoration: none;
+}
+
+.social-conversations__item,
+.updates-feed__item,
+.micropost-list__item {
+  border-top: 1px dotted rgb(var(--color-neutral-300));
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+.social-conversations__author {
+  font-weight: 700;
+}
+
+.social-conversations__date,
+.updates-feed__date,
+.micropost-list__item time {
+  color: rgb(var(--color-neutral-500));
+  display: block;
+  font-size: 0.85rem;
+}
+
+.social-conversations__content {
+  margin-top: 0.35rem;
+}
+
+.photo-masonry {
+  column-count: 1;
+  column-gap: 1rem;
+}
+
+.photo-masonry__item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+.photo-masonry__item img,
+.photo-single img,
+.updates-feed__image {
+  border-radius: 0.5rem;
+  display: block;
+  width: 100%;
+}
+
+.photo-masonry__item p,
+.photo-single figcaption {
+  color: rgb(var(--color-neutral-500));
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
+
+.book-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+
+.book-card img,
+.book-card__placeholder,
+.book-single__cover {
+  border-radius: 0.4rem;
+  box-shadow: 0 10px 25px rgb(0 0 0 / 0.12);
+  width: 100%;
+}
+
+.book-card h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0.75rem 0 0.2rem;
+}
+
+.book-card p,
+.book-card span {
+  color: rgb(var(--color-neutral-500));
+  display: block;
+  font-size: 0.85rem;
+}
+
+.book-card__placeholder {
+  align-items: center;
+  aspect-ratio: 2 / 3;
+  background: rgb(var(--color-neutral-200));
+  display: flex;
+  font-weight: 700;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+}
+
+.book-single__cover {
+  max-width: 220px;
+}
+
+.book-single__meta {
+  display: grid;
+  gap: 0.25rem 1rem;
+  grid-template-columns: max-content 1fr;
+  margin: 1.25rem 0;
+}
+
+.book-single__meta dt {
+  font-weight: 700;
+}
+
+.updates-feed__item h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.updates-feed__image {
+  margin: 0.75rem 0;
+  max-width: 320px;
+}
+
+@media (min-width: 640px) {
+  .photo-masonry {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .photo-masonry {
+    column-count: 3;
+  }
+}

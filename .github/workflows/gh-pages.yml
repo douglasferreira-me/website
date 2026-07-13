@@ -29,7 +29,9 @@ jobs:
         run: hugo --minify --printPathWarnings --destination public --cleanDestinationDir
 
       - name: Validate
-        run: python3 scripts/validate_site.py --site-dir public
+        run: |
+          python3 scripts/validate_site.py --site-dir public
+          python3 scripts/social_publish.py --dry-run
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

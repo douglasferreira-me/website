@@ -1,0 +1,10 @@
+{{- $page := . -}}
+{{- range site.Data.social.syndication -}}
+  {{- if eq .permalink $page.Permalink -}}
+    {{- range $name, $target := (.targets | default dict) -}}
+      {{- with $target.url -}}
+        <a class="u-syndication sr-only" href="{{ . }}">{{ $name }}</a>
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

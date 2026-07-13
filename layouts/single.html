@@ -28,6 +28,7 @@
           <p class="p-summary sr-only">{{ . }}</p>
         {{ end }}
       {{ end }}
+      {{ partial "social/syndication-links.html" . }}
       {{ if or
         (.Params.showDate | default (.Site.Params.article.showDate | default true))
         (and (.Params.showDateUpdated | default (.Site.Params.article.showDateUpdated | default false)) (ne (partial "functions/date.html" .Date) (partial "functions/date.html" .Lastmod)))
@@ -67,6 +68,7 @@
       {{ partial "author.html" . }}
       {{ partial "sharing-links.html" . }}
       {{ partial "webmentions.html" . }}
+      {{ partial "social/conversations.html" . }}
       {{ partial "article-pagination.html" . }}
       {{ if .Params.showComments | default (.Site.Params.article.showComments | default false) }}
         {{ if templates.Exists "_partials/comments.html" }}

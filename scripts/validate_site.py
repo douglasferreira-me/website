@@ -12,6 +12,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from site_content import clean_markdown, collect_content
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT_DIRS = [ROOT / "content" / "en", ROOT / "content" / "pt"]
@@ -133,7 +135,7 @@ def collect_posts() -> list[Post]:
             if path.name == "_index.md":
                 continue
             fm = read_front_matter(path)
-            if slug_for(path, content_dir).split("/")[0] not in {"blog", "posts"}:
+            if slug_for(path, content_dir).split("/")[0] not in {"blog", "posts", "microposts"}:
                 continue
             tags = fm.get("tags") or []
             if isinstance(tags, str):
@@ -189,6 +191,20 @@ def main() -> None:
     if not site_dir.exists():
         fail(f"site directory does not exist: {site_dir}")
 
+    required_pages = [
+        "microposts/index.html",
+        "updates/index.html",
+        "books/index.html",
+        "photos/index.html",
+        "pt-br/microposts/index.html",
+        "pt-br/updates/index.html",
+        "pt-br/books/index.html",
+        "pt-br/photos/index.html",
+    ]
+    for rel_path in required_pages:
+        if not (site_dir / rel_path).exists():
+            fail(f"required page was not generated: /{rel_path}")
+
     newsletter_feed = site_dir / "newsletter" / "index.xml"
     if not newsletter_feed.exists():
         fail("/newsletter/index.xml was not generated")
@@ -196,6 +212,12 @@ def main() -> None:
     feed_urls = parse_feed_urls(newsletter_feed)
 
     posts = collect_posts()
+    for item in collect_content({"blog", "microposts"}):
+        if item.post_kind == "micropost" and not item.draft:
+            text = clean_markdown(item.body)
+            if len(text) > 300:
+                fail(f"micropost exceeds 300 characters: {item.key} ({len(text)})")
+
     newsletter_urls = {post.permalink for post in posts if not post.draft and "newsletter" in post.tags}
     draft_urls = {post.permalink for post in posts if post.draft}
     unexpected = feed_urls - newsletter_urls

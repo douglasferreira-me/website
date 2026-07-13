@@ -1,0 +1,52 @@
+name: Social syndication
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "content/**"
+      - "scripts/social_*.py"
+      - "scripts/site_content.py"
+      - "data/social/syndication.json"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: ${{ !contains(github.event.head_commit.message, '[skip social]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Publish selected posts
+        env:
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+          BLUESKY_PDS: ${{ secrets.BLUESKY_PDS || 'https://bsky.social' }}
+          MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
+          LINKEDIN_VERSION: ${{ secrets.LINKEDIN_VERSION || '202606' }}
+        run: python3 scripts/social_publish.py
+
+      - name: Collect public replies
+        env:
+          MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+        run: python3 scripts/social_collect_comments.py
+
+      - name: Commit syndication state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/social/syndication.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update social syndication state [skip social]"
+            git push
+          else
+            echo "No syndication state changes."
+          fi
