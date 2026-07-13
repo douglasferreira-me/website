@@ -1,0 +1,9 @@
+{{- $page := .page -}}
+{{- $image := .image -}}
+{{- if or (hasPrefix $image "http://") (hasPrefix $image "https://") (hasPrefix $image "/") -}}
+  {{- $image | relURL -}}
+{{- else if and $page (eq $page.Section "photos") -}}
+  {{- printf "%s%s" $page.CurrentSection.RelPermalink $image | relURL -}}
+{{- else -}}
+  {{- $image | relURL -}}
+{{- end -}}

@@ -1,0 +1,47 @@
+{{- $sections := slice "blog" "microposts" "photos" "books" -}}
+{{- $pages := where site.RegularPages "Section" "in" $sections -}}
+{{- $limit := .limit | default 0 -}}
+{{- $pages = sort $pages "Date" "desc" -}}
+{{- if gt $limit 0 -}}
+  {{- $pages = first $limit $pages -}}
+{{- end -}}
+<section class="updates-feed h-feed mt-8 max-w-prose">
+  {{ range $pages }}
+    {{ if or (ne .Section "photos") (.Params.show_in_updates | default true) }}
+      {{ $page := . }}
+      {{ $title := .Title }}
+      {{ $isMicro := or (eq .Section "microposts") (eq .Params.post_kind "micropost") }}
+      <article class="h-entry updates-feed__item updates-feed__item--{{ .Section }}">
+        <a class="u-url updates-feed__date" href="{{ .Permalink }}">
+          <time class="dt-published" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format ":date_medium" }}</time>
+        </a>
+        {{ if not $isMicro }}
+          <h2 class="p-name"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        {{ else }}
+          <a class="p-name sr-only" href="{{ .Permalink }}">{{ .Title }}</a>
+        {{ end }}
+        {{ with .Params.image }}
+          {{ $src := partial "media/image-url.html" (dict "page" $page "image" .) }}
+          <a href="{{ $page.Permalink }}"><img class="u-photo updates-feed__image" src="{{ $src }}" alt="{{ $page.Params.caption | default $page.Params.photo_caption | default $title }}" loading="lazy" /></a>
+        {{ else }}
+          {{ with .Params.cover }}
+            {{ $src := partial "media/image-url.html" (dict "page" $page "image" .) }}
+            <a href="{{ $page.Permalink }}"><img class="u-photo updates-feed__image" src="{{ $src }}" alt="{{ $title }}" loading="lazy" /></a>
+          {{ end }}
+        {{ end }}
+        {{ with (.Params.caption | default .Params.photo_caption) }}
+          <p class="updates-feed__caption">{{ . }}</p>
+        {{ end }}
+        <div class="e-content prose dark:prose-invert">
+          {{ if $isMicro }}
+            {{ .Content | emojify }}
+          {{ else if eq .Section "photos" }}
+            {{ with .Content }}{{ . | emojify }}{{ end }}
+          {{ else }}
+            {{ with .Description }}<p>{{ . }}</p>{{ else }}{{ .Summary | emojify }}{{ end }}
+          {{ end }}
+        </div>
+      </article>
+    {{ end }}
+  {{ end }}
+</section>

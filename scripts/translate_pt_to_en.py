@@ -91,9 +91,9 @@ def build_front_matter(item: Any, translated: dict[str, str]) -> OrderedDict[str
     result["translation_of"] = item.permalink
     result["auto_translated"] = True
     result["post_kind"] = fm.get("post_kind") or item.post_kind
-    result["federate"] = False
-    result["syndicate_bluesky"] = False
-    result["syndicate_mastodon"] = False
+    result["federate"] = True
+    result["syndicate_bluesky"] = True
+    result["syndicate_mastodon"] = True
     result["syndicate_linkedin"] = False
     result["social_text"] = ""
     result["social_intro"] = ""

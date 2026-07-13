@@ -6,8 +6,9 @@
       <time class="dt-published text-sm text-neutral-500 dark:text-neutral-400" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format ":date_medium" }}</time>
     </header>
     {{ with .Params.image }}
+      {{ $src := partial "media/image-url.html" (dict "page" $ "image" .) }}
       <figure class="photo-single">
-        <img class="u-photo" src="{{ . | relURL }}" alt="{{ $.Params.caption | default $.Title }}" />
+        <img class="u-photo" src="{{ $src }}" alt="{{ $.Params.caption | default $.Title }}" />
         {{ with $.Params.caption }}
           <figcaption>{{ . }}</figcaption>
         {{ end }}

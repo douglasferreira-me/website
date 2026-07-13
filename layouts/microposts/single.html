@@ -1,0 +1,21 @@
+{{ define "main" }}
+  <article class="h-entry micropost-single max-w-prose" lang="{{ .Params.lang | default .Site.Language.LanguageCode }}">
+    <header>
+      <a class="u-url" href="{{ .Permalink }}">
+        <time class="dt-published text-sm text-neutral-500 dark:text-neutral-400" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format ":date_medium" }}</time>
+      </a>
+      <p class="p-name sr-only">{{ .Title }}</p>
+      {{ if and (not .Draft) .Params.federate }}
+        <a class="u-bridgy-fed" href="https://fed.brid.gy/" hidden></a>
+      {{ end }}
+      {{ partial "social/syndication-links.html" . }}
+    </header>
+    <div class="e-content prose mt-4 dark:prose-invert">
+      {{ .Content | emojify }}
+    </div>
+    <footer class="pt-8 print:hidden">
+      {{ partial "webmentions.html" . }}
+      {{ partial "social/conversations.html" . }}
+    </footer>
+  </article>
+{{ end }}
