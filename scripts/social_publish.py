@@ -180,6 +180,8 @@ def missing_env(service: str) -> list[str]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--lang-prefix", default="", help="Only publish items whose lang starts with this value.")
+    parser.add_argument("--only-auto-translated", action="store_true")
     args = parser.parse_args()
 
     state = load_state()
@@ -190,6 +192,12 @@ def main() -> None:
     for item in collect_content({"blog", "microposts"}):
         if item.draft:
             print(f"Skipping {item.key}: draft is true")
+            continue
+        if args.lang_prefix and not item.lang.lower().startswith(args.lang_prefix.lower()):
+            print(f"Skipping {item.key}: lang {item.lang} does not match {args.lang_prefix}")
+            continue
+        if args.only_auto_translated and not bool(item.front_matter.get("auto_translated", False)):
+            print(f"Skipping {item.key}: not auto_translated")
             continue
         services = [service for service in publishers if wants(item, service)]
         if not services:
