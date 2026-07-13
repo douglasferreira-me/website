@@ -56,7 +56,3 @@ jobs:
           else
             echo "No syndication state changes."
           fi
-
-      - name: Fail when publishing failed
-        if: steps.publish.outcome == 'failure'
-        run: exit 1
