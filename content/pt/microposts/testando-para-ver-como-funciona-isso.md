@@ -1,7 +1,7 @@
 +++
 title = "testando para ver como funciona isso"
 date = 2026-07-13T12:05:00.000
-draft = true
+draft = false
 lang = "pt-BR"
 post_kind = "micropost"
 syndicate_bluesky = true

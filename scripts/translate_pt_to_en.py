@@ -112,7 +112,10 @@ def main() -> None:
 
     changed = False
     for item in collect_content({"blog", "microposts"}):
-        if item.draft or not item.lang.lower().startswith("pt"):
+        if item.draft:
+            print(f"Skipping {item.key}: draft is true")
+            continue
+        if not item.lang.lower().startswith("pt"):
             continue
         translated = openai_translate(item.title, str(item.front_matter.get("description") or ""), item.body)
         target = target_path_for(item, translated["title"])

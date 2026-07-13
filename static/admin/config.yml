@@ -28,7 +28,7 @@ collections:
     fields:
       - { label: Title, name: title, widget: string }
       - { label: Date, name: date, widget: datetime, default: "{{now}}" }
-      - { label: Draft, name: draft, widget: boolean, default: true }
+      - { label: Draft, name: draft, widget: boolean, default: true, hint: "Turn this off to publish and run automations." }
       - { label: Language, name: lang, widget: hidden, default: en }
       - { label: Post kind, name: post_kind, widget: hidden, default: micropost }
       - { label: Syndicate to Bluesky, name: syndicate_bluesky, widget: boolean, default: true }
@@ -51,7 +51,7 @@ collections:
     fields:
       - { label: Título, name: title, widget: string }
       - { label: Data, name: date, widget: datetime, default: "{{now}}" }
-      - { label: Rascunho, name: draft, widget: boolean, default: true }
+      - { label: Rascunho, name: draft, widget: boolean, default: true, hint: "Desligue para publicar e disparar as automações." }
       - { label: Idioma, name: lang, widget: hidden, default: pt-BR }
       - { label: Tipo de post, name: post_kind, widget: hidden, default: micropost }
       - { label: Publicar no Bluesky, name: syndicate_bluesky, widget: boolean, default: true }

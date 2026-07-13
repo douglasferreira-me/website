@@ -177,9 +177,11 @@ def main() -> None:
 
     for item in collect_content({"blog", "microposts"}):
         if item.draft:
+            print(f"Skipping {item.key}: draft is true")
             continue
         services = [service for service in publishers if wants(item, service)]
         if not services:
+            print(f"Skipping {item.key}: no syndicate_* flag is enabled")
             continue
         try:
             message = compose_message(item)
@@ -194,6 +196,7 @@ def main() -> None:
 
         for service in services:
             if record["targets"].get(service, {}).get("url"):
+                print(f"Skipping {service} for {item.key}: already published")
                 continue
             missing = missing_env(service)
             if missing:
