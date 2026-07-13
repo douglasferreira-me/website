@@ -29,6 +29,24 @@
     },
     "title": "Testing to See How This Works"
   },
+  "content/pt/microposts/2026-07-13-16-03-19.md": {
+    "comments": [],
+    "permalink": "https://douglasferreira.me/pt-br/microposts/2026-07-13-16-03-19/",
+    "targets": {
+      "bluesky": {
+        "cid": "bafyreid7cekzgxjwchxktuckaejpf5hx3orqzipvma6axjwqfae3opzdva",
+        "published_at": "2026-07-13T16:03:28Z",
+        "uri": "at://did:plc:lzwaqbkcorbuts46hli7cnid/app.bsky.feed.post/3mqk2xmocou2z",
+        "url": "https://bsky.app/profile/douglasferreira.me/post/3mqk2xmocou2z"
+      },
+      "mastodon": {
+        "id": "116913511396425883",
+        "published_at": "2026-07-13T16:03:29Z",
+        "url": "https://mastodon.social/@douglasferreira/116913511396425883"
+      }
+    },
+    "title": "2026-07-13-16-03-19"
+  },
   "content/pt/microposts/testando-para-ver-como-funciona-isso.md": {
     "comments": [],
     "permalink": "https://douglasferreira.me/pt-br/microposts/testando-para-ver-como-funciona-isso/",
