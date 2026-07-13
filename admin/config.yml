@@ -208,6 +208,50 @@ collections:
       - { label: Mostrar no feed geral, name: show_in_updates, widget: boolean, default: true }
       - { label: Corpo, name: body, widget: markdown, required: false }
 
+  - name: media_en
+    label: In the media (English)
+    label_singular: Media item
+    folder: content/en/media
+    path: "{{slug}}"
+    create: true
+    extension: md
+    format: toml-frontmatter
+    preview_path: media/{{slug}}/
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, default: "{{now}}" }
+      - { label: Draft, name: draft, widget: boolean, default: true }
+      - { label: Outlet, name: outlet, widget: string, required: false }
+      - { label: External URL, name: external_url, widget: string }
+      - { label: Image, name: image, widget: image, required: false }
+      - { label: Description, name: description, widget: text, required: false }
+      - { label: Show in updates, name: show_in_updates, widget: boolean, default: true }
+      - { label: Body, name: body, widget: markdown, required: false }
+
+  - name: media_pt
+    label: Na mídia (Português)
+    label_singular: Item de mídia
+    folder: content/pt/media
+    path: "{{slug}}"
+    create: true
+    extension: md
+    format: toml-frontmatter
+    preview_path: pt-br/media/{{slug}}/
+    editor:
+      preview: false
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Data, name: date, widget: datetime, default: "{{now}}" }
+      - { label: Rascunho, name: draft, widget: boolean, default: true }
+      - { label: Veículo, name: outlet, widget: string, required: false }
+      - { label: URL externa, name: external_url, widget: string }
+      - { label: Imagem, name: image, widget: image, required: false }
+      - { label: Descrição, name: description, widget: text, required: false }
+      - { label: Mostrar no feed geral, name: show_in_updates, widget: boolean, default: true }
+      - { label: Corpo, name: body, widget: markdown, required: false }
+
   - name: pages_en
     label: Pages (English)
     editor:
@@ -231,6 +275,14 @@ collections:
           - { label: Title, name: title, widget: string }
           - { label: Description, name: description, widget: text, required: false }
           - { label: Body, name: body, widget: markdown }
+      - name: papers_en
+        label: Papers
+        file: content/en/papers/_index.md
+        format: toml-frontmatter
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: description, widget: text, required: false }
+          - { label: Body, name: body, widget: markdown }
 
   - name: pages_pt
     label: Pages (Português)
@@ -245,5 +297,13 @@ collections:
           - { label: Título, name: title, widget: string }
           - { label: Data, name: date, widget: datetime, required: false }
           - { label: Rascunho, name: draft, widget: boolean, required: false, default: false }
+          - { label: Descrição, name: description, widget: text, required: false }
+          - { label: Corpo, name: body, widget: markdown }
+      - name: papers_pt
+        label: Papers
+        file: content/pt/papers/_index.md
+        format: toml-frontmatter
+        fields:
+          - { label: Título, name: title, widget: string }
           - { label: Descrição, name: description, widget: text, required: false }
           - { label: Corpo, name: body, widget: markdown }
