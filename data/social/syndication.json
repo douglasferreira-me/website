@@ -1,1 +1,13 @@
-{}
+{
+  "content/pt/microposts/testando-para-ver-como-funciona-isso.md": {
+    "comments": [],
+    "permalink": "https://douglasferreira.me/pt-br/microposts/testando-para-ver-como-funciona-isso/",
+    "targets": {
+      "bluesky": {
+        "published_at": "2026-07-13T15:16:06Z",
+        "url": "https://bsky.app/profile/douglasferreira.me/post/3mqjycvg4bf2e"
+      }
+    },
+    "title": "testando para ver como funciona isso"
+  }
+}

@@ -23,6 +23,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Publish selected posts
+        id: publish
+        continue-on-error: true
         env:
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
           BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
@@ -35,12 +37,14 @@ jobs:
         run: python3 scripts/social_publish.py
 
       - name: Collect public replies
+        if: always()
         env:
           MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
           MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
         run: python3 scripts/social_collect_comments.py
 
       - name: Commit syndication state
+        if: always()
         run: |
           git pull --rebase origin main
           git config user.name "github-actions[bot]"
@@ -52,3 +56,7 @@ jobs:
           else
             echo "No syndication state changes."
           fi
+
+      - name: Fail when publishing failed
+        if: steps.publish.outcome == 'failure'
+        run: exit 1
