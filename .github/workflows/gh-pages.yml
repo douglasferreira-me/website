@@ -25,6 +25,9 @@ jobs:
           hugo-version: "0.152.2"
           extended: true
 
+      - name: Fetch media previews
+        run: python3 scripts/fetch_media_previews.py
+
       - name: Build
         run: hugo --minify --printPathWarnings --destination public --cleanDestinationDir
 

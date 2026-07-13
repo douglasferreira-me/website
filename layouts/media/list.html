@@ -5,21 +5,23 @@
   <section class="prose mt-0 max-w-prose dark:prose-invert">
     {{ .Content | emojify }}
   </section>
-  {{ $items := slice }}
-  {{ range site.Sites }}
-    {{ $items = $items | append (where .RegularPages "Section" "media") }}
-  {{ end }}
+  {{ $items := where .Site.RegularPages "Lang" .Site.Language.Lang }}
+  {{ $items = where $items "Section" "media" }}
   <section class="media-grid mt-8">
     {{ range sort $items "Date" "desc" }}
       {{ $page := . }}
       {{ $title := .Title }}
+      {{ $link := .Params.external_url | default .Permalink }}
+      {{ $displayTitle := $title }}
+      {{ with .Params.outlet }}
+        {{ $displayTitle = printf "%s: %s" . $title }}
+      {{ end }}
       <article class="media-card">
-        {{ with .Params.image }}
+        {{ with (.Params.image | default .Params.external_image) }}
           {{ $src := partial "media/image-url.html" (dict "page" $page "image" .) }}
-          <a href="{{ $page.Params.external_url | default $page.Permalink }}"><img src="{{ $src }}" alt="{{ $title }}" loading="lazy" /></a>
+          <a href="{{ $link }}"><img src="{{ $src }}" alt="{{ $title }}" loading="lazy" /></a>
         {{ end }}
-        <h2><a href="{{ .Params.external_url | default .Permalink }}">{{ .Title }}</a></h2>
-        {{ with .Params.outlet }}<p>{{ . }}</p>{{ end }}
+        <h2><a href="{{ $link }}">{{ $displayTitle }}</a></h2>
         {{ with .Description }}<p>{{ . }}</p>{{ end }}
       </article>
     {{ end }}

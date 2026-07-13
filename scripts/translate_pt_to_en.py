@@ -104,6 +104,7 @@ def build_front_matter(item: Any, translated: dict[str, str]) -> OrderedDict[str
     result["social_text"] = ""
     result["social_intro"] = ""
     result["image"] = fm.get("image") or ""
+    result["external_image"] = fm.get("external_image") or ""
     result["cover"] = fm.get("cover") or ""
     result["caption"] = fm.get("caption") or ""
     result["photo_caption"] = fm.get("photo_caption") or ""

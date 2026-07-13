@@ -75,7 +75,9 @@ jobs:
 
       - name: Build translated site
         if: steps.translated.outputs.changed == 'true'
-        run: hugo --minify --printPathWarnings --destination public --cleanDestinationDir
+        run: |
+          python3 scripts/fetch_media_previews.py
+          hugo --minify --printPathWarnings --destination public --cleanDestinationDir
 
       - name: Validate translated site
         if: steps.translated.outputs.changed == 'true'

@@ -1,6 +1,7 @@
 {{- $sections := slice "blog" "microposts" "photos" "books" "media" -}}
 {{- $context := .context | default . -}}
-{{- $pages := where $context.Site.RegularPages "Section" "in" $sections -}}
+{{- $pages := where $context.Site.RegularPages "Lang" $context.Site.Language.Lang -}}
+{{- $pages = where $pages "Section" "in" $sections -}}
 {{- $limit := .limit | default 0 -}}
 {{- $pages = sort $pages "Date" "desc" -}}
 {{- if gt $limit 0 -}}
@@ -12,10 +13,17 @@
       {{ $page := . }}
       {{ $title := .Title }}
       {{ $displayTitle := $title }}
+      {{ $link := .Permalink }}
       {{ $isMicro := or (eq .Section "microposts") (eq .Params.post_kind "micropost") }}
       {{ $hasRealDate := gt .Date.Year 1 }}
       {{ if and (eq .Section "books") (eq .Params.status "reading") }}
         {{ $displayTitle = printf "%s: %s" (cond (eq .Site.Language.Lang "pt-br") "Lendo agora" "Reading now") $title }}
+      {{ end }}
+      {{ if eq .Section "media" }}
+        {{ $link = .Params.external_url | default .Permalink }}
+        {{ with .Params.outlet }}
+          {{ $displayTitle = printf "%s: %s" . $title }}
+        {{ end }}
       {{ end }}
       <article class="h-entry updates-feed__item updates-feed__item--{{ .Section }}">
         {{ if $hasRealDate }}
@@ -26,17 +34,17 @@
           <a class="u-url" href="{{ .Permalink }}" hidden></a>
         {{ end }}
         {{ if not $isMicro }}
-          <h2 class="p-name"><a href="{{ .Permalink }}">{{ $displayTitle }}</a></h2>
+          <h2 class="p-name"><a href="{{ $link }}">{{ $displayTitle }}</a></h2>
         {{ else }}
           <span class="p-name" hidden>{{ .Plain | truncate 120 }}</span>
         {{ end }}
-        {{ with .Params.image }}
+        {{ with (.Params.image | default .Params.external_image) }}
           {{ $src := partial "media/image-url.html" (dict "page" $page "image" .) }}
-          <a href="{{ $page.Permalink }}"><img class="u-photo updates-feed__image" src="{{ $src }}" alt="{{ $page.Params.caption | default $page.Params.photo_caption | default $title }}" loading="lazy" /></a>
+          <a href="{{ $link }}"><img class="u-photo updates-feed__image" src="{{ $src }}" alt="{{ $page.Params.caption | default $page.Params.photo_caption | default $title }}" loading="lazy" /></a>
         {{ else }}
           {{ with .Params.cover }}
             {{ $src := partial "media/image-url.html" (dict "page" $page "image" .) }}
-            <a href="{{ $page.Permalink }}"><img class="u-photo updates-feed__image" src="{{ $src }}" alt="{{ $title }}" loading="lazy" /></a>
+            <a href="{{ $link }}"><img class="u-photo updates-feed__image" src="{{ $src }}" alt="{{ $title }}" loading="lazy" /></a>
           {{ end }}
         {{ end }}
         {{ with (.Params.caption | default .Params.photo_caption) }}
