@@ -16,6 +16,7 @@ syndicate_linkedin = false
 social_text = ""
 social_intro = ""
 image = ""
+external_image = ""
 cover = ""
 caption = ""
 photo_caption = ""
@@ -30,4 +31,4 @@ outlet = ""
 external_url = ""
 +++
 
-Testing to see if it publishes automatically from my website.
+Testing to see if it publishes automatically from my site.

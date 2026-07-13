@@ -16,6 +16,7 @@ syndicate_linkedin = false
 social_text = ""
 social_intro = ""
 image = ""
+external_image = ""
 cover = ""
 caption = ""
 photo_caption = ""
