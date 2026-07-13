@@ -77,9 +77,9 @@ fingerprintAlgorithm = "sha256"
   # event = ""
   # script = ""
 
-#[umamiAnalytics]
-#  site = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-#  region = "eu"  # can be either "eu" or "us"
+[umamiAnalytics]
+  site = "d9184aed-12f4-4d34-80b1-3f9f3c54a2aa"
+  region = "eu"  # can be either "eu" or "us"
 
 [verification]
   # google = ""
