@@ -21,7 +21,7 @@
         {{ if not $isMicro }}
           <h2 class="p-name"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
         {{ else }}
-          <a class="p-name sr-only" href="{{ .Permalink }}">{{ .Title }}</a>
+          <span class="p-name" hidden>{{ .Plain | truncate 120 }}</span>
         {{ end }}
         {{ with .Params.image }}
           {{ $src := partial "media/image-url.html" (dict "page" $page "image" .) }}

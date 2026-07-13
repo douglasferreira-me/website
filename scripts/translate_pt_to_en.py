@@ -81,8 +81,9 @@ def can_overwrite(path: Path) -> bool:
 
 def build_front_matter(item: Any, translated: dict[str, str]) -> OrderedDict[str, Any]:
     fm = item.front_matter
+    is_micropost = (fm.get("post_kind") or item.post_kind) == "micropost"
     result: OrderedDict[str, Any] = OrderedDict()
-    result["title"] = translated["title"]
+    result["title"] = "" if is_micropost else translated["title"]
     result["date"] = fm.get("date")
     result["draft"] = False
     result["description"] = translated["description"]
