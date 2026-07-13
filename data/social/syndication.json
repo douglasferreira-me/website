@@ -45,7 +45,25 @@
         "published_at": "2026-07-13T15:54:19Z"
       }
     },
-    "title": "Testing to See How This Works"
+    "title": "testando-para-ver-como-funciona-isso"
+  },
+  "content/pt/blog/um-poema-para-testar-publicacoes-longas-e-como-ficarao-no-bluesky-e-no-mastodon.md": {
+    "comments": [],
+    "permalink": "https://douglasferreira.me/pt-br/blog/um-poema-para-testar-publicacoes-longas-e-como-ficarao-no-bluesky-e-no-mastodon/",
+    "targets": {
+      "bluesky": {
+        "cid": "bafyreianwiban7yoxyu674egzoujtkqzu2y2e6c6qdlfnqqjsimgndxbhi",
+        "published_at": "2026-07-13T18:08:18Z",
+        "uri": "at://did:plc:lzwaqbkcorbuts46hli7cnid/app.bsky.feed.post/3mqkbwt67lj2a",
+        "url": "https://bsky.app/profile/douglasferreira.me/post/3mqkbwt67lj2a"
+      },
+      "mastodon": {
+        "id": "116914002238429680",
+        "published_at": "2026-07-13T18:08:19Z",
+        "url": "https://mastodon.social/@douglasferreira/116914002238429680"
+      }
+    },
+    "title": "Um poema para testar publicações longas e como ficarão no bluesky e no mastodon"
   },
   "content/pt/microposts/2026-07-13-16-03-19.md": {
     "comments": [],
