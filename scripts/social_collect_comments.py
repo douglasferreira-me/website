@@ -7,6 +7,7 @@ import argparse
 import json
 import os
 import re
+import urllib.error
 import urllib.parse
 import urllib.request
 from typing import Any
@@ -24,6 +25,14 @@ def get_json(url: str, headers: dict[str, str] | None = None) -> dict[str, Any]:
         req.add_header(key, value)
     with urllib.request.urlopen(req, timeout=30) as response:
         return json.loads(response.read().decode("utf-8"))
+
+
+def safe_collect(label: str, callback: Any) -> list[dict[str, str]]:
+    try:
+        return callback()
+    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
+        print(f"Skipping {label} replies: {exc}")
+        return []
 
 
 def html_to_text(html: str) -> str:
@@ -104,9 +113,9 @@ def main() -> None:
         targets = record.get("targets") or {}
         comments: list[dict[str, str]] = []
         if targets.get("mastodon"):
-            comments.extend(mastodon_replies(targets["mastodon"]))
+            comments.extend(safe_collect(f"{key} mastodon", lambda: mastodon_replies(targets["mastodon"])))
         if targets.get("bluesky"):
-            comments.extend(bluesky_replies(targets["bluesky"]))
+            comments.extend(safe_collect(f"{key} bluesky", lambda: bluesky_replies(targets["bluesky"])))
         comments = dedupe([item for item in comments if item.get("text") or item.get("url")])
         if comments != record.get("comments", []):
             print(f"Collected {len(comments)} replies for {key}")
