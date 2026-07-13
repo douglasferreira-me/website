@@ -1,9 +1,10 @@
 +++
-date = '2025-12-07T16:36:09-03:00'
+title = "About"
+date = 2025-12-07T16:36:00.000
 draft = false
-title = 'About'
+description = ""
 +++
 
-# Testando para ver como fica.
+![](/uploads/WhatsApp%20Image%202026-06-23%20at%2015%2C47%2C05-photoaidcom-greyscale.png)
 
-é assim que esse treco vai aparecer.
+Pensar em um texto para colocar aqui.
