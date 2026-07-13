@@ -14,6 +14,24 @@
     },
     "title": "Testing BridgyFed Again"
   },
+  "content/en/microposts/2026-07-13-16-03-19.md": {
+    "comments": [],
+    "permalink": "https://douglasferreira.me/microposts/2026-07-13-16-03-19/",
+    "targets": {
+      "bluesky": {
+        "cid": "bafyreiglckljtitr3rlqtsa3fsifgsevhi6tqddz5hyxjb26jfmdafff4u",
+        "published_at": "2026-07-13T16:09:45Z",
+        "uri": "at://did:plc:lzwaqbkcorbuts46hli7cnid/app.bsky.feed.post/3mqk3ctxfpu2c",
+        "url": "https://bsky.app/profile/douglasferreira.me/post/3mqk3ctxfpu2c"
+      },
+      "mastodon": {
+        "id": "116913536106909364",
+        "published_at": "2026-07-13T16:09:46Z",
+        "url": "https://mastodon.social/@douglasferreira/116913536106909364"
+      }
+    },
+    "title": "2026-07-13-16-03-19"
+  },
   "content/en/microposts/testando-para-ver-como-funciona-isso.md": {
     "comments": [],
     "permalink": "https://douglasferreira.me/microposts/testando-para-ver-como-funciona-isso/",
