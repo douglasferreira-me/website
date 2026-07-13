@@ -196,10 +196,14 @@ def main() -> None:
         "updates/index.html",
         "books/index.html",
         "photos/index.html",
+        "media/index.html",
+        "papers/index.html",
         "pt-br/microposts/index.html",
         "pt-br/updates/index.html",
         "pt-br/books/index.html",
         "pt-br/photos/index.html",
+        "pt-br/media/index.html",
+        "pt-br/papers/index.html",
     ]
     for rel_path in required_pages:
         if not (site_dir / rel_path).exists():

@@ -7,6 +7,7 @@ import argparse
 import json
 import os
 import re
+import shutil
 import sys
 import urllib.request
 from collections import OrderedDict
@@ -98,7 +99,30 @@ def build_front_matter(item: Any, translated: dict[str, str]) -> OrderedDict[str
     result["social_text"] = ""
     result["social_intro"] = ""
     result["image"] = fm.get("image") or ""
+    result["cover"] = fm.get("cover") or ""
+    result["caption"] = fm.get("caption") or ""
+    result["photo_caption"] = fm.get("photo_caption") or ""
+    result["show_in_updates"] = fm.get("show_in_updates", True)
+    result["show_image_in_photos"] = fm.get("show_image_in_photos", False)
+    result["author"] = fm.get("author") or ""
+    result["status"] = fm.get("status") or ""
+    result["started"] = fm.get("started")
+    result["finished"] = fm.get("finished")
+    result["rating"] = fm.get("rating")
+    result["outlet"] = fm.get("outlet") or ""
+    result["external_url"] = fm.get("external_url") or ""
     return result
+
+
+def copy_media_assets(item: Any, target: Path) -> None:
+    for key in ("image", "cover"):
+        value = str(item.front_matter.get(key) or "")
+        if not value or value.startswith(("http://", "https://", "/")):
+            continue
+        source = item.path.parent / value
+        if source.exists():
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, target.parent / value)
 
 
 def main() -> None:
@@ -111,7 +135,7 @@ def main() -> None:
         return
 
     changed = False
-    for item in collect_content({"blog", "microposts"}):
+    for item in collect_content({"blog", "microposts", "books", "photos", "media"}):
         if item.draft:
             print(f"Skipping {item.key}: draft is true")
             continue
@@ -124,6 +148,7 @@ def main() -> None:
             continue
         print(f"Writing translation for {item.key} -> {target.relative_to(ROOT)}")
         if not args.dry_run:
+            copy_media_assets(item, target)
             write_toml_markdown(target, build_front_matter(item, translated), translated["body"])
             changed = True
 

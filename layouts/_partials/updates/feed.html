@@ -1,5 +1,8 @@
-{{- $sections := slice "blog" "microposts" "photos" "books" -}}
-{{- $pages := where site.RegularPages "Section" "in" $sections -}}
+{{- $sections := slice "blog" "microposts" "photos" "books" "media" -}}
+{{- $pages := slice -}}
+{{- range site.Sites -}}
+  {{- $pages = $pages | append (where .RegularPages "Section" "in" $sections) -}}
+{{- end -}}
 {{- $limit := .limit | default 0 -}}
 {{- $pages = sort $pages "Date" "desc" -}}
 {{- if gt $limit 0 -}}
@@ -35,7 +38,7 @@
         <div class="e-content prose dark:prose-invert">
           {{ if $isMicro }}
             {{ .Content | emojify }}
-          {{ else if eq .Section "photos" }}
+          {{ else if in (slice "photos" "media") .Section }}
             {{ with .Content }}{{ . | emojify }}{{ end }}
           {{ else }}
             {{ with .Description }}<p>{{ . }}</p>{{ else }}{{ .Summary | emojify }}{{ end }}

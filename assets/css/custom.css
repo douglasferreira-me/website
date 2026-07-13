@@ -60,10 +60,18 @@ body > header nav > ul {
   margin-left: auto;
   max-width: 58rem;
   row-gap: 0.45rem;
+  text-align: right;
 }
 
 body > header nav > ul > li {
+  font-size: 0.9rem;
+  line-height: 1.2;
   margin-inline-end: 0 !important;
+}
+
+body > header nav a[title*="Circuitos Humanos"],
+body > header nav a[title*="Human Circuits"] {
+  color: #5f006f;
 }
 
 .social-conversations {
@@ -133,7 +141,18 @@ body > header nav > ul > li {
   margin-top: 0.4rem;
 }
 
-.book-grid {
+.book-section {
+  margin-top: 2rem;
+}
+
+.book-section h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.book-grid,
+.media-grid {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -141,20 +160,31 @@ body > header nav > ul > li {
 
 .book-card img,
 .book-card__placeholder,
+.media-card img,
 .book-single__cover {
   border-radius: 0.4rem;
   box-shadow: 0 10px 25px rgb(0 0 0 / 0.12);
   width: 100%;
 }
 
-.book-card h2 {
+.book-section--archive .book-grid {
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+}
+
+.book-section--archive .book-card {
+  font-size: 0.9rem;
+}
+
+.book-card h3,
+.media-card h2 {
   font-size: 1rem;
   font-weight: 700;
   margin: 0.75rem 0 0.2rem;
 }
 
 .book-card p,
-.book-card span {
+.book-card span,
+.media-card p {
   color: rgb(var(--color-neutral-500));
   display: block;
   font-size: 0.85rem;

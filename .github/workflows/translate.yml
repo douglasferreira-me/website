@@ -8,6 +8,9 @@ on:
     paths:
       - "content/pt/blog/**"
       - "content/pt/microposts/**"
+      - "content/pt/books/**"
+      - "content/pt/photos/**"
+      - "content/pt/media/**"
       - "scripts/translate_pt_to_en.py"
       - "scripts/site_content.py"
       - ".github/workflows/translate.yml"

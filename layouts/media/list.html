@@ -1,0 +1,27 @@
+{{ define "main" }}
+  <header>
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+  </header>
+  <section class="prose mt-0 max-w-prose dark:prose-invert">
+    {{ .Content | emojify }}
+  </section>
+  {{ $items := slice }}
+  {{ range site.Sites }}
+    {{ $items = $items | append (where .RegularPages "Section" "media") }}
+  {{ end }}
+  <section class="media-grid mt-8">
+    {{ range sort $items "Date" "desc" }}
+      {{ $page := . }}
+      {{ $title := .Title }}
+      <article class="media-card">
+        {{ with .Params.image }}
+          {{ $src := partial "media/image-url.html" (dict "page" $page "image" .) }}
+          <a href="{{ $page.Params.external_url | default $page.Permalink }}"><img src="{{ $src }}" alt="{{ $title }}" loading="lazy" /></a>
+        {{ end }}
+        <h2><a href="{{ .Params.external_url | default .Permalink }}">{{ .Title }}</a></h2>
+        {{ with .Params.outlet }}<p>{{ . }}</p>{{ end }}
+        {{ with .Description }}<p>{{ . }}</p>{{ end }}
+      </article>
+    {{ end }}
+  </section>
+{{ end }}

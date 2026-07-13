@@ -2,7 +2,7 @@
 {{- $image := .image -}}
 {{- if or (hasPrefix $image "http://") (hasPrefix $image "https://") (hasPrefix $image "/") -}}
   {{- $image | relURL -}}
-{{- else if and $page (eq $page.Section "photos") -}}
+{{- else if and $page (in (slice "photos" "books" "media") $page.Section) -}}
   {{- printf "%s%s" $page.CurrentSection.RelPermalink $image | relURL -}}
 {{- else -}}
   {{- $image | relURL -}}

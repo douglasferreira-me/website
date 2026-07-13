@@ -5,7 +5,8 @@
       {{ with .Params.author }}<p class="text-neutral-500 dark:text-neutral-400">{{ . }}</p>{{ end }}
     </header>
     {{ with .Params.cover }}
-      <img class="book-single__cover" src="{{ . | relURL }}" alt="{{ $.Title }}" />
+      {{ $src := partial "media/image-url.html" (dict "page" $ "image" .) }}
+      <img class="book-single__cover" src="{{ $src }}" alt="{{ $.Title }}" />
     {{ end }}
     <dl class="book-single__meta">
       {{ with .Params.status }}<dt>Status</dt><dd>{{ . }}</dd>{{ end }}

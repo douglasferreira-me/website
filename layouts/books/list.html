@@ -5,21 +5,16 @@
   <section class="prose mt-0 max-w-prose dark:prose-invert">
     {{ .Content | emojify }}
   </section>
-  <section class="book-grid mt-8">
-    {{ range .Pages.ByDate.Reverse }}
-      {{ $title := .Title }}
-      <article class="book-card">
-        <a href="{{ .Permalink }}">
-          {{ with .Params.cover }}
-            <img src="{{ . | relURL }}" alt="{{ $title }}" loading="lazy" />
-          {{ else }}
-            <div class="book-card__placeholder">{{ .Title }}</div>
-          {{ end }}
-        </a>
-        <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-        {{ with .Params.author }}<p>{{ . }}</p>{{ end }}
-        {{ with .Params.status }}<span>{{ . }}</span>{{ end }}
-      </article>
-    {{ end }}
-  </section>
+
+  {{ $allBooks := slice }}
+  {{ range site.Sites }}
+    {{ $allBooks = $allBooks | append (where .RegularPages "Section" "books") }}
+  {{ end }}
+  {{ $reading := where $allBooks "Params.status" "reading" }}
+  {{ $finished := where $allBooks "Params.status" "finished" }}
+  {{ $other := where (where $allBooks "Params.status" "not in" (slice "reading" "finished")) "Params.status" "!=" nil }}
+
+  {{ partial "books/grid.html" (dict "title" (cond (eq .Site.Language.Lang "pt-br") "Lendo agora" "Reading now") "books" $reading "current" true "lang" .Site.Language.Lang) }}
+  {{ partial "books/grid.html" (dict "title" (cond (eq .Site.Language.Lang "pt-br") "Lidos" "Read") "books" $finished "current" false "lang" .Site.Language.Lang) }}
+  {{ partial "books/grid.html" (dict "title" (cond (eq .Site.Language.Lang "pt-br") "Outros" "Other") "books" $other "current" false "lang" .Site.Language.Lang) }}
 {{ end }}

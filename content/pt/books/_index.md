@@ -1,5 +1,5 @@
 +++
-title = "Livros"
+title = "Leituras"
 description = "Livros que estou lendo e já li."
 +++
 

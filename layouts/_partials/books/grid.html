@@ -1,0 +1,38 @@
+{{- $books := .books | default slice -}}
+{{- if $books -}}
+  <section class="{{ if .current }}book-section book-section--current{{ else }}book-section book-section--archive{{ end }}">
+    <h2>{{ .title }}</h2>
+    <div class="book-grid">
+      {{ range sort $books "Date" "desc" }}
+        {{ $page := . }}
+        {{ $title := .Title }}
+        {{ $status := .Params.status }}
+        {{ $statusLabel := $status }}
+        {{ if eq $.lang "pt-br" }}
+          {{ if eq $status "reading" }}{{ $statusLabel = "Lendo" }}{{ end }}
+          {{ if eq $status "finished" }}{{ $statusLabel = "Lido" }}{{ end }}
+          {{ if eq $status "paused" }}{{ $statusLabel = "Pausado" }}{{ end }}
+          {{ if eq $status "want_to_read" }}{{ $statusLabel = "Quero ler" }}{{ end }}
+        {{ else }}
+          {{ if eq $status "reading" }}{{ $statusLabel = "Reading" }}{{ end }}
+          {{ if eq $status "finished" }}{{ $statusLabel = "Read" }}{{ end }}
+          {{ if eq $status "paused" }}{{ $statusLabel = "Paused" }}{{ end }}
+          {{ if eq $status "want_to_read" }}{{ $statusLabel = "Want to read" }}{{ end }}
+        {{ end }}
+        <article class="book-card">
+          <a href="{{ .Permalink }}">
+            {{ with .Params.cover }}
+              {{ $src := partial "media/image-url.html" (dict "page" $page "image" .) }}
+              <img src="{{ $src }}" alt="{{ $title }}" loading="lazy" />
+            {{ else }}
+              <div class="book-card__placeholder">{{ .Title }}</div>
+            {{ end }}
+          </a>
+          <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+          {{ with .Params.author }}<p>{{ . }}</p>{{ end }}
+          {{ with $statusLabel }}<span>{{ . }}</span>{{ end }}
+        </article>
+      {{ end }}
+    </div>
+  </section>
+{{- end -}}
