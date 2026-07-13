@@ -1,7 +1,7 @@
 +++
 title = "Testando Novamente o BridgyFed"
 date = 2026-07-13T09:39:00.000
-draft = true
+draft = false
 description = "Teste n#2"
 tags = []
 categories = []
