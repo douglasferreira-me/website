@@ -31,8 +31,8 @@ def html_to_text(html: str) -> str:
 
 
 def mastodon_replies(target: dict[str, str]) -> list[dict[str, str]]:
-    instance = os.environ.get("MASTODON_INSTANCE", "").rstrip("/")
-    token = os.environ.get("MASTODON_ACCESS_TOKEN", "")
+    instance = os.environ.get("MASTODON_INSTANCE", "").strip().rstrip("/")
+    token = os.environ.get("MASTODON_ACCESS_TOKEN", "").strip()
     status_id = target.get("id")
     if not instance or not token or not status_id:
         return []

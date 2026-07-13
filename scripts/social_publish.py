@@ -39,9 +39,13 @@ def request_json(url: str, payload: dict[str, Any], headers: dict[str, str] | No
     req.add_header("Content-Type", "application/json")
     for key, value in (headers or {}).items():
         req.add_header(key, value)
-    with urllib.request.urlopen(req, timeout=30) as response:
-        text = response.read().decode("utf-8")
-        return (json.loads(text) if text else {}, dict(response.headers.items()))
+    try:
+        with urllib.request.urlopen(req, timeout=30) as response:
+            text = response.read().decode("utf-8")
+            return (json.loads(text) if text else {}, dict(response.headers.items()))
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"HTTP {exc.code} from {url}: {detail}") from exc
 
 
 def request_form(url: str, data: dict[str, str], headers: dict[str, str]) -> tuple[dict[str, Any], dict[str, str]]:
@@ -50,9 +54,17 @@ def request_form(url: str, data: dict[str, str], headers: dict[str, str]) -> tup
     req.add_header("Content-Type", "application/x-www-form-urlencoded")
     for key, value in headers.items():
         req.add_header(key, value)
-    with urllib.request.urlopen(req, timeout=30) as response:
-        text = response.read().decode("utf-8")
-        return (json.loads(text) if text else {}, dict(response.headers.items()))
+    try:
+        with urllib.request.urlopen(req, timeout=30) as response:
+            text = response.read().decode("utf-8")
+            return (json.loads(text) if text else {}, dict(response.headers.items()))
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"HTTP {exc.code} from {url}: {detail}") from exc
+
+
+def env_value(name: str, default: str = "") -> str:
+    return os.environ.get(name, default).strip()
 
 
 def truncate_for_bluesky(text: str, permalink: str) -> str:
@@ -92,9 +104,9 @@ def compose_message(item: Any) -> str:
 
 
 def post_bluesky(text: str) -> dict[str, str]:
-    handle = os.environ["BLUESKY_HANDLE"]
-    password = os.environ["BLUESKY_APP_PASSWORD"]
-    pds = os.environ.get("BLUESKY_PDS", "https://bsky.social").rstrip("/")
+    handle = env_value("BLUESKY_HANDLE").removeprefix("@")
+    password = env_value("BLUESKY_APP_PASSWORD")
+    pds = env_value("BLUESKY_PDS", "https://bsky.social").rstrip("/")
     session, _ = request_json(f"{pds}/xrpc/com.atproto.server.createSession", {"identifier": handle, "password": password})
     access = session["accessJwt"]
     did = session["did"]
@@ -117,8 +129,8 @@ def post_bluesky(text: str) -> dict[str, str]:
 
 
 def post_mastodon(text: str, lang: str) -> dict[str, str]:
-    instance = os.environ["MASTODON_INSTANCE"].rstrip("/")
-    token = os.environ["MASTODON_ACCESS_TOKEN"]
+    instance = env_value("MASTODON_INSTANCE").rstrip("/")
+    token = env_value("MASTODON_ACCESS_TOKEN")
     status, _ = request_form(
         f"{instance}/api/v1/statuses",
         {"status": text, "visibility": "public", "language": "pt" if lang.lower().startswith("pt") else "en"},
@@ -128,9 +140,9 @@ def post_mastodon(text: str, lang: str) -> dict[str, str]:
 
 
 def post_linkedin(text: str) -> dict[str, str]:
-    token = os.environ["LINKEDIN_ACCESS_TOKEN"]
-    author = os.environ["LINKEDIN_AUTHOR_URN"]
-    version = os.environ.get("LINKEDIN_VERSION", "202606")
+    token = env_value("LINKEDIN_ACCESS_TOKEN")
+    author = env_value("LINKEDIN_AUTHOR_URN")
+    version = env_value("LINKEDIN_VERSION", "202606")
     payload = {
         "author": author,
         "commentary": text,
@@ -162,7 +174,7 @@ def missing_env(service: str) -> list[str]:
         "mastodon": ["MASTODON_INSTANCE", "MASTODON_ACCESS_TOKEN"],
         "linkedin": ["LINKEDIN_ACCESS_TOKEN", "LINKEDIN_AUTHOR_URN"],
     }[service]
-    return [name for name in required if not os.environ.get(name)]
+    return [name for name in required if not env_value(name)]
 
 
 def main() -> None:
@@ -214,15 +226,15 @@ def main() -> None:
                 record["targets"][service] = result
                 changed = True
                 print(f"Published {item.key} to {service}: {result.get('url')}")
-            except (urllib.error.URLError, KeyError, ValueError) as exc:
+            except (RuntimeError, urllib.error.URLError, KeyError, ValueError) as exc:
                 failures.append(f"{service} failed for {item.key}: {exc}")
 
+    if changed and not args.dry_run:
+        save_state(state)
     if failures:
         for failure in failures:
             print(f"ERROR: {failure}", file=sys.stderr)
         raise SystemExit(1)
-    if changed and not args.dry_run:
-        save_state(state)
 
 
 if __name__ == "__main__":
