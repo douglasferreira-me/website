@@ -10,6 +10,7 @@ on:
       - "content/pt/microposts/**"
       - "scripts/translate_pt_to_en.py"
       - "scripts/site_content.py"
+      - ".github/workflows/translate.yml"
 
 permissions:
   contents: write
@@ -30,12 +31,12 @@ jobs:
 
       - name: Commit translated content
         run: |
-          git pull --rebase origin main
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add content/en
           if ! git diff --cached --quiet; then
             git commit -m "Auto-translate Portuguese posts [skip social] [skip translate]"
+            git pull --rebase origin main
             git push
           else
             echo "No translated content changes."
