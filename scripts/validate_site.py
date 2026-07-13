@@ -221,6 +221,22 @@ def main() -> None:
             text = clean_markdown(item.body)
             if len(text) > 300:
                 fail(f"micropost exceeds 300 characters: {item.key} ({len(text)})")
+        if (
+            item.section == "blog"
+            and item.path.relative_to(ROOT).parts[:2] == ("content", "pt")
+            and not item.draft
+            and "poesia" not in {str(tag).casefold() for tag in (item.front_matter.get("tags") or [])}
+        ):
+            expected = ROOT / "content" / "en" / "blog" / item.path.name
+            if not expected.exists():
+                fail(f"published Portuguese writing is missing English translation: {item.key}")
+        if (
+            item.section == "blog"
+            and item.path.relative_to(ROOT).parts[:2] == ("content", "en")
+            and bool(item.front_matter.get("auto_translated", False))
+            and "poesia" in {str(tag).casefold() for tag in (item.front_matter.get("tags") or [])}
+        ):
+            fail(f"auto-translated poetry must not be published in English: {item.key}")
 
     newsletter_urls = {post.permalink for post in posts if not post.draft and "newsletter" in post.tags}
     draft_urls = {post.permalink for post in posts if post.draft}

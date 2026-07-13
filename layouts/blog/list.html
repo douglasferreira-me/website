@@ -1,0 +1,46 @@
+{{ define "main" }}
+  <header>
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+  </header>
+  <section class="prose mt-0 max-w-prose dark:prose-invert">
+    {{ .Content | emojify }}
+  </section>
+
+  <section class="h-feed writings-list mt-8 max-w-prose">
+    {{ range (.Paginate .Pages).Pages }}
+      {{ $page := . }}
+      {{ $image := .Params.image | default .Params.cover }}
+      <article class="h-entry writings-list__item">
+        {{ with $image }}
+          {{ $src := partial "media/image-url.html" (dict "page" $page "image" .) }}
+          <a href="{{ $page.Permalink }}">
+            <img class="u-photo writings-list__image" src="{{ $src }}" alt="{{ $page.Title }}" loading="lazy" />
+          </a>
+        {{ else }}
+          {{ $resourceImage := (.Resources.GetMatch "*feature*") | default (.Resources.GetMatch "*cover*") | default ((.Resources.ByType "image").GetMatch "*") }}
+          {{ with $resourceImage }}
+            <a href="{{ $page.Permalink }}">
+              {{ $img := .Fill "900x500 smart" }}
+              <img class="u-photo writings-list__image" src="{{ $img.Permalink }}" alt="{{ $page.Title }}" loading="lazy" />
+            </a>
+          {{ end }}
+        {{ end }}
+        <a class="u-url writings-list__date" href="{{ .Permalink }}">
+          <time class="dt-published" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format ":date_medium" }}</time>
+        </a>
+        <h2 class="p-name"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        <div class="p-summary prose dark:prose-invert">
+          {{ with .Description }}
+            <p>{{ . }}</p>
+          {{ else }}
+            {{ .Summary | emojify }}
+          {{ end }}
+        </div>
+        <p class="writings-list__more">
+          <a href="{{ .Permalink }}">{{ if eq .Site.Language.Lang "pt-br" }}Leia mais{{ else }}Read more{{ end }}</a>
+        </p>
+      </article>
+    {{ end }}
+  </section>
+  {{ partial "pagination.html" . }}
+{{ end }}

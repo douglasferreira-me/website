@@ -79,6 +79,10 @@ def can_overwrite(path: Path) -> bool:
     return bool(fm.get("auto_translated", False))
 
 
+def has_tag(item: Any, tag: str) -> bool:
+    return any(str(value).casefold() == tag.casefold() for value in (item.front_matter.get("tags") or []))
+
+
 def build_front_matter(item: Any, translated: dict[str, str]) -> OrderedDict[str, Any]:
     fm = item.front_matter
     is_micropost = (fm.get("post_kind") or item.post_kind) == "micropost"
@@ -141,6 +145,9 @@ def main() -> None:
             print(f"Skipping {item.key}: draft is true")
             continue
         if not item.lang.lower().startswith("pt"):
+            continue
+        if has_tag(item, "poesia"):
+            print(f"Skipping {item.key}: tag poesia is not auto-translated")
             continue
         translated = openai_translate(item.title, str(item.front_matter.get("description") or ""), item.body)
         target = target_path_for(item, translated["title"])
