@@ -87,6 +87,29 @@ body > header nav a[title*="Human Circuits"] {
   color: #5f006f;
 }
 
+.newsletter-page {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 52rem;
+}
+
+.newsletter-page__content {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletter-page__form {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+  width: 100%;
+}
+
+.newsletter-page__form .ml-form-embedContainer {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .social-conversations {
   font-size: 0.95rem;
 }

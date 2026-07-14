@@ -1,9 +1,13 @@
 {{ define "main" }}
+  <article class="newsletter-page">
   <header>
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
   </header>
-  <section class="prose mt-0 max-w-prose dark:prose-invert">
+  <section class="newsletter-page__content prose mt-0 max-w-prose dark:prose-invert">
     {{ .Content | emojify }}
+  </section>
+  <section class="newsletter-page__form">
     {{ partial "newsletter/mailer-form.html" . }}
   </section>
+  </article>
 {{ end }}
