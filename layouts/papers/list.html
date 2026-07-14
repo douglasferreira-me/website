@@ -1,0 +1,10 @@
+{{ define "main" }}
+  <article class="papers-page">
+    <header>
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+    </header>
+    <section class="papers-page__content prose max-w-prose dark:prose-invert">
+      {{ .Content | emojify }}
+    </section>
+  </article>
+{{ end }}

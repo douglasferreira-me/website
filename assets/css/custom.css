@@ -110,6 +110,10 @@ body > header nav a[title*="Human Circuits"] {
   margin-right: auto;
 }
 
+.papers-page__content {
+  margin-top: 2.75rem;
+}
+
 .social-conversations {
   font-size: 0.95rem;
 }
