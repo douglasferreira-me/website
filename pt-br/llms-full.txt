@@ -1,0 +1,59 @@
+# Douglas Ferreira — Software, Sociedade & Cultura Digital
+
+Sociólogo e programador. Escrevo sobre como algoritmos moldam política, cultura e cotidiano.
+
+Canonical site: https://douglasferreira.me/
+Language: pt-br
+Sitemap: https://douglasferreira.me/sitemap.xml
+
+## Site sections
+### Microposts
+URL: https://douglasferreira.me/pt-br/microposts/
+Description: Notas curtas e atualizações rápidas.
+
+### Na mídia
+URL: https://douglasferreira.me/pt-br/media/
+Description: Entrevistas, menções e aparições públicas.
+
+### Escritos
+URL: https://douglasferreira.me/pt-br/blog/
+Description: Textos longos e ensaios.
+
+### Fotografias
+URL: https://douglasferreira.me/pt-br/photos/
+Description: Um caderno visual de fotos e legendas.
+
+### Leituras
+URL: https://douglasferreira.me/pt-br/books/
+Description: Livros que estou lendo e já li.
+
+## Public content
+### 2026-07-13 20:05
+URL: https://douglasferreira.me/pt-br/microposts/2026-07-13-23-07-06/
+Language: pt-br
+Section: microposts
+Published: 2026-07-13
+
+
+Summary: Finalmente acabei de configurar essa parada. Em breve vou preencher os campos que faltam. Vou dar um tempo por hoje!
+
+
+### TikTok redefine a forma de buscar informação e influência comportamento da Geração Z
+URL: https://douglasferreira.me/pt-br/media/tiktok-redefine-a-forma-de-buscar-informacao-e-influencia-comportamento-da-geracao-z/
+Language: pt-br
+Section: media
+Published: 2026-07-13
+Description: Jovens recorrem a vídeos curtos para pesquisar, enquanto plataformas e tecnologias se adaptam ao novo comportamento
+
+Summary: 
+
+### O incolor Tsukuru Tazaki e seus anos de peregrinação
+URL: https://douglasferreira.me/pt-br/books/o-incolor-tsukuru-tazaki-e-seus-anos-de-peregrinacao/
+Language: pt-br
+Section: books
+
+
+
+Summary: Por enquanto estou gostando bastante, principalmente porque ressoa nessa parte da vida em que nos afastamos muito dos nossos amigos, e por desejarmos que eles estejam próximos. E também porque perdi um amigo que amo muito, mas deixamos de nos falar.
+
+

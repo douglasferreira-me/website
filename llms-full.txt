@@ -1,0 +1,68 @@
+# Douglas Ferreira — Software, Society & Digital Culture
+
+Sociologist and programmer. I write (mostly) about how algorithms shape politics, culture, and daily life.
+
+Canonical site: https://douglasferreira.me/
+Language: en
+Sitemap: https://douglasferreira.me/sitemap.xml
+
+## Site sections
+### Microposts
+URL: https://douglasferreira.me/microposts/
+Description: Short notes and quick updates.
+
+### In the Media
+URL: https://douglasferreira.me/media/
+Description: Interviews, mentions, and public appearances.
+
+### Photos
+URL: https://douglasferreira.me/photos/
+Description: A visual notebook of photos and captions.
+
+### Readings
+URL: https://douglasferreira.me/books/
+Description: Books I am reading and have read.
+
+### Writings
+URL: https://douglasferreira.me/blog/
+Description: Longer essays and posts.
+
+## Public content
+### 2026-07-13 20:05
+URL: https://douglasferreira.me/microposts/2026-07-13-23-07-06/
+Language: en
+Section: microposts
+Published: 2026-07-13
+
+
+Summary: I finally finished setting this thing up. I’ll fill in the missing fields soon. I’m calling it a day!
+
+
+### TikTok Reshapes How Generation Z Searches for Information and Influences Their Behavior
+URL: https://douglasferreira.me/media/tiktok-redefine-a-forma-de-buscar-informacao-e-influencia-comportamento-da-geracao-z/
+Language: en
+Section: media
+Published: 2026-07-13
+Description: Young people are turning to short videos for searches, while platforms and technologies adapt to this new behavior
+
+Summary: 
+
+### Foto de teste para o grid
+URL: https://douglasferreira.me/photos/foto-de-teste-para-o-grid/
+Language: en
+Section: photos
+Published: 2026-07-13
+
+
+Summary: 
+
+### Colorless Tsukuru Tazaki and His Years of Pilgrimage
+URL: https://douglasferreira.me/books/o-incolor-tsukuru-tazaki-e-seus-anos-de-peregrinacao/
+Language: en
+Section: books
+
+
+
+Summary: So far, I’m really enjoying it, mainly because it resonates with this stage of life, when we drift far away from our friends and wish they were close by. Also because I lost a friend I love very much—we stopped speaking.
+
+

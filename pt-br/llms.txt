@@ -1,0 +1,31 @@
+# Douglas Ferreira — Software, Sociedade & Cultura Digital
+
+Sociólogo e programador. Escrevo sobre como algoritmos moldam política, cultura e cotidiano.
+
+Canonical site: https://douglasferreira.me/
+Primary language: pt-br
+
+## Languages
+- English: en
+- Português: pt-br
+
+
+## Main sections
+- Microposts: https://douglasferreira.me/pt-br/microposts/ — Notas curtas e atualizações rápidas.
+- Na mídia: https://douglasferreira.me/pt-br/media/ — Entrevistas, menções e aparições públicas.
+- Escritos: https://douglasferreira.me/pt-br/blog/ — Textos longos e ensaios.
+- Fotografias: https://douglasferreira.me/pt-br/photos/ — Um caderno visual de fotos e legendas.
+- Leituras: https://douglasferreira.me/pt-br/books/ — Livros que estou lendo e já li.
+
+
+## Feeds and machine-readable resources
+- Sitemap: https://douglasferreira.me/sitemap.xml
+- RSS: https://douglasferreira.me/index.xml
+- JSON feed/search index: https://douglasferreira.me/index.json
+- Newsletter RSS: https://douglasferreira.me/newsletter/index.xml
+- Full LLM context: https://douglasferreira.me/llms-full.txt
+
+## About
+- Home: https://douglasferreira.me/pt-br/
+- About: https://douglasferreira.me/pt-br/about/
+- Papers: https://douglasferreira.me/pt-br/papers/
