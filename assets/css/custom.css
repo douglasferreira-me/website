@@ -91,7 +91,6 @@ body > header nav a[title*="Human Circuits"] {
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
-  max-width: 18rem;
   row-gap: 0.35rem;
 }
 
@@ -377,6 +376,10 @@ body > header nav a[title*="Human Circuits"] {
   body > header nav > ul {
     justify-content: flex-start;
     max-width: none;
+  }
+
+  .author-social-links {
+    max-width: 18rem;
   }
 
   .about-page__layout {
