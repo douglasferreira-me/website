@@ -1,0 +1,30 @@
+# {{ .Site.Title | plainify }}
+
+{{ with .Description }}{{ . | plainify }}{{ else }}Public website and personal archive by {{ .Site.Language.Params.Author.name | default .Site.Title }}.{{ end }}
+
+Canonical site: {{ .Site.BaseURL }}
+Language: {{ .Site.Language.LanguageCode }}
+Sitemap: {{ "sitemap.xml" | absURL }}
+
+## Site sections
+{{ range where .Site.Sections "Section" "in" .Site.Params.mainSections -}}
+### {{ .Title }}
+URL: {{ .Permalink }}
+{{ with .Description }}Description: {{ . | plainify }}{{ end }}
+
+{{ end -}}
+
+## Public content
+{{ range sort (where .Site.RegularPages "Draft" false) "Date" "desc" -}}
+{{ if or (in site.Params.mainSections .Section) (eq .Section "papers") -}}
+### {{ .Title | default (.Date.Format "2006-01-02 15:04") }}
+URL: {{ .Permalink }}
+Language: {{ .Params.lang | default .Site.Language.LanguageCode }}
+Section: {{ .Section }}
+{{ with .Date }}Published: {{ .Format "2006-01-02" }}{{ end }}
+{{ with .Description }}Description: {{ . | plainify }}{{ end }}
+{{ with .Params.tags }}Tags: {{ delimit . ", " }}{{ end }}
+Summary: {{ with .Summary }}{{ . | plainify }}{{ else }}{{ .Plain | truncate 500 }}{{ end }}
+
+{{ end -}}
+{{ end -}}

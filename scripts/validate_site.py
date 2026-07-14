@@ -64,6 +64,28 @@ class FeedLinkParser(html.parser.HTMLParser):
             self.links.add(data.strip())
 
 
+class HeadMetadataParser(html.parser.HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.canonical: str | None = None
+        self.description: str | None = None
+        self.hreflangs: set[str] = set()
+        self.json_ld_count = 0
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = {name: value or "" for name, value in attrs}
+        if tag == "link":
+            rels = set(values.get("rel", "").split())
+            if "canonical" in rels:
+                self.canonical = values.get("href") or None
+            if "alternate" in rels and values.get("hreflang"):
+                self.hreflangs.add(values["hreflang"])
+        elif tag == "meta" and values.get("name") == "description":
+            self.description = values.get("content") or None
+        elif tag == "script" and values.get("type") == "application/ld+json":
+            self.json_ld_count += 1
+
+
 def parse_simple_yaml(text: str) -> dict[str, Any]:
     data: dict[str, Any] = {}
     current_key: str | None = None
@@ -177,6 +199,23 @@ def parse_feed_urls(path: Path) -> set[str]:
         fail(f"newsletter feed is not well-formed XML: {exc}")
 
 
+def parse_head_metadata(path: Path) -> HeadMetadataParser:
+    parser = HeadMetadataParser()
+    parser.feed(path.read_text(encoding="utf-8", errors="ignore"))
+    return parser
+
+
+def public_html_pages(site_dir: Path) -> list[Path]:
+    skipped = {"404.html"}
+    pages: list[Path] = []
+    for path in site_dir.rglob("*.html"):
+        rel = path.relative_to(site_dir).as_posix()
+        if rel in skipped or rel.startswith("admin/"):
+            continue
+        pages.append(path)
+    return pages
+
+
 def fail(message: str) -> None:
     print(f"ERROR: {message}", file=sys.stderr)
     raise SystemExit(1)
@@ -192,6 +231,10 @@ def main() -> None:
         fail(f"site directory does not exist: {site_dir}")
 
     required_pages = [
+        "robots.txt",
+        "sitemap.xml",
+        "llms.txt",
+        "llms-full.txt",
         "microposts/index.html",
         "updates/index.html",
         "books/index.html",
@@ -207,7 +250,17 @@ def main() -> None:
     ]
     for rel_path in required_pages:
         if not (site_dir / rel_path).exists():
-            fail(f"required page was not generated: /{rel_path}")
+            fail(f"required file was not generated: /{rel_path}")
+
+    robots_text = (site_dir / "robots.txt").read_text(encoding="utf-8", errors="ignore")
+    for required in ["Sitemap: https://douglasferreira.me/sitemap.xml", "LLMs: https://douglasferreira.me/llms.txt", "Disallow: /admin/"]:
+        if required not in robots_text:
+            fail(f"robots.txt is missing {required!r}")
+
+    for rel_path in ["llms.txt", "llms-full.txt"]:
+        text = (site_dir / rel_path).read_text(encoding="utf-8", errors="ignore")
+        if "https://douglasferreira.me/" not in text:
+            fail(f"/{rel_path} does not include canonical site URLs")
 
     newsletter_feed = site_dir / "newsletter" / "index.xml"
     if not newsletter_feed.exists():
@@ -255,6 +308,44 @@ def main() -> None:
             for pattern in bad_patterns:
                 if pattern in text:
                     fail(f"found forbidden URL fragment {pattern!r} in {path.relative_to(site_dir)}")
+
+    sitemap_text = (site_dir / "sitemap.xml").read_text(encoding="utf-8", errors="ignore")
+    if "/admin/" in sitemap_text:
+        fail("/admin/ appears in sitemap.xml")
+
+    metadata_required = [
+        "index.html",
+        "pt-br/index.html",
+        "papers/index.html",
+        "newsletter/index.html",
+    ]
+    for rel_path in metadata_required:
+        metadata = parse_head_metadata(site_dir / rel_path)
+        if not metadata.canonical:
+            fail(f"page is missing canonical link: /{rel_path}")
+        if not metadata.description:
+            fail(f"page is missing meta description: /{rel_path}")
+        if metadata.json_ld_count < 1:
+            fail(f"page is missing JSON-LD: /{rel_path}")
+
+    for page in public_html_pages(site_dir):
+        html = page.read_text(encoding="utf-8", errors="ignore")
+        if "http-equiv=refresh" in html or 'http-equiv="refresh"' in html:
+            continue
+        if "<script type=application/ld+json>" not in html and '<script type="application/ld+json">' not in html:
+            fail(f"public page is missing JSON-LD: /{page.relative_to(site_dir)}")
+
+    translation_pairs = [
+        ("index.html", {"en", "pt-br", "x-default"}),
+        ("pt-br/index.html", {"en", "pt-br", "x-default"}),
+        ("papers/index.html", {"en", "pt-br", "x-default"}),
+        ("pt-br/papers/index.html", {"en", "pt-br", "x-default"}),
+    ]
+    for rel_path, expected_hreflangs in translation_pairs:
+        metadata = parse_head_metadata(site_dir / rel_path)
+        missing = expected_hreflangs - metadata.hreflangs
+        if missing:
+            fail(f"page is missing hreflang values {sorted(missing)}: /{rel_path}")
 
     for post in posts:
         output = site_dir / post.permalink.removeprefix(BASE_URL) / "index.html"

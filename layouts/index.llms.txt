@@ -1,0 +1,32 @@
+# {{ .Site.Title }}
+
+{{ with .Description }}{{ . | plainify }}{{ else }}Public website and personal archive by {{ .Site.Language.Params.Author.name | default .Site.Title }}.{{ end }}
+
+Canonical site: {{ .Site.BaseURL }}
+Primary language: {{ .Site.Language.LanguageCode }}
+
+## Languages
+{{ range .Site.Languages -}}
+- {{ .LanguageName }}: {{ .LanguageCode }}
+{{ end }}
+
+## Main sections
+{{ range where .Site.Sections "Section" "in" .Site.Params.mainSections -}}
+- {{ .Title }}: {{ .Permalink }}{{ with .Description }} — {{ . | plainify }}{{ end }}
+{{ end }}
+
+## Feeds and machine-readable resources
+- Sitemap: {{ "sitemap.xml" | absURL }}
+- RSS: {{ "index.xml" | absURL }}
+- JSON feed/search index: {{ "index.json" | absURL }}
+- Newsletter RSS: {{ "newsletter/index.xml" | absURL }}
+- Full LLM context: {{ "llms-full.txt" | absURL }}
+
+## About
+- Home: {{ .Site.Home.Permalink }}
+{{ with .Site.GetPage "about" -}}
+- About: {{ .Permalink }}
+{{ end -}}
+{{ with .Site.GetPage "papers" -}}
+- Papers: {{ .Permalink }}
+{{ end -}}
