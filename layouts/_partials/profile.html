@@ -1,4 +1,5 @@
 {{ $align := .align | default "center" }}
+{{ $settings := index site.Data.site_settings site.Language.Lang | default dict }}
 <section
   class="h-card not-prose {{ if eq $align "start" }}
     items-start
@@ -22,7 +23,7 @@
     {{ site.Language.Params.Author.name | default site.Title }}
   </h1>
   <a class="u-url sr-only" href="{{ site.Home.Permalink }}">{{ site.Home.Permalink }}</a>
-  {{ with site.Language.Params.Author.headline }}
+  {{ with $settings.headline | default site.Language.Params.Author.headline }}
     <h2 class="p-note text-xl text-neutral-500 dark:text-neutral-400">
       {{ . | markdownify | emojify }}
     </h2>

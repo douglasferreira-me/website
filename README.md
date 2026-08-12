@@ -80,6 +80,7 @@ O token fica salvo no armazenamento local do navegador. Não coloque tokens, sen
 
 No CMS é possível editar:
 
+- textos seguros da página inicial em inglês e português, incluindo apresentação, bio, título do feed e aviso de tradução;
 - posts em inglês em `content/en/blog`;
 - posts em português em `content/pt/blog`;
 - microposts em inglês e português;

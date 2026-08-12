@@ -13,7 +13,7 @@ title = "Douglas Ferreira — Software, Sociedade & Cultura Digital"
 
 [params.author]
   name = "Douglas Ferreira"
-  image = "img/profile.png"
+  image = "img/profile.webp"
   headline = "Sociólogo e programador. Escrevo sobre como os algoritmos moldam a política, a cultura e o cotidiano."
   bio = "Entusiasta de tecnologias cívicas, desenvolvedor backend especializado em sistemas de dados, analista de dados e pesquisador que investiga como o software molda a sociedade."
 links = [

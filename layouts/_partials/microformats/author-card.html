@@ -1,4 +1,5 @@
 {{- $author := site.Language.Params.Author -}}
+{{- $settings := index site.Data.site_settings site.Language.Lang | default dict -}}
 {{- $name := $author.name | default site.Title -}}
 <div class="p-author h-card">
   <a class="u-url p-name" href="{{ site.Home.Permalink }}">{{ $name }}</a>
@@ -8,7 +9,7 @@
       <img class="u-photo" src="{{ $authorImage.Permalink }}" alt="{{ $name }}" />
     {{- end -}}
   {{- end -}}
-  {{- with $author.headline | default $author.bio -}}
+  {{- with $settings.headline | default $author.headline | default $settings.bio | default $author.bio -}}
     <p class="p-note">{{ . | plainify }}</p>
   {{- end -}}
   {{- with $author.links -}}

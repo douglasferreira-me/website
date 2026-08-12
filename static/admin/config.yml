@@ -14,6 +14,29 @@ slug:
   sanitize_replacement: "-"
 
 collections:
+  - name: site_settings
+    label: Site settings
+    editor:
+      preview: false
+    files:
+      - name: site_settings_en
+        label: Homepage (English)
+        file: data/site_settings/en.yml
+        format: yaml
+        fields:
+          - { label: Main introduction, name: headline, widget: text }
+          - { label: Short author bio, name: bio, widget: text }
+          - { label: Updates heading, name: updates_heading, widget: string }
+          - { label: Automatic translation notice, name: translation_notice, widget: string }
+      - name: site_settings_pt
+        label: Página inicial (Português)
+        file: data/site_settings/pt-br.yml
+        format: yaml
+        fields:
+          - { label: Apresentação principal, name: headline, widget: text }
+          - { label: Biografia curta do autor, name: bio, widget: text }
+          - { label: Título das atualizações, name: updates_heading, widget: string }
+
   - name: microposts_en
     label: Microposts (English)
     label_singular: Micropost
