@@ -159,6 +159,34 @@ body > header nav a[title*="Human Circuits"] {
   max-width: 65ch;
 }
 
+picture.profile-illustration {
+  display: block;
+  margin-bottom: 0.75rem;
+  max-width: 100%;
+  width: 11rem;
+}
+
+picture.profile-illustration > img {
+  border-radius: 0.375rem;
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+picture.author-profile-illustration {
+  flex: 0 0 7rem;
+  margin: 0 1rem 0 0;
+  max-width: 35%;
+  width: 7rem;
+}
+
+picture.author-profile-illustration > img {
+  border-radius: 0.375rem;
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
 .translation-notice {
   color: rgb(var(--color-neutral-500));
   font-size: 0.85rem;
