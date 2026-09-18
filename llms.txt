@@ -18,6 +18,7 @@ Primary language: en
 - Writings: https://douglasferreira.me/blog/ — Longer essays and posts.
 
 
+- Tools: https://douglasferreira.me/tools/
 ## Feeds and machine-readable resources
 - Sitemap: https://douglasferreira.me/sitemap.xml
 - RSS: https://douglasferreira.me/index.xml

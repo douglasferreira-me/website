@@ -27,6 +27,10 @@ Description: Books I am reading and have read.
 URL: https://douglasferreira.me/blog/
 Description: Longer essays and posts.
 
+### Tools
+URL: https://douglasferreira.me/tools/
+Description: Apps and digital tools developed by Douglas Ferreira.
+
 ## Public content
 ### 2026-07-13 20:05
 URL: https://douglasferreira.me/microposts/2026-07-13-23-07-06/

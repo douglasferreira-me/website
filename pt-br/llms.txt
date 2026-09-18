@@ -18,6 +18,7 @@ Primary language: pt-br
 - Leituras: https://douglasferreira.me/pt-br/books/ — Livros que estou lendo e já li.
 
 
+- Tools: https://douglasferreira.me/pt-br/tools/
 ## Feeds and machine-readable resources
 - Sitemap: https://douglasferreira.me/sitemap.xml
 - RSS: https://douglasferreira.me/index.xml

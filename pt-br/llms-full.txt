@@ -27,6 +27,10 @@ Description: Um caderno visual de fotos e legendas.
 URL: https://douglasferreira.me/pt-br/books/
 Description: Livros que estou lendo e já li.
 
+### Ferramentas
+URL: https://douglasferreira.me/pt-br/tools/
+Description: Aplicativos e ferramentas digitais desenvolvidos por Douglas Ferreira.
+
 ## Public content
 ### 2026-07-13 20:05
 URL: https://douglasferreira.me/pt-br/microposts/2026-07-13-23-07-06/
