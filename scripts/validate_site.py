@@ -241,12 +241,14 @@ def main() -> None:
         "photos/index.html",
         "media/index.html",
         "papers/index.html",
+        "tools/index.html",
         "pt-br/microposts/index.html",
         "pt-br/updates/index.html",
         "pt-br/books/index.html",
         "pt-br/photos/index.html",
         "pt-br/media/index.html",
         "pt-br/papers/index.html",
+        "pt-br/tools/index.html",
     ]
     for rel_path in required_pages:
         if not (site_dir / rel_path).exists():
@@ -318,6 +320,7 @@ def main() -> None:
         "pt-br/index.html",
         "papers/index.html",
         "newsletter/index.html",
+        "tools/index.html",
     ]
     for rel_path in metadata_required:
         metadata = parse_head_metadata(site_dir / rel_path)
@@ -340,6 +343,8 @@ def main() -> None:
         ("pt-br/index.html", {"en", "pt-br", "x-default"}),
         ("papers/index.html", {"en", "pt-br", "x-default"}),
         ("pt-br/papers/index.html", {"en", "pt-br", "x-default"}),
+        ("tools/index.html", {"en", "pt-br", "x-default"}),
+        ("pt-br/tools/index.html", {"en", "pt-br", "x-default"}),
     ]
     for rel_path, expected_hreflangs in translation_pairs:
         metadata = parse_head_metadata(site_dir / rel_path)

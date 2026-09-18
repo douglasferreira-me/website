@@ -87,6 +87,7 @@ No CMS é possível editar:
 - livros em `content/en/books`;
 - fotografias em `content/en/photos`;
 - páginas `About` em inglês e português;
+- ferramentas em inglês e português, com URL direta, imagem quadrada e descrição;
 - página pública da newsletter.
 
 Ao criar posts pelo CMS:
@@ -184,6 +185,15 @@ Novas áreas públicas:
 Livros são cadastrados no CMS com título, autor, capa, status, datas, nota e texto livre. Fotografias são cadastradas com imagem, legenda, tags e opção de aparecer no feed geral.
 
 Posts de blog também podem aparecer na grade de fotos quando `show_image_in_photos = true` e `image` estiver preenchido. O feed `/updates/` reúne blogposts, microposts, fotos e livros em ordem cronológica.
+## Ferramentas / Tools
+
+As páginas `https://douglasferreira.me/tools/` e `https://douglasferreira.me/pt-br/tools/` são catálogos separados do feed de Atualizações. No Sveltia CMS, crie uma ferramenta com nome, URL direta, imagem quadrada, descrição e status de rascunho. Após publicar, o cartão abre a ferramenta em nova aba.
+
+O ícone RSS ao lado dos links sociais aponta para o feed do idioma atual:
+
+- `https://douglasferreira.me/index.xml`
+- `https://douglasferreira.me/pt-br/index.xml`
+
 
 ## Newsletter e MailerLite
 

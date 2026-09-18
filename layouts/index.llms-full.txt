@@ -14,6 +14,13 @@ URL: {{ .Permalink }}
 
 {{ end -}}
 
+{{ with .Site.GetPage "tools" -}}
+### {{ .Title }}
+URL: {{ .Permalink }}
+{{ with .Description }}Description: {{ . | plainify }}{{ end }}
+
+{{ end -}}
+
 ## Public content
 {{ range sort (where .Site.RegularPages "Draft" false) "Date" "desc" -}}
 {{ if or (in site.Params.mainSections .Section) (eq .Section "papers") -}}

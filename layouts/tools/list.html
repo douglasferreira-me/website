@@ -1,0 +1,27 @@
+{{ define "main" }}
+  <header>
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+  </header>
+  <section class="prose mt-0 max-w-prose dark:prose-invert">
+    {{ .Content | emojify }}
+  </section>
+  {{ $items := where .Site.RegularPages "Lang" .Site.Language.Lang }}
+  {{ $items = where $items "Section" "tools" }}
+  <section class="tools-grid mt-8" aria-label="{{ .Title }}">
+    {{ range sort $items "Title" "asc" }}
+      {{ $title := .Title }}
+      {{ $link := .Params.external_url | default .Permalink }}
+      <article class="tool-card">
+        <a href="{{ $link | safeURL }}" target="_blank" rel="noopener noreferrer">
+          {{ with .Params.image }}
+            <img src="{{ . | relURL }}" alt="{{ $title }}" loading="lazy" />
+          {{ end }}
+          <div class="tool-card__body">
+            <h2>{{ $title }}</h2>
+            {{ with .Description }}<p>{{ . }}</p>{{ end }}
+          </div>
+        </a>
+      </article>
+    {{ end }}
+  </section>
+{{ end }}

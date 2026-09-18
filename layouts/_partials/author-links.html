@@ -13,5 +13,13 @@
         >
       {{ end }}
     {{ end }}
+    <a
+      class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+      style="will-change:transform;"
+      href="{{ printf "%sindex.xml" site.Home.RelPermalink }}"
+      aria-label="RSS feed"
+      title="RSS feed"
+      >{{ partial "icon.html" "rss" }}</a
+    >
   </div>
 {{ end }}

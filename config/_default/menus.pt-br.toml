@@ -34,6 +34,11 @@
   weight = 70
 
 [[main]]
+  name = "Ferramentas"
+  pageRef = "tools"
+  weight = 75
+
+[[main]]
   name = "Newsletter"
   url = "/newsletter/"
   title = "Circuitos Humanos: Receba uma seleção curada de links, notícias e leituras sobre capitalismo digital e usos emancipatórios da tecnologia."

@@ -34,6 +34,11 @@
   weight = 70
 
 [[main]]
+  name = "Tools"
+  pageRef = "tools"
+  weight = 75
+
+[[main]]
   name = "Newsletter"
   pageRef = "newsletter"
   title = "Human Circuits: Receive a curated selection of links, news, and readings on digital capitalism and emancipatory uses of technology."
