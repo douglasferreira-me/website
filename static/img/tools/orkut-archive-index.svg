@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Orkut Archive Index</title>
+  <desc id="desc">OAI logo with three overlapping pink and blue circles.</desc>
+  <rect width="512" height="512" fill="#18131a" rx="32"/>
+  <g fill="none" stroke-linecap="round">
+    <circle cx="204" cy="264" r="102" stroke="#df438b" stroke-width="26"/>
+    <circle cx="307" cy="185" r="82" stroke="#4796de" stroke-width="26"/>
+    <circle cx="332" cy="324" r="45" stroke="#df438b" stroke-width="26"/>
+  </g>
+  <text x="256" y="412" fill="#f3b2d0" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="700" letter-spacing="-4" text-anchor="middle">OAI</text>
+  <text x="256" y="452" fill="#bdb3bd" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="3" text-anchor="middle">ORKUT ARCHIVE INDEX</text>
+</svg>
