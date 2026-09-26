@@ -2,14 +2,9 @@
 title = "About"
 date = 2025-12-07T16:36:00.000
 draft = false
-<<<<<<< HEAD
 description = ""
 layout = "about"
-=======
-layout = 'about'
-title = 'About'
 image = '/uploads/WhatsApp%20Image%202026-06-23%20at%2015%2C47%2C05-photoaidcom-greyscale%281%29.jpg'
->>>>>>> 43d3313 (Use shared photo on English about page)
 +++
 
 My mother named me Douglas da Silva Ferreira in Petrópolis, in 1991.
