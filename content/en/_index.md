@@ -1,4 +1,4 @@
 ---
 title: "Douglas Ferreira — Software, Society & Digital Culture"
-description: "Sociologist and programmer. I write (mostly) about how algorithms shape politics, culture, and daily life."
+description: "Psychoanalyst in training, sociologist, and programmer. I write about how digital technologies shape politics, culture, and everyday life."
 ---

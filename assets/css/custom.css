@@ -176,6 +176,16 @@ body > header nav a[title*="Human Circuits"] {
   max-width: 65ch;
 }
 
+.home-profile__name {
+  font-size: calc(2.25rem - 1pt);
+  line-height: 2.5rem;
+}
+
+.home-profile__headline {
+  font-size: calc(1.25rem - 1pt);
+  line-height: 1.75rem;
+}
+
 picture.profile-illustration {
   display: block;
   margin-bottom: 0.75rem;
@@ -458,7 +468,7 @@ picture.author-profile-illustration > img {
 }
 
 .home-updates {
-  margin-top: 2.5rem;
+  margin-top: 2.875rem;
 }
 
 @media (max-width: 767px) {

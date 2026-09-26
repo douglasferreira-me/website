@@ -19,12 +19,12 @@
       {{ partial "picture.html" (dict "img" $authorImage "alt" $altText "class" $imgClass "lazy" $lazy "webp" $webp) }}
     {{ end }}
   {{ end }}
-  <h1 class="p-name text-4xl font-extrabold">
+  <h1 class="p-name home-profile__name font-extrabold">
     {{ site.Language.Params.Author.name | default site.Title }}
   </h1>
   <a class="u-url sr-only" href="{{ site.Home.Permalink }}">{{ site.Home.Permalink }}</a>
   {{ with $settings.headline | default site.Language.Params.Author.headline }}
-    <h2 class="p-note text-xl text-neutral-500 dark:text-neutral-400">
+    <h2 class="p-note home-profile__headline text-neutral-500 dark:text-neutral-400">
       {{ . | markdownify | emojify }}
     </h2>
   {{ end }}
