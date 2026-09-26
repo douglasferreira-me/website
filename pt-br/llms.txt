@@ -1,6 +1,6 @@
 # Douglas Ferreira — Software, Sociedade & Cultura Digital
 
-Sociólogo e programador. Escrevo sobre como algoritmos moldam política, cultura e cotidiano.
+Psicanalista em formação, sociólogo e programador. Escrevo sobre como tecnologias digitais moldam a política, a cultura e o cotidiano.
 
 Canonical site: https://douglasferreira.me/
 Primary language: pt-br
