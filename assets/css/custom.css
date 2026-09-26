@@ -184,6 +184,9 @@ body > header nav a[title*="Human Circuits"] {
 .home-profile__headline {
   font-size: calc(1.25rem - 1pt);
   line-height: 1.75rem;
+  max-width: 38rem;
+  text-wrap: balance;
+  width: 100%;
 }
 
 picture.profile-illustration {
