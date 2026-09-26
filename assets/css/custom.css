@@ -87,21 +87,22 @@ body > header nav a[title*="Human Circuits"] {
   color: #5f006f;
 }
 
-.author-social-links {
 .dark body > header nav a[title*="Circuitos Humanos"],
 .dark body > header nav a[title*="Human Circuits"] {
   color: #f3d5ff;
 }
 
 .author-social-link--youtube {
-  color: #ff0000;
-  font-size: 1.18em;
+  color: #d85a5a;
+  font-size: 1.28em;
+  margin-inline: 0.25rem;
 }
 
 .author-social-link--youtube:hover {
-  color: #cc0000;
+  color: #bd4545;
 }
 
+.author-social-links {
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
