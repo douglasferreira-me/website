@@ -185,7 +185,7 @@ body > header nav a[title*="Human Circuits"] {
   font-size: calc(1.25rem - 1pt);
   line-height: 1.75rem;
   max-width: 38rem;
-  text-wrap: balance;
+  text-wrap: pretty;
   width: 100%;
 }
 
