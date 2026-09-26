@@ -3,7 +3,7 @@
     {{ range $links := . }}
       {{ range $name, $url := $links }}
         <a
-          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          class="author-social-link px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400{{ if eq $name "youtube" }} author-social-link--youtube{{ end }}"
           style="will-change:transform;"
           href="{{ $url | safeURL }}"
           target="_blank"

@@ -41,6 +41,7 @@ title = "Douglas Ferreira — Software, Society & Digital Culture"
       { kofi = "https://ko-fi.com/douglasferreira" },
   #   { lastfm = "https://lastfm.com/user/username" },
       { letterboxd = "https://letterboxd.com/ferreiradouglas/" },
+      { youtube = "https://youtube.com/username" },
       { linkedin = "https://linkedin.com/in/douglasferreira-me" },
       { mastodon = "https://mastodon.social/@douglasferreira" },
   #   { medium = "https://medium.com/username" },
@@ -64,6 +65,5 @@ title = "Douglas Ferreira — Software, Society & Digital Culture"
   #   { twitch = "https://twitch.tv/username" },
   #   { whatsapp = "https://wa.me/phone-number" },
   #   { x-twitter = "https://twitter.com/username" },
-      { youtube = "https://youtube.com/username" }
   #   { xing = "https://xing.com/profile/username" },
     ]
