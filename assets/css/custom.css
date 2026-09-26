@@ -86,7 +86,7 @@ body > header nav a[title*="Circuitos Humanos"],
 body > header nav a[title*="Human Circuits"] {
   color: #5f006f;
   font-weight: 700;
-  font-size: calc(1em + 1pt);
+  font-size: calc(1em + 0.5pt);
 }
 
 .dark body > header nav a[title*="Circuitos Humanos"],
