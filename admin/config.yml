@@ -315,6 +315,28 @@ collections:
       - { label: Rascunho, name: draft, widget: boolean, default: true }
       - { label: Corpo, name: body, widget: markdown, required: false }
 
+  - name: newsletter
+    label: Newsletter
+    editor:
+      preview: false
+    files:
+      - name: newsletter_en
+        label: Newsletter (English)
+        file: content/en/newsletter/_index.md
+        format: yaml-frontmatter
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: description, widget: text, required: false }
+          - { label: Body, name: body, widget: markdown }
+      - name: newsletter_pt
+        label: Newsletter (Português)
+        file: content/pt/newsletter/_index.md
+        format: yaml-frontmatter
+        fields:
+          - { label: Título, name: title, widget: string }
+          - { label: Descrição, name: description, widget: text, required: false }
+          - { label: Corpo, name: body, widget: markdown }
+
   - name: pages_en
     label: Pages (English)
     editor:
@@ -328,14 +350,6 @@ collections:
           - { label: Title, name: title, widget: string }
           - { label: Date, name: date, widget: datetime, required: false }
           - { label: Draft, name: draft, widget: boolean, required: false, default: false }
-          - { label: Description, name: description, widget: text, required: false }
-          - { label: Body, name: body, widget: markdown }
-      - name: newsletter_en
-        label: Newsletter
-        file: content/en/newsletter/_index.md
-        format: yaml-frontmatter
-        fields:
-          - { label: Title, name: title, widget: string }
           - { label: Description, name: description, widget: text, required: false }
           - { label: Body, name: body, widget: markdown }
       - name: papers_en
