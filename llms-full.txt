@@ -51,15 +51,6 @@ Description: Young people are turning to short videos for searches, while platfo
 
 Summary: 
 
-### Foto de teste para o grid
-URL: https://douglasferreira.me/photos/foto-de-teste-para-o-grid/
-Language: en
-Section: photos
-Published: 2026-07-13
-
-
-Summary: 
-
 ### Colorless Tsukuru Tazaki and His Years of Pilgrimage
 URL: https://douglasferreira.me/books/o-incolor-tsukuru-tazaki-e-seus-anos-de-peregrinacao/
 Language: en
