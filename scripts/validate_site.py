@@ -249,6 +249,7 @@ def main() -> None:
         "pt-br/media/index.html",
         "pt-br/papers/index.html",
         "pt-br/tools/index.html",
+        "pt-br/newsletter/index.html",
     ]
     for rel_path in required_pages:
         if not (site_dir / rel_path).exists():
@@ -320,6 +321,7 @@ def main() -> None:
         "pt-br/index.html",
         "papers/index.html",
         "newsletter/index.html",
+        "pt-br/newsletter/index.html",
         "tools/index.html",
     ]
     for rel_path in metadata_required:
@@ -343,6 +345,8 @@ def main() -> None:
         ("pt-br/index.html", {"en", "pt-br", "x-default"}),
         ("papers/index.html", {"en", "pt-br", "x-default"}),
         ("pt-br/papers/index.html", {"en", "pt-br", "x-default"}),
+        ("newsletter/index.html", {"en", "pt-br", "x-default"}),
+        ("pt-br/newsletter/index.html", {"en", "pt-br", "x-default"}),
         ("tools/index.html", {"en", "pt-br", "x-default"}),
         ("pt-br/tools/index.html", {"en", "pt-br", "x-default"}),
     ]

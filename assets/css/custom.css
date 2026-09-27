@@ -198,8 +198,8 @@ picture.profile-illustration {
 
 picture.profile-illustration > img {
   border-radius: 0.375rem;
-.about-page__content {
-  font-size: calc(1em - 2pt);
+.about-page__content.prose {
+  font-size: calc(1rem - 2pt);
   text-align: justify;
 }
 

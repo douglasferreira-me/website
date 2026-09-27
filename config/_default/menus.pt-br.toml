@@ -40,7 +40,7 @@
 
 [[main]]
   name = "Newsletter"
-  url = "/newsletter/"
+  pageRef = "newsletter"
   title = "Circuitos Humanos: Receba uma seleção curada de links, notícias e leituras sobre capitalismo digital e usos emancipatórios da tecnologia."
   weight = 80
   [main.params]
