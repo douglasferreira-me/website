@@ -11,9 +11,9 @@ Primary language: pt-br
 
 
 ## Main sections
-- Escritos: https://douglasferreira.me/pt-br/blog/ — Textos longos e ensaios.
 - Microposts: https://douglasferreira.me/pt-br/microposts/ — Notas curtas e atualizações rápidas.
 - Na mídia: https://douglasferreira.me/pt-br/media/ — Entrevistas, menções e aparições públicas.
+- Escritos: https://douglasferreira.me/pt-br/blog/ — Textos longos e ensaios.
 - Fotografias: https://douglasferreira.me/pt-br/photos/ — Um caderno visual de fotos e legendas.
 - Leituras: https://douglasferreira.me/pt-br/books/ — Livros que estou lendo e já li.
 
