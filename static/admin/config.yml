@@ -95,6 +95,10 @@ collections:
     editor:
       preview: false
     fields:
+      - { label: SilverBullet ID, name: silverbullet_id, widget: hidden, required: false }
+      - { label: Automatic translation, name: auto_translated, widget: boolean, default: false, required: false, hint: "Disable to protect manual English editing." }
+      - { label: Translation source hash, name: translation_source_hash, widget: hidden, required: false }
+      - { label: Generated content hash, name: auto_generated_hash, widget: hidden, required: false }
       - { label: Title, name: title, widget: string }
       - { label: Date, name: date, widget: datetime, default: "{{now}}" }
       - { label: Draft, name: draft, widget: boolean, default: true }
@@ -126,6 +130,7 @@ collections:
     editor:
       preview: false
     fields:
+      - { label: SilverBullet ID, name: silverbullet_id, widget: hidden, required: false }
       - { label: Título, name: title, widget: string }
       - { label: Data, name: date, widget: datetime, default: "{{now}}" }
       - { label: Rascunho, name: draft, widget: boolean, default: true }

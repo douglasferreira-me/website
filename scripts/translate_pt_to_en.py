@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -18,6 +19,16 @@ from site_content import ROOT, clean_markdown, collect_content, split_front_matt
 
 
 OPENAI_URL = "https://api.openai.com/v1/responses"
+
+
+def source_hash(item: Any) -> str:
+    return hashlib.sha256(json.dumps({"meta": item.front_matter, "body": item.body}, sort_keys=True, ensure_ascii=False, default=str).encode()).hexdigest()
+
+
+def generated_hash(front: dict, body: str) -> str:
+    # TOML writer serializes None as an empty string. Hash the persisted form.
+    public = {k: ("" if v is None else v) for k, v in front.items() if k not in ("auto_generated_hash", "translation_source_hash")}
+    return hashlib.sha256(json.dumps({"meta": public, "body": body.strip()}, sort_keys=True, ensure_ascii=False, default=str).encode()).hexdigest()
 
 
 def slugify(value: str) -> str:
@@ -102,10 +113,10 @@ def build_front_matter(item: Any, translated: dict[str, str]) -> OrderedDict[str
     for key in ("silverbullet_id", "thread_id", "thread_index", "thread_total"):
         if key in fm:
             result[key] = fm[key]
-    result["federate"] = True
-    result["syndicate_bluesky"] = True
-    result["syndicate_mastodon"] = True
-    result["syndicate_linkedin"] = False
+    result["federate"] = fm.get("federate", True)
+    result["syndicate_bluesky"] = fm.get("syndicate_bluesky", True)
+    result["syndicate_mastodon"] = fm.get("syndicate_mastodon", True)
+    result["syndicate_linkedin"] = fm.get("syndicate_linkedin", False)
     result["social_text"] = ""
     result["social_intro"] = ""
     result["image"] = fm.get("image") or ""
@@ -147,6 +158,31 @@ def main() -> None:
 
     changed = False
     for item in collect_content({"blog", "microposts", "books", "photos", "media"}):
+        target = target_path_for(item, item.title)
+        is_blog = item.section == "blog" and item.lang.lower().startswith("pt")
+        existing, existing_body = {}, ""
+        if is_blog and target.exists():
+            existing, existing_body, _ = split_front_matter(target)
+            if not existing.get("auto_translated"):
+                print(f"Preserving manual English post for {item.key}")
+                continue
+            previous = existing.get("auto_generated_hash")
+            if previous and generated_hash(existing, existing_body) != previous:
+                print(f"English post manually edited; protecting {item.key}")
+                existing["auto_translated"] = False
+                if not args.dry_run:
+                    write_toml_markdown(target, existing, existing_body)
+                    changed = True
+                continue
+            if item.draft:
+                if not existing.get("draft") and not args.dry_run:
+                    existing["draft"] = True
+                    existing["auto_generated_hash"] = generated_hash(existing, existing_body)
+                    write_toml_markdown(target, existing, existing_body)
+                    changed = True
+                continue
+            if existing.get("translation_source_hash") == source_hash(item) and not existing.get("draft"):
+                continue
         if item.draft:
             print(f"Skipping {item.key}: draft is true")
             continue
@@ -156,7 +192,7 @@ def main() -> None:
             print(f"Skipping {item.key}: tag poesia is not auto-translated")
             continue
         target = target_path_for(item, item.title)
-        if target.exists() and item.front_matter.get("silverbullet_id"):
+        if item.post_kind == "micropost" and target.exists() and item.front_matter.get("silverbullet_id"):
             existing, _, _ = split_front_matter(target)
             if existing.get("auto_translated") and existing.get("silverbullet_id") == item.front_matter["silverbullet_id"]:
                 continue  # Published microposts are immutable; avoid translating again.
@@ -179,7 +215,11 @@ def main() -> None:
         print(f"Writing translation for {item.key} -> {target.relative_to(ROOT)}")
         if not args.dry_run:
             copy_media_assets(item, target)
-            write_toml_markdown(target, build_front_matter(item, translated), translated["body"])
+            front = build_front_matter(item, translated)
+            if is_blog:
+                front["translation_source_hash"] = source_hash(item)
+                front["auto_generated_hash"] = generated_hash(front, translated["body"])
+            write_toml_markdown(target, front, translated["body"])
             changed = True
 
     if not changed:
