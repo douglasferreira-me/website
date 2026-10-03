@@ -7,10 +7,6 @@ Language: pt-br
 Sitemap: https://douglasferreira.me/sitemap.xml
 
 ## Site sections
-### Escritos
-URL: https://douglasferreira.me/pt-br/blog/
-Description: Textos longos e ensaios.
-
 ### Microposts
 URL: https://douglasferreira.me/pt-br/microposts/
 Description: Notas curtas e atualizações rápidas.
@@ -18,6 +14,10 @@ Description: Notas curtas e atualizações rápidas.
 ### Na mídia
 URL: https://douglasferreira.me/pt-br/media/
 Description: Entrevistas, menções e aparições públicas.
+
+### Escritos
+URL: https://douglasferreira.me/pt-br/blog/
+Description: Textos longos e ensaios.
 
 ### Fotografias
 URL: https://douglasferreira.me/pt-br/photos/
@@ -32,17 +32,6 @@ URL: https://douglasferreira.me/pt-br/tools/
 Description: Aplicativos e ferramentas digitais desenvolvidos por Douglas Ferreira.
 
 ## Public content
-### Testando Upload imagem
-URL: https://douglasferreira.me/pt-br/blog/testando-upload-imagem/
-Language: pt-br
-Section: blog
-Published: 2026-10-03
-
-
-Summary: Isso seria uma publicação com imagem #Escreva seu post aqui. Bla boa bla
-Testo depois
-
-
 ### 2026-10-03 13:00
 URL: https://douglasferreira.me/pt-br/microposts/2026-10-03-13-00-37-12103c96/
 Language: pt-br
