@@ -14,7 +14,7 @@ from collections import OrderedDict
 from pathlib import Path
 from typing import Any
 
-from site_content import ROOT, collect_content, split_front_matter, write_toml_markdown
+from site_content import ROOT, clean_markdown, collect_content, split_front_matter, write_toml_markdown
 
 
 OPENAI_URL = "https://api.openai.com/v1/responses"
@@ -34,7 +34,7 @@ def extract_json(text: str) -> dict[str, Any]:
     return json.loads(text)
 
 
-def openai_translate(title: str, description: str, body: str) -> dict[str, str]:
+def openai_translate(title: str, description: str, body: str, micropost: bool = False) -> dict[str, str]:
     api_key = os.environ["OPENAI_API_KEY"]
     model = os.environ.get("OPENAI_MODEL", "gpt-5.6")
     instructions = (
@@ -42,6 +42,8 @@ def openai_translate(title: str, description: str, body: str) -> dict[str, str]:
         "Preserve Markdown structure, links, headings, code blocks, and the author's voice. "
         "Return only JSON with string keys title, description, body."
     )
+    if micropost:
+        instructions += " This is a micropost: keep the English body at most 300 Unicode code points, including any (N/total) suffix. Preserve that suffix exactly. Condense wording without cutting meaning."
     payload = {
         "model": model,
         "instructions": instructions,
@@ -97,6 +99,9 @@ def build_front_matter(item: Any, translated: dict[str, str]) -> OrderedDict[str
     result["translation_of"] = item.permalink
     result["auto_translated"] = True
     result["post_kind"] = fm.get("post_kind") or item.post_kind
+    for key in ("silverbullet_id", "thread_id", "thread_index", "thread_total"):
+        if key in fm:
+            result[key] = fm[key]
     result["federate"] = True
     result["syndicate_bluesky"] = True
     result["syndicate_mastodon"] = True
@@ -150,7 +155,23 @@ def main() -> None:
         if has_tag(item, "poesia"):
             print(f"Skipping {item.key}: tag poesia is not auto-translated")
             continue
-        translated = openai_translate(item.title, str(item.front_matter.get("description") or ""), item.body)
+        target = target_path_for(item, item.title)
+        if target.exists() and item.front_matter.get("silverbullet_id"):
+            existing, _, _ = split_front_matter(target)
+            if existing.get("auto_translated") and existing.get("silverbullet_id") == item.front_matter["silverbullet_id"]:
+                continue  # Published microposts are immutable; avoid translating again.
+        translated = openai_translate(item.title, str(item.front_matter.get("description") or ""), item.body, item.post_kind == "micropost")
+        if item.post_kind == "micropost":
+            for attempt in range(2):
+                if len(clean_markdown(translated["body"])) <= 300:
+                    break
+                translated = openai_translate(item.title, "Condense English translation to fit 300 characters.", item.body, True)
+            if len(clean_markdown(translated["body"])) > 300:
+                raise ValueError(f"English translation exceeds 300 characters: {item.key}; refusing truncation")
+            if item.front_matter.get("thread_id"):
+                suffix = f'({item.front_matter["thread_index"]}/{item.front_matter["thread_total"]})'
+                if not translated["body"].strip().endswith(suffix):
+                    raise ValueError(f"Translation lost thread numbering: {item.key}")
         target = target_path_for(item, translated["title"])
         if not can_overwrite(target):
             print(f"Skipping {target.relative_to(ROOT)}: existing manual English file is not auto_translated.")

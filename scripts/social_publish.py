@@ -103,22 +103,39 @@ def compose_message(item: Any) -> str:
     return "\n\n".join(parts)
 
 
-def post_bluesky(text: str) -> dict[str, str]:
+def post_bluesky(text: str, identity: str = "", reply: dict | None = None) -> dict[str, str]:
     handle = env_value("BLUESKY_HANDLE").removeprefix("@")
     password = env_value("BLUESKY_APP_PASSWORD")
     pds = env_value("BLUESKY_PDS", "https://bsky.social").rstrip("/")
     session, _ = request_json(f"{pds}/xrpc/com.atproto.server.createSession", {"identifier": handle, "password": password})
     access = session["accessJwt"]
     did = session["did"]
+    rkey = "sb" + hashlib.sha256(identity.encode()).hexdigest()[:40] if identity else ""
+    if rkey:
+        query = urllib.parse.urlencode({"repo": did, "collection": "app.bsky.feed.post", "rkey": rkey})
+        req = urllib.request.Request(f"{pds}/xrpc/com.atproto.repo.getRecord?{query}", headers={"Authorization": f"Bearer {access}"})
+        try:
+            with urllib.request.urlopen(req, timeout=30) as response:
+                existing = json.load(response)
+            if existing["value"]["text"] != truncate_for_bluesky(text, text.split()[-1] if text.split() else ""):
+                raise RuntimeError("Published record differs; refusing to overwrite")
+            return {"url": f"https://bsky.app/profile/{handle}/post/{rkey}", "uri": existing["uri"], "cid": existing["cid"]}
+        except urllib.error.HTTPError as exc:
+            if exc.code != 404:
+                raise
     record = {
         "$type": "app.bsky.feed.post",
         "text": truncate_for_bluesky(text, text.split()[-1] if text.split() else ""),
         "createdAt": utc_now(),
     }
     facets = link_facets(record["text"])
+    if reply:
+        record["reply"] = reply
     if facets:
         record["facets"] = facets
     payload = {"repo": did, "collection": "app.bsky.feed.post", "record": record}
+    if rkey:
+        payload["rkey"] = rkey
     data, _ = request_json(
         f"{pds}/xrpc/com.atproto.repo.createRecord",
         payload,
@@ -128,13 +145,13 @@ def post_bluesky(text: str) -> dict[str, str]:
     return {"url": f"https://bsky.app/profile/{handle}/post/{rkey}", "uri": data["uri"], "cid": data.get("cid", "")}
 
 
-def post_mastodon(text: str, lang: str) -> dict[str, str]:
+def post_mastodon(text: str, lang: str, identity: str = "", parent: str = "") -> dict[str, str]:
     instance = env_value("MASTODON_INSTANCE").rstrip("/")
     token = env_value("MASTODON_ACCESS_TOKEN")
     status, _ = request_form(
         f"{instance}/api/v1/statuses",
-        {"status": text, "visibility": "public", "language": "pt" if lang.lower().startswith("pt") else "en"},
-        {"Authorization": f"Bearer {token}", "Idempotency-Key": hashlib.sha256(text.encode("utf-8")).hexdigest()},
+        {"status": text, "visibility": "public", "language": "pt" if lang.lower().startswith("pt") else "en", **({"in_reply_to_id": parent} if parent else {})},
+        {"Authorization": f"Bearer {token}", "Idempotency-Key": hashlib.sha256((identity or text).encode("utf-8")).hexdigest()},
     )
     return {"url": status.get("url") or status.get("uri") or "", "id": str(status.get("id") or "")}
 
@@ -189,7 +206,12 @@ def main() -> None:
     failures: list[str] = []
     publishers = {"bluesky": post_bluesky, "mastodon": post_mastodon, "linkedin": post_linkedin}
 
-    for item in collect_content({"blog", "microposts"}):
+    items = sorted(collect_content({"blog", "microposts"}), key=lambda item: (str(item.front_matter.get("date", "")), str(item.front_matter.get("thread_id", "")), int(item.front_matter.get("thread_index", 0)), item.key))
+    threads = {}
+    for item in items:
+        if item.front_matter.get("thread_id"):
+            threads.setdefault((item.lang, item.front_matter["thread_id"]), []).append(item)
+    for item in items:
         if item.draft:
             print(f"Skipping {item.key}: draft is true")
             continue
@@ -226,13 +248,30 @@ def main() -> None:
                 print(f"Would publish {item.key} to {service}: {message[:80]!r}")
                 continue
             try:
+                root_target, parent_target = {}, {}
+                if item.front_matter.get("thread_id"):
+                    chain = threads[(item.lang, item.front_matter["thread_id"])]
+                    indexes = [int(part.front_matter.get("thread_index", 0)) for part in chain]
+                    if indexes != list(range(1, int(item.front_matter["thread_total"]) + 1)):
+                        raise ValueError("Thread missing parts or out of order")
+                    position = int(item.front_matter["thread_index"])
+                    if position > 1:
+                        root_target = state.get(chain[0].key, {}).get("targets", {}).get(service, {})
+                        parent_target = state.get(chain[position - 2].key, {}).get("targets", {}).get(service, {})
+                        required = ("uri", "cid") if service == "bluesky" else ("id",)
+                        if not all(parent_target.get(key) and root_target.get(key) for key in required):
+                            raise ValueError("Thread parent not published; refusing standalone reply")
                 if service == "mastodon":
-                    result = post_mastodon(message, item.lang)
+                    result = post_mastodon(message, item.lang, item.key, parent_target.get("id", ""))
+                elif service == "bluesky":
+                    reply = {"root": {key: root_target[key] for key in ("uri", "cid")}, "parent": {key: parent_target[key] for key in ("uri", "cid")}} if parent_target else None
+                    result = post_bluesky(message, item.key, reply)
                 else:
                     result = publishers[service](message)
                 result["published_at"] = utc_now()
                 record["targets"][service] = result
                 changed = True
+                save_state(state)  # Persist each success, even when the next part fails.
                 print(f"Published {item.key} to {service}: {result.get('url')}")
             except (RuntimeError, urllib.error.URLError, KeyError, ValueError) as exc:
                 failures.append(f"{service} failed for {item.key}: {exc}")
