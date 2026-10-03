@@ -11,11 +11,11 @@ Primary language: en
 
 
 ## Main sections
+- Writings: https://douglasferreira.me/blog/ — Longer essays and posts.
 - Microposts: https://douglasferreira.me/microposts/ — Short notes and quick updates.
 - In the Media: https://douglasferreira.me/media/ — Interviews, mentions, and public appearances.
 - Photos: https://douglasferreira.me/photos/ — A visual notebook of photos and captions.
 - Readings: https://douglasferreira.me/books/ — Books I am reading and have read.
-- Writings: https://douglasferreira.me/blog/ — Longer essays and posts.
 
 
 - Tools: https://douglasferreira.me/tools/
