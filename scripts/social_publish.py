@@ -103,6 +103,12 @@ def compose_message(item: Any) -> str:
     return "\n\n".join(parts)
 
 
+def bluesky_record_key(identity: str) -> str:
+    alphabet = "234567abcdefghijklmnopqrstuvwxyz"
+    value = int.from_bytes(hashlib.sha256(identity.encode()).digest()[:8], "big") & ((1 << 63) - 1)
+    return "".join(alphabet[(value >> shift) & 31] for shift in range(60, -1, -5))
+
+
 def post_bluesky(text: str, identity: str = "", reply: dict | None = None) -> dict[str, str]:
     handle = env_value("BLUESKY_HANDLE").removeprefix("@")
     password = env_value("BLUESKY_APP_PASSWORD")
@@ -110,7 +116,7 @@ def post_bluesky(text: str, identity: str = "", reply: dict | None = None) -> di
     session, _ = request_json(f"{pds}/xrpc/com.atproto.server.createSession", {"identifier": handle, "password": password})
     access = session["accessJwt"]
     did = session["did"]
-    rkey = "sb" + hashlib.sha256(identity.encode()).hexdigest()[:40] if identity else ""
+    rkey = bluesky_record_key(identity) if identity else ""
     if rkey:
         query = urllib.parse.urlencode({"repo": did, "collection": "app.bsky.feed.post", "rkey": rkey})
         req = urllib.request.Request(f"{pds}/xrpc/com.atproto.repo.getRecord?{query}", headers={"Authorization": f"Bearer {access}"})

@@ -16,6 +16,12 @@ def part(index):
 
 
 class ThreadTests(unittest.TestCase):
+    def test_bluesky_record_key_is_stable_tid(self):
+        key = social.bluesky_record_key("fixture")
+        self.assertRegex(key, r"^[234567ab][234567abcdefghijklmnopqrstuvwxyz]{12}$")
+        self.assertEqual(key, social.bluesky_record_key("fixture"))
+        self.assertNotEqual(key, social.bluesky_record_key("other"))
+
     def test_bluesky_missing_record_uses_create(self):
         missing = urllib.error.HTTPError("https://example.org", 400, "Bad Request", {}, io.BytesIO(b'{"error":"RecordNotFound"}'))
         responses = [({"accessJwt": "fixture", "did": "did:plc:fixture"}, {}), ({"uri": "at://fixture/post/created", "cid": "fixture"}, {})]
