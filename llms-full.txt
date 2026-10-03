@@ -32,6 +32,16 @@ URL: https://douglasferreira.me/tools/
 Description: Apps and digital tools developed by Douglas Ferreira.
 
 ## Public content
+### 2026-10-03 13:00
+URL: https://douglasferreira.me/microposts/2026-10-03-13-00-37-12103c96/
+Language: en
+Section: microposts
+Published: 2026-10-03
+
+
+Summary: Testing the SilverBullet integration.
+
+
 ### 2026-07-13 20:05
 URL: https://douglasferreira.me/microposts/2026-07-13-23-07-06/
 Language: en
@@ -39,15 +49,15 @@ Section: microposts
 Published: 2026-07-13
 
 
-Summary: I finally finished setting this thing up. I’ll fill in the missing fields soon. I’m calling it a day!
+Summary: Finally got this thing set up. I’ll fill in the missing fields soon. I’m calling it a day!
 
 
-### TikTok Reshapes How Generation Z Searches for Information and Influences Their Behavior
+### TikTok Redefines How Generation Z Searches for Information and Influences Their Behavior
 URL: https://douglasferreira.me/media/tiktok-redefine-a-forma-de-buscar-informacao-e-influencia-comportamento-da-geracao-z/
 Language: en
 Section: media
 Published: 2026-07-13
-Description: Young people are turning to short videos for searches, while platforms and technologies adapt to this new behavior
+Description: Young people turn to short videos for research as platforms and technologies adapt to this new behavior
 
 Summary: 
 
@@ -58,6 +68,6 @@ Section: books
 
 
 
-Summary: So far, I’m really enjoying it, mainly because it resonates with this stage of life, when we drift far away from our friends and wish they were close by. Also because I lost a friend I love very much—we stopped speaking.
+Summary: So far, I’m really enjoying it, mainly because it resonates with this stage of life, when we drift so far away from our friends and wish they were close by. And also because I lost a friend I love dearly—we stopped speaking.
 
 
