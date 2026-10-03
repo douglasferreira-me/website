@@ -1,4 +1,22 @@
 {
+  "content/en/blog/testando-integracao-do-blog-com-o-silverbullet.md": {
+    "comments": [],
+    "permalink": "https://douglasferreira.me/blog/testando-integracao-do-blog-com-o-silverbullet/",
+    "targets": {
+      "bluesky": {
+        "cid": "bafyreiftfrhz7a4u5ud4zyue64udjyjanwow5ic767a6d7qfsy5dm4vvqe",
+        "published_at": "2026-10-03T19:14:45Z",
+        "uri": "at://did:plc:lzwaqbkcorbuts46hli7cnid/app.bsky.feed.post/7laqgu26u55kq",
+        "url": "https://bsky.app/profile/douglasferreira.me/post/7laqgu26u55kq"
+      },
+      "mastodon": {
+        "id": "117378573012419722",
+        "published_at": "2026-10-03T19:14:46Z",
+        "url": "https://mastodon.social/@douglasferreira/117378573012419722"
+      }
+    },
+    "title": "Testing the blog integration with SilverBullet"
+  },
   "content/en/blog/testando-novamente-o-bridgyfed.md": {
     "comments": [],
     "permalink": "https://douglasferreira.me/blog/testando-novamente-o-bridgyfed/",
@@ -100,6 +118,24 @@
       }
     },
     "title": "testando-para-ver-como-funciona-isso"
+  },
+  "content/pt/blog/testando-integracao-do-blog-com-o-silverbullet.md": {
+    "comments": [],
+    "permalink": "https://douglasferreira.me/pt-br/blog/testando-integracao-do-blog-com-o-silverbullet/",
+    "targets": {
+      "bluesky": {
+        "cid": "bafyreidxifmpr3ttgj46yhor3v6s5pkrgywcv4bsajfbklcgoypi7em2pa",
+        "published_at": "2026-10-03T19:14:47Z",
+        "uri": "at://did:plc:lzwaqbkcorbuts46hli7cnid/app.bsky.feed.post/3jcivksns4ceq",
+        "url": "https://bsky.app/profile/douglasferreira.me/post/3jcivksns4ceq"
+      },
+      "mastodon": {
+        "id": "117378573100360693",
+        "published_at": "2026-10-03T19:14:47Z",
+        "url": "https://mastodon.social/@douglasferreira/117378573100360693"
+      }
+    },
+    "title": "Testando integração do blog com o silverbullet"
   },
   "content/pt/blog/um-poema-para-testar-publicacoes-longas-e-como-ficarao-no-bluesky-e-no-mastodon.md": {
     "comments": [],

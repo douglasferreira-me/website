@@ -31,4 +31,4 @@ outlet = ""
 external_url = ""
 +++
 
-So far, I’m really enjoying it, mainly because it resonates with this stage of life, when we drift so far away from our friends and wish they were close by. And also because I lost a friend I love dearly—we stopped speaking.
+So far, I’m really enjoying it, mainly because it resonates with this stage of life when we drift so far away from our friends and wish they were still close. Also because I lost a friend I love very much when we stopped speaking to each other.
