@@ -49,15 +49,15 @@ Section: microposts
 Published: 2026-07-13
 
 
-Summary: Finally finished setting this thing up. I’ll fill in the missing fields soon. Calling it a day!
+Summary: Finally finished setting this thing up. I’ll fill in the missing fields soon. I’m calling it a day!
 
 
-### TikTok Redefines How Gen Z Searches for Information and Influences Their Behavior
+### TikTok Redefines How Generation Z Searches for Information and Influences Their Behavior
 URL: https://douglasferreira.me/media/tiktok-redefine-a-forma-de-buscar-informacao-e-influencia-comportamento-da-geracao-z/
 Language: en
 Section: media
 Published: 2026-07-13
-Description: Young people turn to short videos for research, while platforms and technologies adapt to this new behavior
+Description: Young people turn to short videos to search for information, while platforms and technologies adapt to this new behavior
 
 Summary: 
 
@@ -68,6 +68,6 @@ Section: books
 
 
 
-Summary: So far, I’m really enjoying it, mainly because it resonates with this stage of life, when we drift far away from our friends and wish they were still close. And also because I lost a friend I love very much—we simply stopped talking.
+Summary: So far, I’m really enjoying it, mainly because it resonates with this stage of life, when we grow so distant from our friends and wish they were still close. Also because I lost a friend I love dearly—we stopped speaking.
 
 
