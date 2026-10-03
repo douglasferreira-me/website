@@ -126,7 +126,8 @@ def post_bluesky(text: str, identity: str = "", reply: dict | None = None) -> di
                 error = json.loads(detail).get("error")
             except (ValueError, AttributeError):
                 error = None
-            if exc.code != 404 and not (exc.code == 400 and error == "RecordNotFound"):
+            # Creating with the same deterministic key cannot duplicate a record.
+            if exc.code not in (404, 500, 502, 503, 504) and not (exc.code == 400 and error == "RecordNotFound"):
                 raise RuntimeError(f"HTTP {exc.code} checking Bluesky record: {detail}") from exc
     record = {
         "$type": "app.bsky.feed.post",
