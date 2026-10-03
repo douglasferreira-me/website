@@ -32,6 +32,16 @@ URL: https://douglasferreira.me/pt-br/tools/
 Description: Aplicativos e ferramentas digitais desenvolvidos por Douglas Ferreira.
 
 ## Public content
+### 2026-10-03 13:00
+URL: https://douglasferreira.me/pt-br/microposts/2026-10-03-13-00-37-12103c96/
+Language: pt-br
+Section: microposts
+Published: 2026-10-03
+
+
+Summary: Testando integração com o silverbullet.
+
+
 ### 2026-07-13 20:05
 URL: https://douglasferreira.me/pt-br/microposts/2026-07-13-23-07-06/
 Language: pt-br
