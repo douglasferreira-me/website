@@ -1,5 +1,7 @@
 """Offline regression tests: never contact or publish to social networks."""
 import datetime as dt
+import io
+import urllib.error
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -14,6 +16,14 @@ def part(index):
 
 
 class ThreadTests(unittest.TestCase):
+    def test_bluesky_missing_record_uses_create(self):
+        missing = urllib.error.HTTPError("https://example.org", 400, "Bad Request", {}, io.BytesIO(b'{"error":"RecordNotFound"}'))
+        responses = [({"accessJwt": "fixture", "did": "did:plc:fixture"}, {}), ({"uri": "at://fixture/post/created", "cid": "fixture"}, {})]
+        with patch.object(social, "request_json", side_effect=responses) as request, patch.object(social.urllib.request, "urlopen", side_effect=missing):
+            result = social.post_bluesky("Test", "fixture")
+        self.assertEqual(result["cid"], "fixture")
+        self.assertTrue(request.call_args.args[0].endswith("com.atproto.repo.createRecord"))
+
     def test_thread_metadata_translated(self):
         fm = translate.build_front_matter(part(1), {"title": "", "description": "", "body": "Part 1 (1/2)"})
         self.assertEqual(fm["thread_id"], "fixture")

@@ -50,6 +50,8 @@ jobs:
       # Both workflows share a concurrency group. GitHub may replace a pending
       # social job: publishing both languages here guarantees PT is not stranded.
       - name: Publish Portuguese and translated posts
+        id: publish
+        continue-on-error: true
         env:
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
           BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
@@ -101,3 +103,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./public
+
+      - name: Report social publication failure
+        if: steps.publish.outcome == 'failure'
+        run: exit 1

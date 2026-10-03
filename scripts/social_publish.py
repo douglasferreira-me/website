@@ -121,8 +121,13 @@ def post_bluesky(text: str, identity: str = "", reply: dict | None = None) -> di
                 raise RuntimeError("Published record differs; refusing to overwrite")
             return {"url": f"https://bsky.app/profile/{handle}/post/{rkey}", "uri": existing["uri"], "cid": existing["cid"]}
         except urllib.error.HTTPError as exc:
-            if exc.code != 404:
-                raise
+            detail = exc.read().decode("utf-8", errors="replace")
+            try:
+                error = json.loads(detail).get("error")
+            except (ValueError, AttributeError):
+                error = None
+            if exc.code != 404 and not (exc.code == 400 and error == "RecordNotFound"):
+                raise RuntimeError(f"HTTP {exc.code} checking Bluesky record: {detail}") from exc
     record = {
         "$type": "app.bsky.feed.post",
         "text": truncate_for_bluesky(text, text.split()[-1] if text.split() else ""),
