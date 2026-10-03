@@ -72,6 +72,12 @@
     "comments": [],
     "permalink": "https://douglasferreira.me/microposts/2026-10-03-13-00-37-12103c96/",
     "targets": {
+      "bluesky": {
+        "cid": "bafyreih4ecd77lzdzdv327xnref6m3v5h64eofrikorlgcguwtlwrytg5i",
+        "published_at": "2026-10-03T16:12:07Z",
+        "uri": "at://did:plc:lzwaqbkcorbuts46hli7cnid/app.bsky.feed.post/4vpu7w2jtqkgh",
+        "url": "https://bsky.app/profile/douglasferreira.me/post/4vpu7w2jtqkgh"
+      },
       "mastodon": {
         "id": "117377811386771506",
         "published_at": "2026-10-03T16:09:50Z",
@@ -171,6 +177,12 @@
     "comments": [],
     "permalink": "https://douglasferreira.me/pt-br/microposts/2026-10-03-13-00-37-12103c96/",
     "targets": {
+      "bluesky": {
+        "cid": "bafyreihtnyirqtubzo4ph4hkn7cagxverj5wuhlhlirlz2f6lw5cdjmciy",
+        "published_at": "2026-10-03T16:12:08Z",
+        "uri": "at://did:plc:lzwaqbkcorbuts46hli7cnid/app.bsky.feed.post/3x7wtfayict62",
+        "url": "https://bsky.app/profile/douglasferreira.me/post/3x7wtfayict62"
+      },
       "mastodon": {
         "id": "117377811434353596",
         "published_at": "2026-10-03T16:01:13Z",
