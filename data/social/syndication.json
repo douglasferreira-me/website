@@ -155,6 +155,18 @@
     },
     "title": "2026-07-13-23-07-06"
   },
+  "content/pt/microposts/2026-10-03-13-00-37-12103c96.md": {
+    "comments": [],
+    "permalink": "https://douglasferreira.me/pt-br/microposts/2026-10-03-13-00-37-12103c96/",
+    "targets": {
+      "mastodon": {
+        "id": "117377811434353596",
+        "published_at": "2026-10-03T16:01:13Z",
+        "url": "https://mastodon.social/@douglasferreira/117377811434353596"
+      }
+    },
+    "title": "2026-10-03-13-00-37-12103c96"
+  },
   "content/pt/microposts/testando-para-ver-como-funciona-isso.md": {
     "comments": [],
     "permalink": "https://douglasferreira.me/pt-br/microposts/testando-para-ver-como-funciona-isso/",
