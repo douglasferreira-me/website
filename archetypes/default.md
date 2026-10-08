@@ -10,6 +10,7 @@ post_kind: "blogpost"
 federate: true
 syndicate_bluesky: false
 syndicate_mastodon: false
+syndicate_threads: true
 syndicate_linkedin: false
 social_intro: ""
 social_text: ""

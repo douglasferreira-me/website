@@ -154,6 +154,25 @@ python3 scripts/social_collect_comments.py --dry-run
 
 ## Tradução automática
 
+### Configurar publicação no Threads
+
+O CMS oferece `syndicate_threads` em escritos e notas EN/PT, ativado para novos itens. Traduções herdam a seleção do original; itens antigos sem o campo não são publicados no Threads. O Mastodon continua ativo mesmo sem o ícone no perfil.
+
+1. Crie um app em https://developers.facebook.com/apps/ com o caso de uso Threads API. Adicione sua conta como testadora e aceite o convite no Threads enquanto o app estiver em desenvolvimento.
+2. Configure uma URL de redirecionamento OAuth. Autorize a conta com `threads_basic` e `threads_content_publish`.
+3. Troque o código no endpoint `https://graph.threads.net/oauth/access_token`, com Threads App ID, App Secret, `grant_type=authorization_code` e a mesma `redirect_uri` da autorização. A resposta fornece token e `user_id`.
+4. Troque o token curto por um de longa duração em `/access_token`, com `grant_type=th_exchange_token`, App Secret e token curto, seguindo a documentação oficial abaixo.
+5. Em GitHub > Settings > Secrets and variables > Actions, adicione `THREADS_USER_ID` e `THREADS_ACCESS_TOKEN`. Nunca coloque tokens ou App Secret no repositório.
+
+O token longo dura aproximadamente 60 dias; confira o `expires_in` retornado. Renove manualmente antes de expirar em `/refresh_access_token`, com `grant_type=th_refresh_token`, e atualize o secret. Um token expirado exige nova autorização. Não há renovação automática nesta etapa.
+
+Para recuperar publicações pendentes, execute Actions > Social syndication > Run workflow. O estado guarda contêiner, ID e permalink. Se o resultado for ambíguo, o script verifica os posts recentes e interrompe a tentativa quando não consegue confirmar; confira a conta antes de limpar o estado pendente. Não apague registros de posts já publicados.
+
+Notas são texto direto; escritos usam apresentação e URL, com limite de 500 caracteres. Sequências respondem ao item anterior. Mídia e coleta de comentários do Threads não estão incluídas.
+
+Documentação oficial: https://www.postman.com/meta/threads/collection/dht3nzz/threads-api
+
+
 O workflow `.github/workflows/translate.yml` traduz posts publicados em português para inglês usando a OpenAI Responses API.
 
 Segredos necessários:

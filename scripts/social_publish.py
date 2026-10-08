@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import hashlib
 import json
 import os
@@ -197,11 +198,58 @@ def wants(item: Any, service: str) -> bool:
     return bool(item.front_matter.get(f"syndicate_{service}", False))
 
 
+def threads_get(path: str, fields: str) -> dict[str, Any]:
+    query = urllib.parse.urlencode({"fields": fields})
+    req = urllib.request.Request(f"https://graph.threads.net/v1.0/{path}?{query}", headers={"Authorization": f"Bearer {env_value('THREADS_ACCESS_TOKEN')}"})
+    with urllib.request.urlopen(req, timeout=30) as response:
+        return json.load(response)
+
+
+def post_threads(text: str, permalink: str, target: dict[str, Any], persist: Any, parent: str = "") -> dict[str, Any]:
+    user = env_value("THREADS_USER_ID")
+    headers = {"Authorization": f"Bearer {env_value('THREADS_ACCESS_TOKEN')}"}
+    if len(text) > 500:
+        suffix = "\n\n" + permalink
+        if len(suffix) >= 500:
+            raise ValueError("Canonical URL exceeds the Threads text limit")
+        text = text[:500 - len(suffix) - 1].rstrip() + "…" + suffix
+    fingerprint = hashlib.sha256(text.encode()).hexdigest()
+    if target.get("text_hash") and target["text_hash"] != fingerprint:
+        raise ValueError("Threads pending content changed; resolve the pending publication before editing")
+    if not target.get("container_id"):
+        data, _ = request_form(f"https://graph.threads.net/v1.0/{user}/threads", {"media_type": "TEXT", "text": text, **({"reply_to_id": parent} if parent else {})}, headers)
+        target.update(container_id=str(data["id"]), text_hash=fingerprint, started_at=utc_now())
+        persist()
+    if not target.get("id"):
+        status = threads_get(target["container_id"], "status,error_message").get("status")
+        if status == "PUBLISHED" or target.get("publish_attempted"):
+            candidates = threads_get(f"{user}/threads", "id,text,permalink,timestamp").get("data", [])
+            started = dt.datetime.fromisoformat(target["started_at"].replace("Z", "+00:00"))
+            matches = [post for post in candidates if post.get("text") == text and post.get("timestamp") and dt.datetime.fromisoformat(post["timestamp"].replace("Z", "+00:00")) >= started]
+            if len(matches) != 1:
+                raise RuntimeError("Threads publication outcome is ambiguous; refusing to publish again. Check the account and pending container.")
+            target.update(id=str(matches[0]["id"]), url=matches[0].get("permalink", ""))
+            persist()
+        elif status == "FINISHED":
+            target["publish_attempted"] = True
+            persist()
+            data, _ = request_form(f"https://graph.threads.net/v1.0/{user}/threads_publish", {"creation_id": target["container_id"]}, headers)
+            target["id"] = str(data["id"])
+            persist()
+        else:
+            raise RuntimeError(f"Threads container is {status}; retry once processing finishes or inspect its error")
+    if not target.get("url"):
+        target["url"] = threads_get(target["id"], "permalink")["permalink"]
+        persist()
+    return target
+
+
 def missing_env(service: str) -> list[str]:
     required = {
         "bluesky": ["BLUESKY_HANDLE", "BLUESKY_APP_PASSWORD"],
         "mastodon": ["MASTODON_INSTANCE", "MASTODON_ACCESS_TOKEN"],
         "linkedin": ["LINKEDIN_ACCESS_TOKEN", "LINKEDIN_AUTHOR_URN"],
+        "threads": ["THREADS_USER_ID", "THREADS_ACCESS_TOKEN"],
     }[service]
     return [name for name in required if not env_value(name)]
 
@@ -216,7 +264,7 @@ def main() -> None:
     state = load_state()
     changed = False
     failures: list[str] = []
-    publishers = {"bluesky": post_bluesky, "mastodon": post_mastodon, "linkedin": post_linkedin}
+    publishers = {"bluesky": post_bluesky, "mastodon": post_mastodon, "linkedin": post_linkedin, "threads": post_threads}
 
     items = sorted(collect_content({"blog", "microposts"}), key=lambda item: (str(item.front_matter.get("date", "")), str(item.front_matter.get("thread_id", "")), int(item.front_matter.get("thread_index", 0)), item.key))
     threads = {}
@@ -249,7 +297,7 @@ def main() -> None:
         record.setdefault("targets", {})
 
         for service in services:
-            if record["targets"].get(service, {}).get("url") or record["targets"].get(service, {}).get("id"):
+            if record["targets"].get(service, {}).get("url") or (service != "threads" and record["targets"].get(service, {}).get("id")):
                 print(f"Skipping {service} for {item.key}: already published")
                 continue
             missing = missing_env(service)
@@ -273,7 +321,10 @@ def main() -> None:
                         required = ("uri", "cid") if service == "bluesky" else ("id",)
                         if not all(parent_target.get(key) and root_target.get(key) for key in required):
                             raise ValueError("Thread parent not published; refusing standalone reply")
-                if service == "mastodon":
+                if service == "threads":
+                    target = record["targets"].setdefault("threads", {})
+                    result = post_threads(message, item.permalink, target, lambda: save_state(state), parent_target.get("id", ""))
+                elif service == "mastodon":
                     result = post_mastodon(message, item.lang, item.key, parent_target.get("id", ""))
                 elif service == "bluesky":
                     reply = {"root": {key: root_target[key] for key in ("uri", "cid")}, "parent": {key: parent_target[key] for key in ("uri", "cid")}} if parent_target else None
