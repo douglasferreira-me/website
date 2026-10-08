@@ -12,6 +12,7 @@ post_kind = "blogpost"
 federate = true
 syndicate_bluesky = true
 syndicate_mastodon = true
+syndicate_threads = false
 syndicate_linkedin = false
 social_text = ""
 social_intro = ""
