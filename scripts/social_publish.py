@@ -220,8 +220,9 @@ def post_threads(text: str, permalink: str, target: dict[str, Any], persist: Any
     if target.get("text_hash") and target["text_hash"] != fingerprint:
         raise ValueError("Threads pending content changed; resolve the pending publication before editing")
     if not target.get("container_id"):
-        data, _ = request_form(f"https://graph.threads.net/v1.0/{user}/threads", {"media_type": "TEXT", "text": text, **({"reply_to_id": parent} if parent else {})}, headers)
+        data, _ = request_form(f"https://graph.threads.net/v1.0/{user}/threads", {"media_type": "TEXT", "text": text, "crossreshare_to_ig": "true", **({"reply_to_id": parent} if parent else {})}, headers)
         target.update(container_id=str(data["id"]), text_hash=fingerprint, started_at=utc_now())
+        target["instagram_story_requested"] = True
         persist()
     if not target.get("id"):
         status = threads_get(target["container_id"], "status,error_message").get("status")
@@ -243,14 +244,13 @@ def post_threads(text: str, permalink: str, target: dict[str, Any], persist: Any
             persist()
             time.sleep(3)
             try:
-                data, _ = request_form(f"https://graph.threads.net/v1.0/{user}/threads_publish", {"creation_id": target["container_id"], "crossreshare_to_ig": "true"}, headers)
+                data, _ = request_form(f"https://graph.threads.net/v1.0/{user}/threads_publish", {"creation_id": target["container_id"]}, headers)
             except RuntimeError as exc:
                 if '"code":24' in str(exc).replace(" ", ""):
                     target["publish_attempted"] = False
                     persist()
                 raise
             target["id"] = str(data["id"])
-            target["instagram_story_requested"] = True
             persist()
         else:
             raise RuntimeError(f"Threads container is {status}; retry once processing finishes or inspect its error")
