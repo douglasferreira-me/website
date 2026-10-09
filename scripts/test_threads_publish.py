@@ -16,8 +16,8 @@ class ThreadsTests(unittest.TestCase):
             self.assertTrue(post.call_args.args[0].endswith("threads_publish"))
             self.assertNotIn("crossreshare_to_ig", post.call_args.args[1])
             if len(responses) == 2:
-                self.assertEqual(post.call_args_list[0].args[1]["crossreshare_to_ig"], "true")
-                self.assertTrue(target["instagram_story_requested"])
+                self.assertNotIn("crossreshare_to_ig", post.call_args_list[0].args[1])
+                self.assertNotIn("instagram_story_requested", target)
 
     def test_ambiguous_result_does_not_republish(self):
         target = {"container_id": "container", "publish_attempted": True, "started_at": "2026-10-07T00:00:00Z"}
@@ -45,16 +45,6 @@ class ThreadsTests(unittest.TestCase):
     def test_missing_credentials(self):
         with patch.dict(social.os.environ, {}, clear=True):
             self.assertEqual(social.missing_env("threads"), ["THREADS_USER_ID", "THREADS_ACCESS_TOKEN"])
-
-    def test_story_permission_failure_preserves_threads(self):
-        target = {}
-        denied = RuntimeError('HTTP 403: {"error":{"code":10}}')
-        with patch.object(social.time, "sleep"), patch.object(social, "request_form", side_effect=[denied, ({"id": "container"}, {}), ({"id": "post"}, {})]) as post, patch.object(social, "threads_get", side_effect=[{"status": "FINISHED"}, {"permalink": "https://threads.com/post"}]):
-            social.post_threads("Hello", "https://example.org", target, Mock())
-        self.assertEqual(target["id"], "post")
-        self.assertFalse(target["instagram_story_requested"])
-        self.assertIn("instagram_story_error", target)
-        self.assertNotIn("crossreshare_to_ig", post.call_args_list[1].args[1])
 
     def test_recover_published_result(self):
         target = {"container_id": "container", "publish_attempted": True, "started_at": "2026-10-07T00:00:00Z"}

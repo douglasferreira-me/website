@@ -156,7 +156,7 @@ python3 scripts/social_collect_comments.py --dry-run
 
 ### Configurar publicação no Threads
 
-O CMS oferece o switch `syndicate_threads` em escritos e notas EN/PT, ativado por padrão. Desativar o switch impede o envio ao Threads e aos Stories vinculados. Traduções herdam essa escolha. Nos itens antigos sem esse campo, o Threads segue a seleção de Bluesky ou Mastodon. O Mastodon continua ativo mesmo sem o ícone no perfil.
+O CMS oferece o switch `syndicate_threads` em escritos e notas EN/PT, ativado por padrão. Desativar o switch impede o envio ao Threads. Traduções herdam essa escolha. Nos itens antigos sem esse campo, o Threads segue a seleção de Bluesky ou Mastodon. O Mastodon continua ativo mesmo sem o ícone no perfil.
 
 1. Crie um app em https://developers.facebook.com/apps/ com o caso de uso Threads API. Adicione sua conta como testadora e aceite o convite no Threads enquanto o app estiver em desenvolvimento.
 2. Configure uma URL de redirecionamento OAuth. Autorize a conta com `threads_basic` e `threads_content_publish`.
@@ -168,9 +168,7 @@ O token longo dura aproximadamente 60 dias; confira o `expires_in` retornado. Re
 
 Para recuperar publicações pendentes, execute Actions > Social syndication > Run workflow. O estado guarda contêiner, ID e permalink. Se o resultado for ambíguo, o script verifica os posts recentes e interrompe a tentativa quando não consegue confirmar; confira a conta antes de limpar o estado pendente. Não apague registros de posts já publicados.
 
-Notas são texto direto; escritos usam apresentação e URL, com limite de 500 caracteres. Sequências respondem ao item anterior. A publicação solicita também compartilhamento nos Stories do Instagram vinculado, por `crossreshare_to_ig=true`. O token deve autorizar `threads_share_to_instagram`, além de `threads_basic`, `threads_content_publish` e `threads_manage_replies` para sequências. Se a permissão foi adicionada depois de gerar o token, gere um novo token autorizado e atualize `THREADS_ACCESS_TOKEN`.
-
-O estado registra `instagram_story_requested` quando a publicação com compartilhamento é aceita; isso não é uma confirmação independente de entrega do Story. Posts antigos já enviados ao Threads não são republicados apenas para gerar Stories. Não há publicação na grade do Instagram nem coleta de comentários do Threads.
+Notas são texto direto; escritos usam apresentação e URL, com limite de 500 caracteres. Sequências respondem ao item anterior. O token deve autorizar `threads_basic`, `threads_content_publish` e `threads_manage_replies` para sequências. A publicação automática no Instagram está desativada; não é necessária a permissão `threads_share_to_instagram`. Os registros históricos de tentativas de Stories são preservados apenas como histórico.
 
 Documentação oficial: https://www.postman.com/meta/threads/collection/dht3nzz/threads-api
 
