@@ -32,6 +32,16 @@ URL: https://douglasferreira.me/pt-br/tools/
 Description: Aplicativos e ferramentas digitais desenvolvidos por Douglas Ferreira.
 
 ## Public content
+### 2026-10-09 08:27
+URL: https://douglasferreira.me/pt-br/microposts/2026-10-09-11-27-29/
+Language: pt-br
+Section: microposts
+Published: 2026-10-09
+
+
+Summary: testando integração do website com instagram + threads.
+
+
 ### 2026-10-09 08:05
 URL: https://douglasferreira.me/pt-br/microposts/2026-10-09-11-09-13/
 Language: pt-br
