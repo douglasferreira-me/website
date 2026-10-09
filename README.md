@@ -156,7 +156,7 @@ python3 scripts/social_collect_comments.py --dry-run
 
 ### Configurar publicação no Threads
 
-O Threads segue automaticamente o mesmo fluxo: escritos e notas EN/PT selecionados para Bluesky ou Mastodon também são enviados ao Threads, inclusive itens antigos ainda não enviados a essa rede. Não há marcador separado no CMS. O Mastodon continua ativo mesmo sem o ícone no perfil.
+O CMS oferece o switch `syndicate_threads` em escritos e notas EN/PT, ativado por padrão. Desativar o switch impede o envio ao Threads e aos Stories vinculados. Traduções herdam essa escolha. Nos itens antigos sem esse campo, o Threads segue a seleção de Bluesky ou Mastodon. O Mastodon continua ativo mesmo sem o ícone no perfil.
 
 1. Crie um app em https://developers.facebook.com/apps/ com o caso de uso Threads API. Adicione sua conta como testadora e aceite o convite no Threads enquanto o app estiver em desenvolvimento.
 2. Configure uma URL de redirecionamento OAuth. Autorize a conta com `threads_basic` e `threads_content_publish`.

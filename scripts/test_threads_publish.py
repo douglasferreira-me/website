@@ -34,6 +34,11 @@ class ThreadsTests(unittest.TestCase):
         item.front_matter["syndicate_mastodon"] = True
         self.assertTrue(social.wants(item, "threads"))
         self.assertTrue(translate.build_front_matter(item, data)["syndicate_mastodon"])
+        item.front_matter["syndicate_threads"] = False
+        self.assertFalse(social.wants(item, "threads"))
+        self.assertFalse(translate.build_front_matter(item, data)["syndicate_threads"])
+        item.front_matter["syndicate_threads"] = True
+        self.assertTrue(social.wants(item, "threads"))
 
     def test_missing_credentials(self):
         with patch.dict(social.os.environ, {}, clear=True):
