@@ -183,7 +183,17 @@
         "published_at": "2026-10-09T11:30:16Z",
         "url": "https://mastodon.social/@douglasferreira/117410720383259323"
       },
-      "threads": {}
+      "threads": {
+        "container_id": "17944121328347099",
+        "id": "17942874591091994",
+        "instagram_story_error": "Meta denied Instagram sharing permission; reauthorize threads_share_to_instagram",
+        "instagram_story_requested": false,
+        "publish_attempted": true,
+        "published_at": "2026-10-09T11:37:46Z",
+        "started_at": "2026-10-09T11:37:35Z",
+        "text_hash": "812dd87c31737dc40f8953c72d37efbeb6fa055456a6377e7f343030b47e8b32",
+        "url": "https://www.threads.com/@douglasferreira.me/post/DeRaxcBG7eG"
+      }
     },
     "title": "2026-10-09-11-27-29"
   },
@@ -389,7 +399,17 @@
         "published_at": "2026-10-09T11:30:17Z",
         "url": "https://mastodon.social/@douglasferreira/117410720482027146"
       },
-      "threads": {}
+      "threads": {
+        "container_id": "17944121340347099",
+        "id": "17911590078492174",
+        "instagram_story_error": "Meta denied Instagram sharing permission; reauthorize threads_share_to_instagram",
+        "instagram_story_requested": false,
+        "publish_attempted": true,
+        "published_at": "2026-10-09T11:37:58Z",
+        "started_at": "2026-10-09T11:37:49Z",
+        "text_hash": "886072474a8beab15e68486b2d6cbbb655bd37bfd3d9317d2a59f776bd45332f",
+        "url": "https://www.threads.com/@douglasferreira.me/post/DeRazKOG5oX"
+      }
     },
     "title": "2026-10-09-11-27-29"
   },
@@ -408,7 +428,17 @@
         "published_at": "2026-10-09T11:33:34Z",
         "url": "https://mastodon.social/@douglasferreira/117410733368748746"
       },
-      "threads": {}
+      "threads": {
+        "container_id": "17944121346347099",
+        "id": "18463399363191288",
+        "instagram_story_error": "Meta denied Instagram sharing permission; reauthorize threads_share_to_instagram",
+        "instagram_story_requested": false,
+        "publish_attempted": true,
+        "published_at": "2026-10-09T11:38:10Z",
+        "started_at": "2026-10-09T11:38:01Z",
+        "text_hash": "66e4af6e5fc18da24f993d895e875232c8968ef3a8ef4dfef8e3d7fda7c524d8",
+        "url": "https://www.threads.com/@douglasferreira.me/post/DeRa0j3Gx8n"
+      }
     },
     "title": "2026-10-09-11-33-12"
   },
