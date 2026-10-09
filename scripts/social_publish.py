@@ -10,6 +10,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -224,6 +225,11 @@ def post_threads(text: str, permalink: str, target: dict[str, Any], persist: Any
         persist()
     if not target.get("id"):
         status = threads_get(target["container_id"], "status,error_message").get("status")
+        for _ in range(10):
+            if status != "IN_PROGRESS":
+                break
+            time.sleep(3)
+            status = threads_get(target["container_id"], "status,error_message").get("status")
         if status == "PUBLISHED" or target.get("publish_attempted"):
             candidates = threads_get(f"{user}/threads", "id,text,permalink,timestamp").get("data", [])
             started = dt.datetime.fromisoformat(target["started_at"].replace("Z", "+00:00"))
@@ -235,7 +241,14 @@ def post_threads(text: str, permalink: str, target: dict[str, Any], persist: Any
         elif status == "FINISHED":
             target["publish_attempted"] = True
             persist()
-            data, _ = request_form(f"https://graph.threads.net/v1.0/{user}/threads_publish", {"creation_id": target["container_id"]}, headers)
+            time.sleep(3)
+            try:
+                data, _ = request_form(f"https://graph.threads.net/v1.0/{user}/threads_publish", {"creation_id": target["container_id"]}, headers)
+            except RuntimeError as exc:
+                if '"code":24' in str(exc).replace(" ", ""):
+                    target["publish_attempted"] = False
+                    persist()
+                raise
             target["id"] = str(data["id"])
             persist()
         else:

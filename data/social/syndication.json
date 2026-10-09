@@ -130,7 +130,7 @@
       },
       "threads": {
         "container_id": "17944116270347099",
-        "publish_attempted": true,
+        "publish_attempted": false,
         "started_at": "2026-10-09T10:55:59Z",
         "text_hash": "77ea866001013ace15c1f59a00baab7f8268a5a73c5432c5225c13a0b0c416f7"
       }
