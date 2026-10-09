@@ -12,7 +12,7 @@ post_kind = "blogpost"
 federate = true
 syndicate_bluesky = true
 syndicate_mastodon = true
-syndicate_threads = false
+syndicate_threads = true
 syndicate_linkedin = false
 social_text = ""
 social_intro = ""
@@ -32,4 +32,4 @@ outlet = ""
 external_url = ""
 +++
 
-So far, I’m enjoying it a lot, mainly because it resonates with that time in life when we drift far away from our friends and wish they were still close. And also because I lost a friend I love dearly—we stopped talking.
+So far, I’m really enjoying it, mainly because it resonates with this stage of life, when we drift so far away from our friends and wish they were still close. And also because I lost a friend I love dearly when we stopped speaking.
