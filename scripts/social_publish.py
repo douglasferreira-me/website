@@ -243,13 +243,14 @@ def post_threads(text: str, permalink: str, target: dict[str, Any], persist: Any
             persist()
             time.sleep(3)
             try:
-                data, _ = request_form(f"https://graph.threads.net/v1.0/{user}/threads_publish", {"creation_id": target["container_id"]}, headers)
+                data, _ = request_form(f"https://graph.threads.net/v1.0/{user}/threads_publish", {"creation_id": target["container_id"], "crossreshare_to_ig": "true"}, headers)
             except RuntimeError as exc:
                 if '"code":24' in str(exc).replace(" ", ""):
                     target["publish_attempted"] = False
                     persist()
                 raise
             target["id"] = str(data["id"])
+            target["instagram_story_requested"] = True
             persist()
         else:
             raise RuntimeError(f"Threads container is {status}; retry once processing finishes or inspect its error")

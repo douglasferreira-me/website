@@ -14,6 +14,8 @@ class ThreadsTests(unittest.TestCase):
             self.assertEqual(target["id"], "post")
             self.assertEqual(target["url"], "https://threads.com/post")
             self.assertTrue(post.call_args.args[0].endswith("threads_publish"))
+            self.assertEqual(post.call_args.args[1]["crossreshare_to_ig"], "true")
+            self.assertTrue(target["instagram_story_requested"])
 
     def test_ambiguous_result_does_not_republish(self):
         target = {"container_id": "container", "publish_attempted": True, "started_at": "2026-10-07T00:00:00Z"}

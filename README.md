@@ -168,7 +168,9 @@ O token longo dura aproximadamente 60 dias; confira o `expires_in` retornado. Re
 
 Para recuperar publicações pendentes, execute Actions > Social syndication > Run workflow. O estado guarda contêiner, ID e permalink. Se o resultado for ambíguo, o script verifica os posts recentes e interrompe a tentativa quando não consegue confirmar; confira a conta antes de limpar o estado pendente. Não apague registros de posts já publicados.
 
-Notas são texto direto; escritos usam apresentação e URL, com limite de 500 caracteres. Sequências respondem ao item anterior. Mídia e coleta de comentários do Threads não estão incluídas.
+Notas são texto direto; escritos usam apresentação e URL, com limite de 500 caracteres. Sequências respondem ao item anterior. A publicação solicita também compartilhamento nos Stories do Instagram vinculado, por `crossreshare_to_ig=true`. O token deve autorizar `threads_share_to_instagram`, além de `threads_basic`, `threads_content_publish` e `threads_manage_replies` para sequências. Se a permissão foi adicionada depois de gerar o token, gere um novo token autorizado e atualize `THREADS_ACCESS_TOKEN`.
+
+O estado registra `instagram_story_requested` quando a publicação com compartilhamento é aceita; isso não é uma confirmação independente de entrega do Story. Posts antigos já enviados ao Threads não são republicados apenas para gerar Stories. Não há publicação na grade do Instagram nem coleta de comentários do Threads.
 
 Documentação oficial: https://www.postman.com/meta/threads/collection/dht3nzz/threads-api
 
