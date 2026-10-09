@@ -56,7 +56,6 @@ collections:
       - { label: Post kind, name: post_kind, widget: hidden, default: micropost }
       - { label: Syndicate to Bluesky, name: syndicate_bluesky, widget: boolean, default: true }
       - { label: Syndicate to Mastodon, name: syndicate_mastodon, widget: boolean, default: true }
-      - { label: Syndicate to Threads, name: syndicate_threads, widget: boolean, default: true }
       - { label: Syndicate to LinkedIn, name: syndicate_linkedin, widget: boolean, default: false }
       - { label: Federate with Bridgy Fed, name: federate, widget: boolean, default: true }
       - { label: Body, name: body, widget: markdown }
@@ -80,7 +79,6 @@ collections:
       - { label: Tipo de post, name: post_kind, widget: hidden, default: micropost }
       - { label: Publicar no Bluesky, name: syndicate_bluesky, widget: boolean, default: true }
       - { label: Publicar no Mastodon, name: syndicate_mastodon, widget: boolean, default: true }
-      - { label: Publicar no Threads, name: syndicate_threads, widget: boolean, default: true }
       - { label: Publicar no LinkedIn, name: syndicate_linkedin, widget: boolean, default: false }
       - { label: Federar com Bridgy Fed, name: federate, widget: boolean, default: true }
       - { label: Corpo, name: body, widget: markdown }
@@ -112,7 +110,6 @@ collections:
       - { label: Federate with Bridgy Fed, name: federate, widget: boolean, default: true }
       - { label: Syndicate to Bluesky, name: syndicate_bluesky, widget: boolean, default: true }
       - { label: Syndicate to Mastodon, name: syndicate_mastodon, widget: boolean, default: true }
-      - { label: Syndicate to Threads, name: syndicate_threads, widget: boolean, default: true }
       - { label: Syndicate to LinkedIn, name: syndicate_linkedin, widget: boolean, default: false }
       - { label: Social intro, name: social_intro, widget: string, required: false }
       - { label: Social text, name: social_text, widget: text, required: false }
@@ -145,7 +142,6 @@ collections:
       - { label: Federar com Bridgy Fed, name: federate, widget: boolean, default: true }
       - { label: Publicar no Bluesky, name: syndicate_bluesky, widget: boolean, default: true }
       - { label: Publicar no Mastodon, name: syndicate_mastodon, widget: boolean, default: true }
-      - { label: Publicar no Threads, name: syndicate_threads, widget: boolean, default: true }
       - { label: Publicar no LinkedIn, name: syndicate_linkedin, widget: boolean, default: false }
       - { label: Texto antes do link, name: social_intro, widget: string, required: false }
       - { label: Texto social, name: social_text, widget: text, required: false }
