@@ -45,7 +45,7 @@ class ThreadTests(unittest.TestCase):
         def masto(message, lang, identity, parent):
             masto_calls.append(parent)
             return {"id": identity, "url": "https://example.org"}
-        with patch.object(social, "collect_content", return_value=items), patch.object(social, "load_state", return_value=state), patch.object(social, "save_state"), patch.object(social, "missing_env", return_value=[]), patch.object(social, "post_bluesky", side_effect=bsky), patch.object(social, "post_mastodon", side_effect=masto), patch("sys.argv", ["social_publish.py"]):
+        with patch.object(social, "post_threads", return_value={"id": "fixture", "url": "https://example.org"}), patch.object(social, "collect_content", return_value=items), patch.object(social, "load_state", return_value=state), patch.object(social, "save_state"), patch.object(social, "missing_env", return_value=[]), patch.object(social, "post_bluesky", side_effect=bsky), patch.object(social, "post_mastodon", side_effect=masto), patch("sys.argv", ["social_publish.py"]):
             social.main()
             self.assertIsNone(bsky_calls[0])
             self.assertEqual(bsky_calls[1]["parent"]["uri"], "at://test/" + part(1).key)
