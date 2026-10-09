@@ -220,9 +220,18 @@ def post_threads(text: str, permalink: str, target: dict[str, Any], persist: Any
     if target.get("text_hash") and target["text_hash"] != fingerprint:
         raise ValueError("Threads pending content changed; resolve the pending publication before editing")
     if not target.get("container_id"):
-        data, _ = request_form(f"https://graph.threads.net/v1.0/{user}/threads", {"media_type": "TEXT", "text": text, "crossreshare_to_ig": "true", **({"reply_to_id": parent} if parent else {})}, headers)
+        payload = {"media_type": "TEXT", "text": text, "crossreshare_to_ig": "true", **({"reply_to_id": parent} if parent else {})}
+        try:
+            data, _ = request_form(f"https://graph.threads.net/v1.0/{user}/threads", payload, headers)
+            target["instagram_story_requested"] = True
+        except RuntimeError as exc:
+            if '"code":10' not in str(exc).replace(" ", ""):
+                raise
+            del payload["crossreshare_to_ig"]
+            data, _ = request_form(f"https://graph.threads.net/v1.0/{user}/threads", payload, headers)
+            target["instagram_story_requested"] = False
+            target["instagram_story_error"] = "Meta denied Instagram sharing permission; reauthorize threads_share_to_instagram"
         target.update(container_id=str(data["id"]), text_hash=fingerprint, started_at=utc_now())
-        target["instagram_story_requested"] = True
         persist()
     if not target.get("id"):
         status = threads_get(target["container_id"], "status,error_message").get("status")
@@ -352,6 +361,8 @@ def main() -> None:
                 changed = True
                 save_state(state)  # Persist each success, even when the next part fails.
                 print(f"Published {item.key} to {service}: {result.get('url')}")
+                if service == "threads" and result.get("instagram_story_error"):
+                    failures.append(f"Instagram Story for {item.key}: {result['instagram_story_error']}; Threads publication succeeded")
             except (RuntimeError, urllib.error.URLError, KeyError, ValueError) as exc:
                 failures.append(f"{service} failed for {item.key}: {exc}")
 
