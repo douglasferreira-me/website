@@ -116,7 +116,6 @@ def build_front_matter(item: Any, translated: dict[str, str]) -> OrderedDict[str
     result["federate"] = fm.get("federate", True)
     result["syndicate_bluesky"] = fm.get("syndicate_bluesky", True)
     result["syndicate_mastodon"] = fm.get("syndicate_mastodon", True)
-    result["syndicate_threads"] = fm.get("syndicate_threads", False)
     result["syndicate_linkedin"] = fm.get("syndicate_linkedin", False)
     result["social_text"] = ""
     result["social_intro"] = ""

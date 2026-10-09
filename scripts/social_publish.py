@@ -195,6 +195,8 @@ def post_linkedin(text: str) -> dict[str, str]:
 
 
 def wants(item: Any, service: str) -> bool:
+    if service == "threads":
+        return bool(item.front_matter.get("syndicate_bluesky", False) or item.front_matter.get("syndicate_mastodon", False))
     return bool(item.front_matter.get(f"syndicate_{service}", False))
 
 

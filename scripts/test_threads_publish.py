@@ -22,12 +22,16 @@ class ThreadsTests(unittest.TestCase):
                 social.post_threads("Hello", "https://example.org", target, Mock())
         post.assert_not_called()
 
-    def test_translation_opt_in(self):
+    def test_threads_follows_other_networks(self):
         item = part(1)
         data = {"title": "", "description": "", "body": "Hello"}
-        self.assertFalse(translate.build_front_matter(item, data)["syndicate_threads"])
-        item.front_matter["syndicate_threads"] = True
-        self.assertTrue(translate.build_front_matter(item, data)["syndicate_threads"])
+        self.assertTrue(social.wants(item, "threads"))
+        item.front_matter["syndicate_bluesky"] = False
+        item.front_matter["syndicate_mastodon"] = False
+        self.assertFalse(social.wants(item, "threads"))
+        item.front_matter["syndicate_mastodon"] = True
+        self.assertTrue(social.wants(item, "threads"))
+        self.assertTrue(translate.build_front_matter(item, data)["syndicate_mastodon"])
 
     def test_missing_credentials(self):
         with patch.dict(social.os.environ, {}, clear=True):
