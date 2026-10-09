@@ -1,8 +1,8 @@
 +++
-title = "TikTok Redefines How Gen Z Searches for Information and Influences Their Behavior"
+title = "TikTok Redefines How Generation Z Searches for Information and Influences Their Behavior"
 date = 2026-07-13T16:24:00
 draft = false
-description = "Young people turn to short videos for research, while platforms and technologies adapt to this new behavior"
+description = "Young people are turning to short videos for research, while platforms and technologies adapt to this new behavior"
 tags = []
 categories = []
 lang = "en"
