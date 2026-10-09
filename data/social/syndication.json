@@ -130,9 +130,12 @@
       },
       "threads": {
         "container_id": "17944116270347099",
-        "publish_attempted": false,
+        "id": "18342909559250837",
+        "publish_attempted": true,
+        "published_at": "2026-10-09T10:58:11Z",
         "started_at": "2026-10-09T10:55:59Z",
-        "text_hash": "77ea866001013ace15c1f59a00baab7f8268a5a73c5432c5225c13a0b0c416f7"
+        "text_hash": "77ea866001013ace15c1f59a00baab7f8268a5a73c5432c5225c13a0b0c416f7",
+        "url": "https://www.threads.com/@douglasferreira.me/post/DeRWAuiETIM"
       }
     },
     "title": "2026-10-03-13-00-37-12103c96"
@@ -259,8 +262,12 @@
       },
       "threads": {
         "container_id": "17944116264347099",
+        "id": "18115463510329729",
+        "publish_attempted": true,
+        "published_at": "2026-10-09T10:58:05Z",
         "started_at": "2026-10-09T10:55:56Z",
-        "text_hash": "2ac86fec7200c69445369300dd1011382f83388dbc0f29cad2d275c52a93ea60"
+        "text_hash": "2ac86fec7200c69445369300dd1011382f83388dbc0f29cad2d275c52a93ea60",
+        "url": "https://www.threads.com/@douglasferreira.me/post/DeRWAaxkY5x"
       }
     },
     "title": "2026-07-13-23-07-06"
@@ -282,8 +289,12 @@
       },
       "threads": {
         "container_id": "17944116276347099",
+        "id": "17886747108488239",
+        "publish_attempted": true,
+        "published_at": "2026-10-09T10:58:18Z",
         "started_at": "2026-10-09T10:56:02Z",
-        "text_hash": "f4b64da978f76bf68ff7a5cc7a311fd87e7a1c5befbcc3d6d756f5c97b375d3a"
+        "text_hash": "f4b64da978f76bf68ff7a5cc7a311fd87e7a1c5befbcc3d6d756f5c97b375d3a",
+        "url": "https://www.threads.com/@douglasferreira.me/post/DeRWBEvEY_N"
       }
     },
     "title": "2026-10-03-13-00-37-12103c96"
